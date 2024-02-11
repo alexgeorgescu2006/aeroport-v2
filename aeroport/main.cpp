@@ -21,25 +21,35 @@ struct ruta
     char destinatie[21], sursa[21];
 }r[10];
 
+void citire_rute(int i)
+{
+    f>>r[i].sursa>>r[i].destinatie>>r[i].nr_zboruri;
+}
+
+void citire_zboruri(int i)
+{
+    for (int j = 0; j < r[i].nr_zboruri; j++)
+        {
+            f>>r[i].z[j].id>>r[i].z[j].durata;
+            f>>r[i].z[j].plecare.zi>>r[i].z[j].plecare.luna>>r[i].z[j].plecare.an;
+            f>>r[i].z[j].plecare.ora>>r[i].z[j].plecare.minut;
+            f>>r[i].z[j].sosire.zi>>r[i].z[j].sosire.luna>>r[i].z[j].sosire.an;
+            f>>r[i].z[j].sosire.ora>>r[i].z[j].sosire.minut;
+            f>>r[i].z[j].model_aeronava;
+            f>>r[i].z[j].nr_locuri;
+        }
+}
 
 int main()
 {
-    int i,j,n;
-    f>>n;//nr zboruri
-    for(i=0;i<n;i++)
-        f>>r[i].sursa[i]>>r[i].destinatie>>r[i].nr_zboruri;
-    for(i=0;i<n;i++)
-    {
-        for(j=0;j<r[i].nr_zboruri;j++)
-        {
-            f>>r[i].z[j].id>>r[i].z[j].durata>>r[i].z[j].plecare.zi>>r[i].z[j].plecare.luna>>r[i].z[j].plecare.an;
-            f>>r[i].z[j].plecare.ora>>r[i].z[j].plecare.minut;
-            f>>r[i].z[j].sosire.zi>>r[i].z[j].sosire.luna>>r[i].z[j].sosire.an>>r[i].z[j].sosire.ora>>r[i].z[j].sosire.minut;
-            f.get[i].z[j].model_aeronava>>f;
-        }
-    }
+    int i, j, n;
+    f>>n;
+    for(int i=0;i<n;i++)
+        citire_rute(i);
 
-    //cout<<"Datele de intrare au fost citite."<<endl;
+    for (i = 0; i < n; i++)
+        citire_zboruri(i);
+
     int ok = 1, op;
     cout<<"Introduceti o valoare (1-5) pentru a efectua una dintre operatiunile de mai jos:"<<endl;
     cout<<"1. Adaugarea unei ruta."<<endl;
@@ -72,14 +82,28 @@ int main()
                 cin>>nr;
                 if (nr < n)
                 {
-                    r[nr].nr_zboruri++;
+                    cout<<"Se adauga un zbor pe ruta de la "<<r[nr].sursa<<" la "<<r[nr].destinatie<<endl;
                     cout<<"Introduceti informatiile despre zbor:"<<endl;
 
-                    cout<<r[nr].nr_zboruri<<endl;
+                    r[nr].nr_zboruri++;
+                    int x = r[nr].nr_zboruri - 1;
+                    cin>>r[nr].z[x].id>>r[nr].z[x].durata;
+                    cin>>r[nr].z[x].plecare.zi>>r[nr].z[x].plecare.luna>>r[nr].z[x].plecare.an;
+                    cin>>r[nr].z[x].plecare.ora>>r[nr].z[x].plecare.minut;
+
+                    cin>>r[nr].z[x].sosire.zi>>r[nr].z[x].sosire.luna>>r[nr].z[x].sosire.an;
+                    cin>>r[nr].z[x].sosire.ora>>r[nr].z[x].sosire.minut;
+
+                    cin>>r[nr].z[x].model_aeronava;
+                    cin>>r[nr].z[x].nr_locuri;
+
+                    cout<<"Zborul a fost adaugat!"<<endl;
+
                 }
                 else
                     cout<<"Imposibil. Ruta nu exista."<<endl;
                 break;
+
             }
         case 3:
             {
@@ -95,12 +119,9 @@ int main()
                             {
                                  swap(r[nr].z[j],r[nr].z[i]);
                             }
-                   // cout<<"okay";
                     for(i=0;i<r[nr].nr_zboruri;i++)
-                    {
-
                         cout<<r[nr].z[i].id<<endl;
-                    }
+
                 }
                 else
                     cout<<"Imposibil.Ruta nu exista"<<endl;
@@ -110,9 +131,10 @@ int main()
 
         case 4:
         {
+
+            int nr,ok1=0;
             cout<<"Verificarea existentei unui zbor pe o anumita ruta:"<<endl;
             cout<<"Introduceti numarul de ordine a rutei:"<<endl;
-            int nr,ok1=0;
             cin>>nr;
             if(nr<n)
             {
@@ -120,34 +142,44 @@ int main()
                 int nrid;
                 cin>>nrid;
                 for(i=0;i<r[nr].nr_zboruri;i++)
+                {
                     if(nrid==r[nr].z[i].id)
                     {
-                        ok1==1;
-                        cout<<"Ruta cu numarul "<<nrid<<" a fost gasita";
+                        ok1=1;
+                        cout<<"Ruta cu numarul "<<nrid<<" a fost gasita"<<endl;
                         break;
                     }
-                if(ok1==0)
-                    cout<<"Ruta cu numarul "<<nrid<<" NU a fost gasita";
+                }
 
-                break;//afiseaza doar ca nu gaseste id-ul !?
+                if(ok1==0)
+                {
+                    cout<<"Ruta cu numarul "<<nrid<<" NU a fost gasita";
+                    cout<<ok1;
+                }
+
             }
             else
-                cout<<"Imposibil.Ruta nu exista";
+                 cout<<"Imposibil.Ruta nu exista"<<endl;
 
+            break;
         }
-        case 6:
+
+        case 5:
             {
 
             }
-        case 8:
+        case 6:
             {
+                cout<<"Am iesit din meniu. ";
                 ok=0;
                 break;
             }
-
+        default:
+            {
+                cout<<"Greseala!"<<endl;
+                break;
+            }
         }
-
-
     }
     return 0;
 }
