@@ -6,7 +6,7 @@ using namespace std;
 ifstream f("aeroport.in");
 struct datan
 {
-    int zi,luna,an,ora,minut;
+    int zi,luna,an,ora,minut,fus_orar;
 };
 struct zbor
 {
@@ -33,8 +33,10 @@ void citire_zboruri(int i)
             f>>r[i].z[j].id>>r[i].z[j].durata;
             f>>r[i].z[j].plecare.zi>>r[i].z[j].plecare.luna>>r[i].z[j].plecare.an;
             f>>r[i].z[j].plecare.ora>>r[i].z[j].plecare.minut;
+            f>>r[i].z[j].plecare.fus_orar;
             f>>r[i].z[j].sosire.zi>>r[i].z[j].sosire.luna>>r[i].z[j].sosire.an;
             f>>r[i].z[j].sosire.ora>>r[i].z[j].sosire.minut;
+            f>>r[i].z[j].sosire.fus_orar;
             f>>r[i].z[j].model_aeronava;
             f>>r[i].z[j].nr_locuri;
         }
@@ -58,6 +60,8 @@ int main()
     cout<<"4. Verificarea existentei unui zbor pe o anumita ruta."<<endl;
     cout<<"5. Verificarea existentei unei anumite aeronave pe o anumita ruta."<<endl;
     cout<<"6. Stop."<<endl;
+    //cautarea zborurilor dintr-un oras -> a
+    //ora de sosire / plecare a unui zbor
     while (ok == 1)
     {
         cin>>op;
