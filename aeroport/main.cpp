@@ -58,7 +58,8 @@ int main()
     //cautarea zborurilor dintr-un oras -> a
     //ora de sosire / plecare a unui zbor
     //cat costa achitarea salarilor
-    //id,job,nume prnume,salariu,vechime,cnp,telefon, minute de intarziere, mustrari anuale
+    //id,job,nume prnume,salariu,vechime,cnp,telefon,
+    //clienti id,nume, prenume ,zbor_urmator , contact
     while (ok == 1)
     {
         system("cls");
@@ -71,7 +72,7 @@ int main()
     cout<<"6. Stop."<<endl;
         op=getch();
         system("cls");
-        switch(op)
+        switch(op)//
         {
         case '1':
             {
