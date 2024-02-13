@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
-
+#include <stdlib.h>
+#include <conio.h>
 
 using namespace std;
 ifstream f("aeroport.in");
@@ -52,33 +53,38 @@ int main()
     for (i = 0; i < n; i++)
         citire_zboruri(i);
 
-    int ok = 1, op;
-    cout<<"Introduceti o valoare (1-5) pentru a efectua una dintre operatiunile de mai jos:"<<endl;
+    int ok = 1; char op;
+
+    //cautarea zborurilor dintr-un oras -> a
+    //ora de sosire / plecare a unui zbor
+    while (ok == 1)
+    {
+        system("cls");
+        cout<<"Introduceti o valoare (1-5) pentru a efectua una dintre operatiunile de mai jos:"<<endl;
     cout<<"1. Adaugarea unei ruta."<<endl;
     cout<<"2. Adaugare zbor pe o anumita ruta."<<endl;
     cout<<"3. Afisarea tuturor zborurilor de pe o anumita ruta, crescator in functie de numarul de locuri."<<endl;
     cout<<"4. Verificarea existentei unui zbor pe o anumita ruta."<<endl;
     cout<<"5. Verificarea existentei unei anumite aeronave pe o anumita ruta."<<endl;
     cout<<"6. Stop."<<endl;
-    //cautarea zborurilor dintr-un oras -> a
-    //ora de sosire / plecare a unui zbor
-    while (ok == 1)
-    {
-        cin>>op;
+        op=getch();
+        system("cls");
         switch(op)
         {
-        case 1:
+        case '1':
             {
                 cout<<"Adaugarea unei rute."<<endl;
                 cout<<"Introduceti orasul de plecare si destinatia:"<<endl;
                 n++;
                 cin>>r[n-1].sursa>>r[n-1].destinatie;
                 r[n-1].nr_zboruri = 0;
+                system("cls");
                 cout<<"Ruta adaugata cu succes!"<<endl;
                 cout<<"Inapoi"<<endl;
+                getch();
                 break;
             }
-        case 2:
+        case '2':
             {
                 cout<<"Adaugarea unui zbor pe o anumita ruta."<<endl;
                 cout<<"Introduceti numarul de ordine al rutei pe care vreti sa adaugati un zbor:"<<endl;
@@ -91,30 +97,47 @@ int main()
 
                     r[nr].nr_zboruri++;
                     int x = r[nr].nr_zboruri - 1;
+                    system("cls");
                     cin>>r[nr].z[x].id>>r[nr].z[x].durata;
+                    getch();
+                    system("cls");
                     cin>>r[nr].z[x].plecare.zi>>r[nr].z[x].plecare.luna>>r[nr].z[x].plecare.an;
+                    getch();
+                    system("cls");
                     cin>>r[nr].z[x].plecare.ora>>r[nr].z[x].plecare.minut;
-
+                    getch();
+                    system("cls");
                     cin>>r[nr].z[x].sosire.zi>>r[nr].z[x].sosire.luna>>r[nr].z[x].sosire.an;
+                    getch();
+                    system("cls");
                     cin>>r[nr].z[x].sosire.ora>>r[nr].z[x].sosire.minut;
-
+                    getch();
+                    system("cls");
                     cin>>r[nr].z[x].model_aeronava;
+                    getch();
+                    system("cls");
                     cin>>r[nr].z[x].nr_locuri;
-
+                    getch();
+                    system("cls");
                     cout<<"Zborul a fost adaugat!"<<endl;
-
+                    getch();
                 }
-                else
+                else{
+                    system("cls");
                     cout<<"Imposibil. Ruta nu exista."<<endl;
+                    getch();
+                }
+
                 break;
 
             }
-        case 3:
+        case '3':
             {
                 int nr;
                 cout<<"Afisarea tuturor zborurilor de pe o anumita ruta, crescator in functie de numarul de locuri:"<<endl;
                 cout<<"Introduceti numarul de ordine a rutei:"<<endl;
                 cin>>nr;
+                system("cls");
                 if(nr<n)
                 {
                     for(i=0;i<r[nr].nr_zboruri-1;i++)
@@ -125,17 +148,20 @@ int main()
                             }
                     for(i=0;i<r[nr].nr_zboruri;i++)
                         cout<<r[nr].z[i].id<<endl;
-
+                    getch();
                 }
-                else
+                else{
+                    system("cls");
                     cout<<"Imposibil.Ruta nu exista"<<endl;
+                    getch();
+                }
+
 
                 break;
             }
 
-        case 4:
+        case '4':
         {
-
             int nr,ok1=0;
             cout<<"Verificarea existentei unui zbor pe o anumita ruta:"<<endl;
             cout<<"Introduceti numarul de ordine a rutei:"<<endl;
@@ -150,42 +176,49 @@ int main()
                     if(nrid==r[nr].z[i].id)
                     {
                         ok1=1;
+                        system("cls");
                         cout<<"Ruta cu numarul "<<nrid<<" a fost gasita"<<endl;
+                        getch();
                         break;
                     }
                 }
 
                 if(ok1==0)
                 {
-                    cout<<"Ruta cu numarul "<<nrid<<" NU a fost gasita";
-                    cout<<ok1;
+                    system("cls");
+                    cout<<"Ruta cu numarul "<<nrid<<" NU a fost gasita"<<endl;
+                    getch();
                 }
 
             }
-            else
-                 cout<<"Imposibil.Ruta nu exista"<<endl;
-
+            else{
+                system("cls");
+                cout<<"Imposibil.Ruta nu exista"<<endl;
+                getch();
+            }
             break;
         }
 
-        case 5:
+        case '5':
             {
 
             }
-        case 6:
+        case '6':
             {
-                cout<<"Am iesit din meniu. ";
+                system("cls");
+                cout<<"Am iesit de pe pagina principala. ";
                 ok=0;
                 break;
             }
         default:
             {
-                cout<<"Greseala!"<<endl;
+                system("cls");
+                cout<<"Introduceti alta tasta!"<<endl;
+                getch();
                 break;
             }
         }
     }
     return 0;
 }
-
 
