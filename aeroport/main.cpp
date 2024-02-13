@@ -57,6 +57,8 @@ int main()
 
     //cautarea zborurilor dintr-un oras -> a
     //ora de sosire / plecare a unui zbor
+    //cat costa achitarea salarilor
+    //id,job,nume prnume,salariu,vechime,cnp,telefon, minute de intarziere, mustrari anuale
     while (ok == 1)
     {
         system("cls");
