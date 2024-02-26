@@ -1,0 +1,945 @@
+#include <iostream>
+#include <fstream>
+#include <stdlib.h>
+#include <conio.h>
+#include <cstdlib>
+#include <time.h>
+#include <chrono>
+#include <windows.h>
+#include <string>
+
+using namespace std;
+
+ifstream custi ( "CUSTOMER" ) ;
+ifstream empli ( "EMPLOYEE" ) ;
+ifstream plai ( "PLANE" ) ;
+ifstream logi ( "LOGIN" ) ;
+ifstream passi ( "PASSWORDS" ) ;
+ifstream citi ( "CITY" ) ;
+ifstream countri ( "COUNTRY" ) ;
+ifstream namesi ( "NAMES" ) ;
+ifstream langui ( "LANGUAGES" ) ;
+ifstream salari ( "SALARIES" ) ;
+ifstream ptypi ( "PTYPE" ) ;
+ifstream pwighti ( "PWEIGHT" ) ;
+ifstream plngi ( "PLENGTH" ) ;
+ifstream pwdthi ( "PWIDTH" ) ;
+ifstream phghi ( "PHEIGHT" ) ;
+ifstream debugi ( "DEBUGI" ) ;
+
+ofstream debugo ( "DEBUGO" ) ;
+ofstream custo ( "CUSTOMER" ) ;
+ofstream emplo ( "EMPLOYEE" ) ;
+ofstream plao ( "PLANE" ) ;
+
+char name  [ 10001 ] [ 25 ] , city [ 200 ] [ 20 ] , country [ 200 ] [ 20 ] , jobtypes [ 25 ] [ 25 ] , languages [ 25 ] [ 25 ] , planetypes [ 16 ] [ 25 ];
+int salaries [ 25 ] , planeseats [ 16 ] , planeweight [ 16 ] , planelength [ 16 ] , planewidth [ 16 ] , planeheight [ 16 ] ;
+
+void ARRAY_READ ( ) {
+    int i = 0 ;
+
+}
+
+struct {
+    char NAME [ 20 ] ;
+    char PASS [ 20 ] ;
+} PASSWORDS [ 200 ] ;
+
+struct DDATE {
+    int DDAY ;
+    int MMONTH ;
+    int YYEAR ;
+} ;
+
+struct SSIZE {
+    int LENGTH , WIDTH , HEIGHT ;
+} ;
+
+struct LOCATIONS {
+    char CITY [ 25 ] ;
+    char COUNTRY [ 25 ] ;
+} ;
+
+struct CUSTOMER {
+    char IDL [ 10 ] ;
+    char IDG [ 14 ] ;
+    char FIRST_NAME [ 40 ] ;
+    char LAST_NAME [ 20 ] ;
+    DDATE DDATE_OF_BIRTH;
+    LOCATIONS LOCATION ;
+} CUSTOMER [ 300000 ] ;
+
+struct EMPLOYEE {
+    char IDL [ 10 ] ;
+    char IDG [ 14 ] ;
+    char FIRST_NAME [ 40 ] ;
+    char LAST_NAME [ 20 ] ;
+    DDATE DDATE_OF_BIRTH;
+    char TYPE_OF_JOB [ 15 ] ;
+    int NUMBER_OF_LANGUAGES_SPOKEN ;
+    char LANGUAGES_SPOKEN [ 10 ] [ 15 ] ;
+    int SALARY_MMONTHLY ;
+    char BANK_ACC [ 25 ] ;
+    DDATE DDATE_OF_START ;
+    int VACATION_DDAYS ;
+    LOCATIONS LOCATION ;
+} EMPLOYEE [ 300000 ] ;
+
+struct PLANE {
+    char IDL [ 10 ] ;
+    char IDG [ 7 ] ;
+    char TYPE_OF_PLANE [ 30 ] ;
+    int MAX_SEATS ;
+    int MAX_WEIGHT ;
+    SSIZE SSIZES ;
+    DDATE LAST_ITP;
+    LOCATIONS LOCATION ;
+} PLANE [ 300000 ] ;
+
+void CUSTOMER_READ ( ) {
+    int i = 0 , n ;
+    custi >> n ;
+    for ( i = 0 ; i < n ; i ++ ) {
+        custi >> CUSTOMER [ i ] .IDL ;
+        custi >> CUSTOMER [ i ] .IDG ;
+        custi >> CUSTOMER [ i ] .FIRST_NAME ;
+        custi >> CUSTOMER [ i ] .LAST_NAME ;
+        custi >> CUSTOMER [ i ] .DDATE_OF_BIRTH.DDAY ;
+        custi >> CUSTOMER [ i ] .DDATE_OF_BIRTH.MMONTH ;
+        custi >> CUSTOMER [ i ] .DDATE_OF_BIRTH.YYEAR ;
+        custi >> CUSTOMER [ i ] .LOCATION.CITY ;
+        custi >> CUSTOMER [ i ] .LOCATION.COUNTRY ;
+    }
+}
+
+void EMPLOYEE_READ ( ) {
+    int i = 0 , n ;
+    empli >> n ;
+    for ( i = 0 ; i < n ; i ++ ) {
+        empli >> EMPLOYEE [ i ] .IDL ;
+        empli >> EMPLOYEE [ i ] .IDG ;
+        empli >> EMPLOYEE [ i ] .FIRST_NAME ;
+        empli >> EMPLOYEE [ i ] .LAST_NAME ;
+        empli >> EMPLOYEE [ i ] .DDATE_OF_BIRTH.DDAY ;
+        empli >> EMPLOYEE [ i ] .DDATE_OF_BIRTH.MMONTH ;
+        empli >> EMPLOYEE [ i ] .DDATE_OF_BIRTH.YYEAR ;
+        empli >> EMPLOYEE [ i ] .TYPE_OF_JOB ;
+        empli >> EMPLOYEE [ i ] .NUMBER_OF_LANGUAGES_SPOKEN ;
+        for ( int j ; j < EMPLOYEE [ i ] .NUMBER_OF_LANGUAGES_SPOKEN ; j ++ )
+            empli >> EMPLOYEE [ i ] .LANGUAGES_SPOKEN [ j ] ;
+        empli >> EMPLOYEE [ i ] .SALARY_MMONTHLY ;
+        empli >> EMPLOYEE [ i ] .BANK_ACC ;
+        empli >> EMPLOYEE [ i ] .DDATE_OF_START.DDAY ;
+        empli >> EMPLOYEE [ i ] .DDATE_OF_START.MMONTH ;
+        empli >> EMPLOYEE [ i ] .DDATE_OF_START.YYEAR ;
+        empli >> EMPLOYEE [ i ] .VACATION_DDAYS ;
+        empli >> EMPLOYEE [ i ] .LOCATION.CITY ;
+        empli >> EMPLOYEE [ i ] .LOCATION.COUNTRY ;
+    }
+}
+
+void PLANE_READ ( ) {
+    int i = 0 , n ;
+    plai >> n ;
+    for ( i = 0 ; i < n ; i ++ ) {
+        plai >> PLANE [ i ] .IDL ;
+        plai >> PLANE [ i ] .IDG ;
+        plai >> PLANE [ i ] .TYPE_OF_PLANE ;
+        plai >> PLANE [ i ] .MAX_SEATS ;
+        plai >> PLANE [ i ] .MAX_WEIGHT ;
+        plai >> PLANE [ i ] .SSIZES.HEIGHT ;
+        plai >> PLANE [ i ] .SSIZES.LENGTH ;
+        plai >> PLANE [ i ] .SSIZES.WIDTH ;
+        plai >> PLANE [ i ] .LAST_ITP.DDAY ;
+        plai >> PLANE [ i ] .LAST_ITP.MMONTH ;
+        plai >> PLANE [ i ] .LAST_ITP.YYEAR ;
+    }
+}
+
+void data_read ( ) {
+    CUSTOMER_READ ( ) ;
+    EMPLOYEE_READ ( ) ;
+    PLANE_READ ( ) ;
+}
+
+void CUSTOMER_RAND ( ) {
+    int i = 0 , j = 0 , n , c ;
+    for ( i = 0 ; i < 300000 ; i ++ ) {
+        custo << i << " " ;
+        c = ( rand ( ) % 42 ) + 48 ;
+        for ( j = 0 ; j < 14 ; j ++ ) {
+            while ( c > 57 && c < 65 ) {
+                c = rand ( ) % 42 + 48 ;
+            }
+            custo << ( char ) c  ;
+            c = rand ( ) % 42 + 48 ;
+        }
+        custo << " " ;
+        j = rand ( ) % 10000 ;
+        custo << name [ j ] << " " ;
+        j = rand ( ) % 10000 ;
+        custo << name [ j ] << " " ;
+        j = rand ( ) % 31 ;
+        if ( j > 29 ) {
+            custo << j << " " ;
+            int m = rand ( ) % 12 ;
+            if ( j == 29 && m == 2 ) {
+                custo  << m << " " ;
+                m = ( rand ( ) % 13 + 488 ) * 4 ;
+                custo << m << " " ;
+            }
+            else{
+                if ( j == 29 && m != 2 ){
+                    custo << j << " " ;
+                    j = rand ( ) % 62 + 1954 ;
+                    custo << j << " " ;
+                }
+                else
+                {
+                    if ( j = 30 ) {
+                        while ( m == 2 ) {
+                            m = rand ( ) % 12 ;
+                        }
+                        custo << m << " " ;
+                        j = rand ( ) % 62 + 1954 ;
+                        custo << j << " " ;
+                    }
+                    else
+                    {
+                        while ( m != 2 && m != 4 && m != 6 && m != 9 && m != 11 )
+                        {
+                            m = rand ( ) % 12 ;
+                        }
+                        custo << m << " " ;
+                        j = rand ( ) % 62 + 1954 ;
+                        custo << j << " " ;
+                    }
+                }
+            }
+        }
+        else {
+            custo << j << " " ;
+            j = rand ( ) % 12 ;
+            custo << j << " " ;
+            j = rand ( ) % 62 + 1954 ;
+            custo << j << " " ;
+        }
+        j = rand ( ) % 10000 ;
+        custo << city [ j ] << " " << country [ j ]  << "\n" ;
+    }
+}
+
+void EMPLOYEE_RAND ( ) {
+    int i = 0 , j = 0 , n , c ;
+    for ( i = 0 ; i < 300000 ; i ++ ) {
+        emplo << i << " " ;
+        c = ( rand ( ) % 42 ) + 48 ;
+        for ( j = 0 ; j < 14 ; j ++ ) {
+            while ( c > 57 && c < 65 ) {
+                c = rand ( ) % 42 + 48 ;
+            }
+            emplo << ( char ) c  ;
+            c = rand ( ) % 42 + 48 ;
+        }
+        emplo << " " ;
+        j = rand ( ) % 10000 ;
+        emplo << name [ j ] << " " ;
+        j = rand ( ) % 10000 ;
+        emplo << name [ j ] << " " ;
+        j = rand ( ) % 31 ;
+        if ( j > 29 ) {
+            emplo << j << " " ;
+            int m = rand ( ) % 12 ;
+            if ( j == 29 && m == 2 ) {
+                emplo  << m << " " ;
+                m = ( rand ( ) % 13 + 485 ) * 4 ;
+                emplo << m << " " ;
+            }
+            else{
+                if ( j == 29 && m != 2 ){
+                    emplo << j << " " ;
+                    j = rand ( ) % 62 + 1947 ;
+                    emplo << j << " " ;
+                }
+                else
+                {
+                    if ( j = 30 ) {
+                        while ( m == 2 ) {
+                            m = rand ( ) % 12 ;
+                        }
+                        emplo << m << " " ;
+                        j = rand ( ) % 62 + 1947 ;
+                        emplo << j << " " ;
+                    }
+                    else
+                    {
+                        while ( m != 2 && m != 4 && m != 6 && m != 9 && m != 11 )
+                        {
+                            m = rand ( ) % 12 ;
+                        }
+                        emplo << m << " " ;
+                        j = rand ( ) % 62 + 1947 ;
+                        emplo << j << " " ;
+                    }
+                }
+            }
+        }
+        else {
+            emplo << j << " " ;
+            j = rand ( ) % 12 ;
+            emplo << j << " " ;
+            j = rand ( ) % 62 + 1947 ;
+            emplo << j << " " ;
+        }
+        int l ;
+        l = rand ( ) % 25 ;
+        emplo << jobtypes [ l ] << " " ;
+        j = rand ( ) % 5 ;
+        emplo << j << " " ;
+        int h [ 25 ] = {0} , x ;
+        for ( int m = 0 ; m < j ; m ++ )
+        {
+            x = rand ( ) % 30 ;
+            while ( h [ x ] != 0 ){
+                x = rand ( ) % 30 ;
+            }
+            emplo << languages [ x ] << " " ;
+            h [ x ] ++ ;
+        }
+        emplo << salaries [ l ] << " " ;
+        c = ( rand ( ) % 42 ) + 48 ;
+        for ( j = 0 ; j < 24 ; j ++ ) {
+            while ( c > 57 && c < 65 ) {
+                c = rand ( ) % 42 + 48 ;
+            }
+            emplo << ( char ) c  ;
+            c = rand ( ) % 42 + 48 ;
+        }
+        emplo << " " ;
+        j = rand ( ) % 31 ;
+        if ( j > 29 ) {
+            emplo << j << " " ;
+            int m = rand ( ) % 12 ;
+            if ( j == 29 && m == 2 ) {
+                emplo  << m << " " ;
+                m = ( rand ( ) % 13 + 498 ) * 4 ;
+                emplo << m << " " ;
+            }
+            else{
+                if ( j == 29 && m != 2 ){
+                    emplo << j << " " ;
+                    j = rand ( ) % 62 + 1980 ;
+                    emplo << j << " " ;
+                }
+                else
+                {
+                    if ( j = 30 ) {
+                        while ( m == 2 ) {
+                            m = rand ( ) % 12 ;
+                        }
+                        emplo << m << " " ;
+                        j = rand ( ) % 62 + 1980 ;
+                        emplo << j << " " ;
+                    }
+                    else
+                    {
+                        while ( m != 2 && m != 4 && m != 6 && m != 9 && m != 11 )
+                        {
+                            m = rand ( ) % 12 ;
+                        }
+                        emplo << m << " " ;
+                        j = rand ( ) % 62 + 1980 ;
+                        emplo << j << " " ;
+                    }
+                }
+            }
+        }
+        else {
+            emplo << j << " " ;
+            j = rand ( ) % 12 ;
+            emplo << j << " " ;
+            j = rand ( ) % 62 + 1980 ;
+            emplo << j << " " ;
+        }
+        j = rand ( ) % 20 ;
+        emplo << j << " " ;
+        j = rand ( ) % 10000 ;
+        emplo << city [ j ] << " " << country [ j ]  << "\n" ;
+    }
+}
+
+void PLANE_RAND ( ) {
+    int i = 0 , j = 0 , n , c ;
+    for ( i = 0 ; i < 300000 ; i ++ ) {
+        plao << i << " N" ;
+        c = ( rand ( ) % 42 ) + 48 ;
+        for ( j = 0 ; j < 5 ; j ++ ) {
+            while ( c > 57 && c < 65 ) {
+                c = rand ( ) % 42 + 48 ;
+            }
+            plao << ( char ) c  ;
+            c = rand ( ) % 42 + 48 ;
+        }
+        plao << " " ;
+        j = rand ( ) % 6 ;
+        plao << planetypes [ j ] << " " ;
+        plao << planeseats [ j ] << " " ;
+        plao << planeweight [ j ] << " " ;
+        j = rand ( ) % 31 ;
+        time_t theTime = time(NULL);
+        struct tm *aTime = localtime(&theTime);
+        int YYEAR = aTime->tm_year + 1900;
+        if ( j > 29 ) {
+            plao << j << " " ;
+            int m = rand ( ) % 12 ;
+            if ( j == 29 && m == 2 && ( YYEAR - 1 ) % 4 == 0) {
+                plao  << m << " " ;
+            }
+            else{
+                if ( j == 29 && m != 2 ){
+                    plao << j << " " ;
+                }
+                else
+                {
+                    if ( j = 30 ) {
+                        while ( m == 2 ) {
+                            m = rand ( ) % 12 ;
+                        }
+                        plao << m << " " ;
+                    }
+                    else
+                    {
+                        while ( m != 2 && m != 4 && m != 6 && m != 9 && m != 11 )
+                        {
+                            m = rand ( ) % 12 ;
+                        }
+                        plao << m << " " ;
+                    }
+                }
+            }
+        }
+        else {
+            plao << j << " " ;
+            j = rand ( ) % 12 ;
+            plao << j << " " ;
+        }
+        plao << YYEAR - 1 << " " ;
+        j = rand ( ) % 10000 ;
+        emplo << city [ j ] << " " << country [ j ]  << "\n" ;
+    }
+}
+
+void data_rand ( ) {
+    ARRAY_READ ( ) ;
+    CUSTOMER_RAND ( ) ;
+    EMPLOYEE_RAND ( ) ;
+    PLANE_RAND ( ) ;
+}
+
+void gotoxy(int x, int y) {
+    COORD pos = {x, y};
+    HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleCursorPosition(output, pos);
+}
+
+int main()
+{
+    int ok = 1 , okp = 1 ;
+    char op;
+    int rand ;
+    int i = 0 , n = 0  ;
+    char NAMES [ 20 ] ;
+    char PASS [ 20 ] ;
+    /*cin >> rand ;
+    if ( rand == 1 )
+        data_rand ( ) ;
+    else*/
+    data_read ( ) ;
+    system ( "cls" ) ;
+    cout << " ---------------------------------------\n" ;
+    cout << " |                                     |\n" ;
+    cout << " |                                     |\n" ;
+    cout << " |                                     |\n" ;
+    cout << " |                                     |\n" ;
+    cout << " |               LOG IN                |\n" ;
+    cout << " |                                     |\n" ;
+    cout << " |                                     |\n" ;
+    cout << " |   NAME     : ________________       |\n" ;
+    cout << " |   PASSWORD : ________________       |\n" ;
+    cout << " |                                     |\n" ;
+    cout << " |                                     |\n" ;
+    cout << " |                                     |\n" ;
+    cout << " |                                     |\n" ;
+    cout << " |                                     |\n" ;
+    cout << " ---------------------------------------\n" ;
+    while ( ok == 1 )
+    {
+
+        while ( okp == 1 ) {
+        gotoxy ( 16 + i , 8 ) ;
+        op = getch ( ) ;
+        system ( "cls" );
+             switch ( op ) {
+                case ' ' : {
+                    int h = 0 ;
+                    system ( "cls" ) ;
+                    gotoxy ( 0 , 0 ) ;
+                    cout << " ---------------------------------------\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |               LOG IN                |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |   NAME     : " ;
+                    for ( int j = 0 ; j < 16 ; j ++ )
+                    {
+                        if ( j < i )
+                            {
+                                cout << NAMES [ h ] ;
+                                h++ ;
+                            }
+                        else
+                            cout << "_" ;
+                    }
+                    cout << "       |\n" ;
+                    cout << " |   PASSWORD : ________________       |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |          CAN'T INSERT SPACE         |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " ---------------------------------------\n" ;
+                    break ;
+                }
+                case '\b' :
+                {
+                        int h = 0 ;
+                        if ( i > 0 ) i -- ;
+                        gotoxy ( 16 + i , 9 ) ;
+                        system ( "cls" );
+                        cout << " ---------------------------------------\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |               LOG IN                |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |   NAME     : " ;
+                        for ( int j = 0 ; j < 16 ; j ++ )
+                        {
+                           if ( j < i )
+                                {
+                                    cout << NAMES [ h ] ;
+                                    h++ ;
+                                }
+                            else
+                                cout << "_" ;
+                        }
+                        cout << "       |\n" ;
+                        cout << " |   PASSWORD : ________________       |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " ---------------------------------------\n" ;
+                        break ;
+                }
+                case 13 :
+                {
+                    okp = 0 ;
+                }
+                default : {
+                    if ( op != 13 ) {
+                        int h = 0 ;
+                        gotoxy ( 16 + i , 9 ) ;
+                        NAMES [ i ] = op ;
+                        i ++ ;
+                        system ( "cls" );
+                        cout << " ---------------------------------------\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |               LOG IN                |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |   NAME     : " ;
+                        for ( int j = 0 ; j < 16 ; j ++ )
+                        {
+                           if ( j < i )
+                                {
+                                    cout << NAMES [ h ] ;
+                                    h++ ;
+                                }
+                            else
+                                cout << "_" ;
+                        }
+                        cout << "       |\n" ;
+                        cout << " |   PASSWORD : ________________       |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " ---------------------------------------\n" ;
+                    }
+                }
+            }
+        }
+        int h = 0 ;
+        system ( "cls" );
+        cout << " ---------------------------------------\n" ;
+        cout << " |                                     |\n" ;
+        cout << " |                                     |\n" ;
+        cout << " |                                     |\n" ;
+        cout << " |                                     |\n" ;
+        cout << " |               LOG IN                |\n" ;
+        cout << " |                                     |\n" ;
+        cout << " |                                     |\n" ;
+        cout << " |   NAME     : " ;
+        for ( int j = 0 ; j < 16 ; j ++ )
+        {
+           if ( j < i )
+                {
+                    cout << NAMES [ h ] ;
+                    h++ ;
+                }
+            else
+                cout << "_" ;
+        }
+        cout << "       |\n" ;
+        cout << " |   PASSWORD : ________________       |\n" ;
+        cout << " |                                     |\n" ;
+        cout << " |                                     |\n" ;
+        cout << " |                                     |\n" ;
+        cout << " |                                     |\n" ;
+        cout << " |                                     |\n" ;
+        cout << " ---------------------------------------\n" ;
+        while ( okp == 0)
+        {
+            gotoxy ( 16 + n , 9  ) ;
+            op = getch ( ) ;
+            system ( "cls" );
+            switch ( op ) {
+                case ' ' : {
+                    int h = 0 ;
+                    system ( "cls" ) ;
+                    gotoxy ( 0 , 0 ) ;
+                    cout << " ---------------------------------------\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |               LOG IN                |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |   NAME     : " ;
+                    for ( int j = 0 ; j < 16 ; j ++ )
+                    {
+                        if ( j < i )
+                            {
+                                cout << NAMES [ h ] ;
+                                h++ ;
+                            }
+                        else
+                            cout << "_" ;
+                    }
+                    h = 0 ;
+                    cout << "       |\n" ;
+                    cout << " |   PASSWORD : " ;
+                     for ( int j = 0 ; j < 16 ; j ++ )
+                    {
+                        if ( j < n )
+                            {
+                                cout << PASS [ h ] ;
+                                h++ ;
+                            }
+                        else
+                            cout << "_" ;
+                    }
+                    cout << "       |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |          CAN'T INSERT SPACE         |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " ---------------------------------------\n" ;
+                    break ;
+                }
+                case '\b' :
+                {
+                        int h = 0 ;
+                        if ( n > 0 ) n -- ;
+                        gotoxy ( 16 + n , 9 ) ;
+                        system ( "cls" );
+                        cout << " ---------------------------------------\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |               LOG IN                |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |   NAME     : " ;
+                        for ( int j = 0 ; j < 16 ; j ++ )
+                        {
+                            if ( j < i )
+                                {
+                                    cout << NAMES [ h ] ;
+                                    h++ ;
+                                }
+                            else
+                                cout << "_" ;
+                        }
+                        h = 0 ;
+                        cout << "       |\n" ;
+                        cout << " |   PASSWORD : " ;
+                         for ( int j = 0 ; j < 16 ; j ++ )
+                        {
+                            if ( j < n )
+                                {
+                                    cout << PASS [ h ] ;
+                                    h++ ;
+                                }
+                            else
+                                cout << "_" ;
+                        }
+                        cout << "       |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " ---------------------------------------\n" ;
+                        break ;
+                }
+                case 13 : {
+                    okp = 2 ;
+                }
+                default : {
+                    if ( op != 13 ) {
+                        int h = 0 ;
+                        PASS [ n ] = op ;
+                        n ++ ;
+                        system ( "cls" );
+                        cout << " ---------------------------------------\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |               LOG IN                |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |   NAME     : " ;
+                        for ( int j = 0 ; j < 16 ; j ++ )
+                        {
+                            if ( j < i )
+                                {
+                                    cout << NAMES [ h ] ;
+                                    h++ ;
+                                }
+                            else
+                                cout << "_" ;
+                        }
+                        cout << "       |\n" ;
+                        cout << " |   PASSWORD : " ;
+                        h = 0 ;
+                        for ( int j = 0 ; j < 16 ; j ++ )
+                        {
+                            if ( j < n )
+                                {
+                                    cout << PASS [ h ] ;
+                                    h++ ;
+                                }
+                            else
+                                cout << "_" ;
+                        }
+                        cout << "       |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " ---------------------------------------\n" ;
+                    }
+                }
+            }
+        }
+        while ( okp == 2 ) {
+            system ( "cls" ) ;
+            cout << " ---------------------------------------\n" ;
+            cout << " |                                     |\n" ;
+            cout << " |                                     |\n" ;
+            cout << " |                                     |\n" ;
+            cout << " |     CUSTOMERS         AIRPLANES     |\n" ;
+            cout << " |        (1)               (2)        |\n" ;
+            cout << " |                                     |\n" ;
+            cout << " |                                     |\n" ;
+            cout << " |                                     |\n" ;
+            cout << " |                                     |\n" ;
+            cout << " |     EMPLOYEES      FLIGHT PROGRAM   |\n" ;
+            cout << " |        (3)              (4)         |\n" ;
+            cout << " |                                     |\n" ;
+            cout << " |                                     |\n" ;
+            cout << " |                                     |\n" ;
+            cout << " ---------------------------------------\n" ;
+            op = getch ( ) ;
+            cout << op << " \n" ;
+            switch ( op ) {
+                case '1' : {
+                    char opp = 0 ;
+                    while ( opp != 27 ) {
+                        if ( opp != 27 ) {
+                            system ( "cls" ) ;
+                            cout << " ---------------------------------------\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " | SEARCH FOR CUSTOMER   ADD CUSTOMER  |\n" ;
+                            cout << " |        (1)               (2)        |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |  REMOVE CUSTOMER   REGISTER TICKET  |\n" ;
+                            cout << " |        (3)              (4)         |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " ---------------------------------------\n" ;
+                        }
+
+                        opp = getch ( ) ;
+                        switch ( opp ) {
+                            case '1' : {
+
+                            }
+                            case '2' : {
+
+                            }
+                            case '3' : {
+
+                            }
+                            case '4' : {
+
+                            }
+                            case 27 : {
+                                op = ' ' ;
+                            }
+                            default : {
+                                system ( "cls" ) ;
+                                cout << " ---------------------------------------\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " | SEARCH FOR CUSTOMER   ADD CUSTOMER  |\n" ;
+                                cout << " |        (1)               (2)        |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |  REMOVE CUSTOMER   REGISTER TICKET  |\n" ;
+                                cout << " |        (3)              (4)         |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |      KEY PRESSED IS NOT 1/2/3/4     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " ---------------------------------------\n" ;
+                                opp = getch ( ) ;
+                            }
+                        }
+                    }
+                }
+                case '2' : {
+
+                }
+                case '3' : {
+
+                }
+                case '4' : {
+
+                }
+                case ' ' : {}
+                default : {
+
+                    system ( "cls" ) ;
+
+                    cout << " ---------------------------------------\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |     CUSTOMERS         AIRPLANES     |\n" ;
+                    cout << " |        (1)               (2)        |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |     EMPLOYEES      FLIGHT PROGRAM   |\n" ;
+                    cout << " |        (3)              (4)         |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |      KEY PRESSED IS NOT 1/2/3/4     |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " ---------------------------------------\n" ;
+                    op = getch ( ) ;
+                }
+
+            }
+        }
+    }
+    return 0;
+}
+/*time_t theTime = time(NULL);
+        struct tm *aTime = localtime(&theTime);
+        int DDAY = aTime->tm_mDDAY;
+        int MMONTH = aTime->tm_mon + 1;
+        int YYEAR = aTime->tm_YYEAR + 1900;
+        j = rand ( ) % 30 + DDAY ;
+        if ( MMONTH < 8 ) {
+            if ( MMONTH % 2 == 0 ){
+                if ( MMONTH == 2 ) {
+                    if ( j + DDAY > 28 ) {
+                        custo << j + DDAY - 28 << " " << MMONTH + 1 << " " << YYEAR << " " ;
+                    }
+                    else
+                        custo << j + DDAY << " " << MMONTH << " " << YYEAR << " " ;
+                }
+                else
+                {
+                    if ( j + DDAY > 30 )
+                        custo << j + DDAY - 30 << " " << MMONTH + 1 << " " << YYEAR << " " ;
+                    else
+                     custo << j + DDAY << " " << MMONTH << " " << YYEAR << " " ;
+                }
+            }
+            else
+            {   if ( j + DDAY > 31 )
+                    custo << j + DDAY - 31 << " " << MMONTH + 1 << " " << YYEAR << " " ;
+                else
+                    custo << j + DDAY << " " << MMONTH << " " << YYEAR << " " ;
+            }
+        }
+        else
+        {
+           if ( MMONTH % 2 == 0 ){
+                if ( MMONTH == 12 ) {
+                    if ( j + DDAY > 31 ) {
+                        custo << j + DDAY - 31 << " " << 1 << " " << YYEAR + 1 << " " ;
+                    }
+                }
+                else
+                {
+                    if ( j + DDAY > 31 ) {
+                        custo << j + DDAY - 31 << " " << MMONTH + 1 << " " << YYEAR << " " ;
+                    }
+                }
+            }
+            else
+            {
+                  if ( j + DDAY > 30 ) {
+                        custo << j + DDAY - 30 << " " << MMONTH + 1 << " " << YYEAR << " " ;
+                    }
+            }
+        }*/
