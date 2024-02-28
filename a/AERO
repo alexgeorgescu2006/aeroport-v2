@@ -13,8 +13,8 @@ using namespace std;
 ifstream custi ( "CUSTOMER" ) ;
 ifstream empli ( "EMPLOYEE" ) ;
 ifstream plai ( "PLANE" ) ;
-ifstream logi ( "LOGIN" ) ;
-ifstream passi ( "PASSWORDS" ) ;
+fstream logi ( "LOGIN" , ios::in | ios::out ) ;
+fstream passi ( "PASSWORDS" , ios::in | ios::out ) ;
 ifstream citi ( "CITY" ) ;
 ifstream countri ( "COUNTRY" ) ;
 ifstream namesi ( "NAMES" ) ;
@@ -32,8 +32,10 @@ ofstream custo ( "CUSTOMER" ) ;
 ofstream emplo ( "EMPLOYEE" ) ;
 ofstream plao ( "PLANE" ) ;
 
+
 char name  [ 10001 ] [ 25 ] , city [ 200 ] [ 20 ] , country [ 200 ] [ 20 ] , jobtypes [ 25 ] [ 25 ] , languages [ 25 ] [ 25 ] , planetypes [ 16 ] [ 25 ];
 int salaries [ 25 ] , planeseats [ 16 ] , planeweight [ 16 ] , planelength [ 16 ] , planewidth [ 16 ] , planeheight [ 16 ] ;
+int gr ;
 
 void ARRAY_READ ( ) {
     int i = 0 ;
@@ -442,14 +444,39 @@ void gotoxy(int x, int y) {
     SetConsoleCursorPosition(output, pos);
 }
 
+void passwordread ( char PASS [ 20 ] [ 20 ] , char NAMES [ 20 ] [ 20 ] , int &n ) {
+    int i = 0 ;
+    passi >> n ;
+    for ( i = 0 ; i < n; i ++ ) {
+        int j = 0 ;
+        char ch ;
+        do
+        {
+            passi >> ch ;
+            PASS [ i ] [ j ] = ch ;
+            j ++ ;
+        } while ( ch != '|' ) ;
+        PASS [ i ] [ j - 1 ] = NULL ;
+        j = 0 ;
+        do
+        {
+            logi >> ch ;
+            NAMES [ i ] [ j ] = ch ;
+            j ++ ;
+        } while ( ch != '|' ) ;
+        NAMES [ i ] [ j - 1 ] = NULL ;
+    }
+}
+
 int main()
 {
-    int ok = 1 , okp = 1 ;
+    int ok = 1 , okp = 1 , okfirstscreen = 1 ;
     char op;
     int rand ;
-    int i = 0 , n = 0  ;
-    char NAMES [ 20 ] ;
-    char PASS [ 20 ] ;
+    int i = 0 , n = 0  , passmaxx ;
+    char NAMES [ 20 ] = {} , NAMES_ [ 20 ] [ 20 ] = {} ;
+    char PASS [ 20 ] = {} , PASS_ [ 20 ] [ 20 ] = {} ;
+    passwordread ( PASS_ , NAMES_ , passmaxx ) ;
     /*cin >> rand ;
     if ( rand == 1 )
         data_rand ( ) ;
@@ -461,311 +488,1069 @@ int main()
     cout << " |                                     |\n" ;
     cout << " |                                     |\n" ;
     cout << " |                                     |\n" ;
-    cout << " |               LOG IN                |\n" ;
+    cout << " |               WELCOME!              |\n" ;
     cout << " |                                     |\n" ;
     cout << " |                                     |\n" ;
-    cout << " |   NAME     : ________________       |\n" ;
-    cout << " |   PASSWORD : ________________       |\n" ;
-    cout << " |                                     |\n" ;
-    cout << " |                                     |\n" ;
-    cout << " |                                     |\n" ;
+    cout << " |    To travel, use enter for next    |\n" ;
+    cout << " |   page or the number indicated on   |\n" ;
+    cout << " |              the page .             |\n" ;
+    cout << " |       To go back, press escape.     |\n" ;
+    cout << " |          To exit, use space.        |\n" ;
     cout << " |                                     |\n" ;
     cout << " |                                     |\n" ;
     cout << " ---------------------------------------\n" ;
-    while ( okp == 1 ) {
-    gotoxy ( 16 + i , 8 ) ;
-    op = getch ( ) ;
-    system ( "cls" );
-         switch ( op ) {
-            case ' ' : {
-                int h = 0 ;
+    getch ( ) ;
+    while ( ok >= 1 ) {
+        system ( "cls" ) ;
+        cout << " ---------------------------------------\n" ;
+        cout << " |                                     |\n" ;
+        cout << " |                                     |\n" ;
+        cout << " |                                     |\n" ;
+        cout << " |                                     |\n" ;
+        cout << " |                                     |\n" ;
+        cout << " |                                     |\n" ;
+        cout << " |       REGISTER         LOGIN        |\n" ;
+        cout << " |         (1)             (2)         |\n" ;
+        cout << " |                                     |\n" ;
+        cout << " |                                     |\n" ;
+        cout << " |                                     |\n" ;
+        cout << " |                                     |\n" ;
+        cout << " |                                     |\n" ;
+        cout << " |                                     |\n" ;
+        cout << " ---------------------------------------\n" ;
+        op = getch ( ) ;
+        switch ( op ) {
+            case ' ' :{
+                if ( op == ' ' ) {
+                    system ("cls") ;
+                    cout << " ---------------------------------------\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |          HAVE A GOOD DAY!           |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " ---------------------------------------\n" ;
+                    cout << op << " " ;
+                    getch();
+                    abort();
+                }
+                break ;
+            }
+            case '2' :{
+                for ( int aaaa = 0 ; aaaa < 20 ; aaaa ++ ) {
+                    NAMES [ aaaa ] = PASS [ aaaa ] = NULL ;
+                }
+                ok = 1 ;
+                while ( ok == 1 )
+                {
+                    system ( "cls" ) ;
+                    cout << " ---------------------------------------\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |               LOG IN                |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |   NAME     : ________________       |\n" ;
+                    cout << " |   PASSWORD : ________________       |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " |                                     |\n" ;
+                    cout << " ---------------------------------------\n" ;
+                    i = n = 0 ;
+                    okp = 1 ;
+                    while ( okp == 1 && ok != 2 ) {
+                        gotoxy ( 16 + i , 8 ) ;
+                        op = getch ( ) ;
+                        system ( "cls" );
+                        switch ( op ) {
+                            case 27 : {
+                                ok = 2 ;
+                                system ( "cls" ) ;
+                                cout << " ---------------------------------------\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |       REGISTER         LOGIN        |\n" ;
+                                cout << " |         (1)             (2)         |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " ---------------------------------------\n" ;
+                                break ;
+                            }
+                            case ' ' : {
+                                int h = 0 ;
+                                system ( "cls" ) ;
+                                gotoxy ( 0 , 0 ) ;
+                                cout << " ---------------------------------------\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |               LOG IN                |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |   NAME     : " ;
+                                for ( int j = 0 ; j < 16 ; j ++ )
+                                {
+                                    if ( j < i )
+                                        {
+                                            cout << NAMES [ h ] ;
+                                            h++ ;
+                                        }
+                                    else
+                                        cout << "_" ;
+                                }
+                                cout << "       |\n" ;
+                                cout << " |   PASSWORD : ________________       |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " ---------------------------------------\n" ;
+                                break ;
+                            }
+                            case '\b' :
+                            {
+                                    int h = 0 ;
+                                    if ( i > 0 ) i -- ;
+                                    gotoxy ( 16 + i , 9 ) ;
+                                    system ( "cls" );
+                                    cout << " ---------------------------------------\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |               LOG IN                |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |   NAME     : " ;
+                                    for ( int j = 0 ; j < 16 ; j ++ )
+                                    {
+                                       if ( j < i )
+                                            {
+                                                cout << NAMES [ h ] ;
+                                                h++ ;
+                                            }
+                                        else
+                                            cout << "_" ;
+                                    }
+                                    cout << "       |\n" ;
+                                    cout << " |   PASSWORD : ________________       |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " ---------------------------------------\n" ;
+                                    break ;
+                            }
+                            case 13 :
+                            {
+                                if ( i > 0 ) {
+                                    okp = 0 ;
+                                }
+                                else
+                                {
+                                    int h = 0 ;
+                                    system ( "cls" ) ;
+                                    cout << " ---------------------------------------\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |               LOG IN                |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |   NAME     : " ;
+                                    for ( int j = 0 ; j < 16 ; j ++ )
+                                    {
+                                        if ( j < i )
+                                            {
+                                                cout << NAMES [ h ] ;
+                                                h++ ;
+                                            }
+                                        else
+                                            cout << "_" ;
+                                    }
+                                    cout << "       |\n" ;
+                                    cout << " |   PASSWORD : ________________       |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |      NAME NEEDS TO BE AT LEAST      |\n" ;
+                                    cout << " |          ONE CHARACTER LONG         |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " ---------------------------------------\n" ;
+                                }
+                            }
+                            default : {
+                                if ( op != 13 ) {
+                                    int h = 0 ;
+                                    gotoxy ( 16 + i , 9 ) ;
+                                    NAMES [ i ] = op ;
+                                    i ++ ;
+                                    system ( "cls" );
+                                    cout << " ---------------------------------------\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |               LOG IN                |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |   NAME     : " ;
+                                    for ( int j = 0 ; j < 16 ; j ++ )
+                                    {
+                                       if ( j < i )
+                                            {
+                                                cout << NAMES [ h ] ;
+                                                h++ ;
+                                            }
+                                        else
+                                            cout << "_" ;
+                                    }
+                                    cout << "       |\n" ;
+                                    cout << " |   PASSWORD : ________________       |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " ---------------------------------------\n" ;
+                                }
+                            }
+                        }
+                    }
+                    if ( ok != 2 ) {
+                        int h = 0 ;
+                        system ( "cls" );
+                        cout << " ---------------------------------------\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |               LOG IN                |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |   NAME     : " ;
+                        for ( int j = 0 ; j < 16 ; j ++ )
+                        {
+                           if ( j < i )
+                                {
+                                    cout << NAMES [ h ] ;
+                                    h++ ;
+                                }
+                            else
+                                cout << "_" ;
+                        }
+                        cout << "       |\n" ;
+                        cout << " |   PASSWORD : ________________       |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " ---------------------------------------\n" ;
+                        while ( okp == 0)
+                        {
+                            gotoxy ( 16 + n , 9  ) ;
+                            op = getch ( ) ;
+                            system ( "cls" );
+                            switch ( op ) {
+                                case 27 : {
+                                    ok = 2 ;
+                                    system ( "cls" ) ;
+                                    cout << " ---------------------------------------\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |       REGISTER         LOGIN        |\n" ;
+                                    cout << " |         (1)             (2)         |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " ---------------------------------------\n" ;
+                                    break ;
+                                }
+                                case ' ' : {
+                                    int h = 0 ;
+                                    system ( "cls" ) ;
+                                    gotoxy ( 0 , 0 ) ;
+                                    cout << " ---------------------------------------\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |               LOG IN                |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |   NAME     : " ;
+                                    for ( int j = 0 ; j < 16 ; j ++ )
+                                    {
+                                        if ( j < i )
+                                            {
+                                                cout << NAMES [ h ] ;
+                                                h++ ;
+                                            }
+                                        else
+                                            cout << "_" ;
+                                    }
+                                    h = 0 ;
+                                    cout << "       |\n" ;
+                                    cout << " |   PASSWORD : " ;
+                                     for ( int j = 0 ; j < 16 ; j ++ )
+                                    {
+                                        if ( j < n )
+                                            {
+                                                cout << PASS [ h ] ;
+                                                h++ ;
+                                            }
+                                        else
+                                            cout << "_" ;
+                                    }
+                                    cout << "       |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " ---------------------------------------\n" ;
+                                    break ;
+                                }
+                                case '\b' :
+                                {
+                                        int h = 0 ;
+                                        if ( n > 0 ) n -- ;
+                                        gotoxy ( 16 + n , 9 ) ;
+                                        system ( "cls" );
+                                        cout << " ---------------------------------------\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |               LOG IN                |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |   NAME     : " ;
+                                        for ( int j = 0 ; j < 16 ; j ++ )
+                                        {
+                                            if ( j < i )
+                                                {
+                                                    cout << NAMES [ h ] ;
+                                                    h++ ;
+                                                }
+                                            else
+                                                cout << "_" ;
+                                        }
+                                        h = 0 ;
+                                        cout << "       |\n" ;
+                                        cout << " |   PASSWORD : " ;
+                                         for ( int j = 0 ; j < 16 ; j ++ )
+                                        {
+                                            if ( j < n )
+                                                {
+                                                    cout << PASS [ h ] ;
+                                                    h++ ;
+                                                }
+                                            else
+                                                cout << "_" ;
+                                        }
+                                        cout << "       |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " ---------------------------------------\n" ;
+                                        break ;
+                                }
+                                case 13 : {
+                                    if ( n > 0 ) {
+                                        okp = 2 ;
+                                    }
+                                    else
+                                    {
+                                        int h = 0 ;
+                                        system ( "cls" ) ;
+                                        cout << " ---------------------------------------\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |               LOG IN                |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |   NAME     : " ;
+                                        for ( int j = 0 ; j < 16 ; j ++ )
+                                        {
+                                            if ( j < i )
+                                                {
+                                                    cout << NAMES [ h ] ;
+                                                    h++ ;
+                                                }
+                                            else
+                                                cout << "_" ;
+                                        }
+                                        h = 0 ;
+                                        cout << "       |\n" ;
+                                        cout << " |   PASSWORD : " ;
+                                         for ( int j = 0 ; j < 16 ; j ++ )
+                                        {
+                                            if ( j < n )
+                                                {
+                                                    cout << PASS [ h ] ;
+                                                    h++ ;
+                                                }
+                                            else
+                                                cout << "_" ;
+                                        }
+                                        cout << "       |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |    PASSWORD NEEDS TO BE AT LEAST    |\n" ;
+                                        cout << " |          ONE CHARACTER LONG         |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " ---------------------------------------\n" ;
+                                    }
+                                }
+                                default : {
+                                    if ( op != 13 ) {
+                                        int h = 0 ;
+                                        PASS [ n ] = op ;
+                                        n ++ ;
+                                        system ( "cls" );
+                                        cout << " ---------------------------------------\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |               LOG IN                |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |   NAME     : " ;
+                                        for ( int j = 0 ; j < 16 ; j ++ )
+                                        {
+                                            if ( j < i )
+                                                {
+                                                    cout << NAMES [ h ] ;
+                                                    h++ ;
+                                                }
+                                            else
+                                                cout << "_" ;
+                                        }
+                                        cout << "       |\n" ;
+                                        cout << " |   PASSWORD : " ;
+                                        h = 0 ;
+                                        for ( int j = 0 ; j < 16 ; j ++ )
+                                        {
+                                            if ( j < n )
+                                                {
+                                                    cout << PASS [ h ] ;
+                                                    h++ ;
+                                                }
+                                            else
+                                                cout << "_" ;
+                                        }
+                                        cout << "       |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " ---------------------------------------\n" ;
+                                    }
+                                }
+                            }
+                        }
+                        int search1 , search2 ;
+                        int maxx , ok2 ;
+                        if ( i > n ) {
+                            maxx = i ;
+                        }
+                        else
+                            maxx = n ;
+                        for ( search1 = 0 ; search1 < passmaxx ; search1 ++ ) {
+                            ok2 = 1 ;
+                            search2 = 0 ;
+                            while ( search2 < maxx ) {
+                                if ( search2 < i && NAMES_ [ search1 ] [ search2 ] != NAMES [ search2 ] ) {
+                                   // cout << NAMES_ [ search1 ] [ search2 ] << " " << NAMES [ search2 ] << "\n" ;
+                                    search2 = maxx ;
+                                    ok2 = 0 ;
+                                }
+
+                                if ( search2 < n && PASS_ [ search1 ] [ search2 ] != PASS [ search2 ] )
+                                {
+                                    //cout << PASS_ [ search1 ] [ search2 ] << " " << PASS [ search2 ] << "\n" ;
+                                    search2 = maxx ;
+                                    ok2 = 0 ;
+                                }
+                                search2 ++ ;
+                            }
+                            if ( ok2 == 1 ) {
+                                ok = 0 ;
+                                search1 = passmaxx ;
+                            }
+                        }
+                        if ( ok == 1 ) {
+                            system ( "cls" ) ;
+                            cout << " ---------------------------------------\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |               LOG IN                |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |   NAME     : ________________       |\n" ;
+                            cout << " |   PASSWORD : ________________       |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |      PASSWORD OR NAME INCORRECT     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " ---------------------------------------\n" ;
+                            getch();
+                        }
+                    }
+                }
+                break;
+                ok = 'p';
+            }
+            case '1' :{
+                i = n = 0 ;
+                for ( int aaaa = 0 ; aaaa < 20 ; aaaa ++ ) {
+                    NAMES [ aaaa ] = PASS [ aaaa ] = NULL ;
+                }
+                ok = 1 ;
                 system ( "cls" ) ;
-                gotoxy ( 0 , 0 ) ;
                 cout << " ---------------------------------------\n" ;
                 cout << " |                                     |\n" ;
                 cout << " |                                     |\n" ;
                 cout << " |                                     |\n" ;
                 cout << " |                                     |\n" ;
-                cout << " |               LOG IN                |\n" ;
+                cout << " |              REGISTER               |\n" ;
                 cout << " |                                     |\n" ;
                 cout << " |                                     |\n" ;
-                cout << " |   NAME     : " ;
-                for ( int j = 0 ; j < 16 ; j ++ )
-                {
-                    if ( j < i )
-                        {
-                            cout << NAMES [ h ] ;
-                            h++ ;
-                        }
-                    else
-                        cout << "_" ;
-                }
-                cout << "       |\n" ;
+                cout << " |   NAME     : ________________       |\n" ;
                 cout << " |   PASSWORD : ________________       |\n" ;
                 cout << " |                                     |\n" ;
-                cout << " |          CAN'T INSERT SPACE         |\n" ;
+                cout << " |                                     |\n" ;
                 cout << " |                                     |\n" ;
                 cout << " |                                     |\n" ;
                 cout << " |                                     |\n" ;
                 cout << " ---------------------------------------\n" ;
+                i = n = 0 ;
+                okp = 1 ;
+                while ( okp == 1 && ok != 2 ) {
+                    gotoxy ( 16 + i , 8 ) ;
+                    op = getch ( ) ;
+                    system ( "cls" );
+                    switch ( op ) {
+                        case 27 : {
+                            ok = 2 ;
+                            system ( "cls" ) ;
+                            cout << " ---------------------------------------\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |       REGISTER         LOGIN        |\n" ;
+                            cout << " |         (1)             (2)         |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " ---------------------------------------\n" ;
+                            break ;
+                        }
+                        if ( ok != 2 ) {
+                                case ' ' : {
+                                int h = 0 ;
+                                system ( "cls" ) ;
+                                gotoxy ( 0 , 0 ) ;
+                                cout << " ---------------------------------------\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |              REGISTER               |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |   NAME     : " ;
+                                for ( int j = 0 ; j < 16 ; j ++ )
+                                {
+                                    if ( j < i )
+                                        {
+                                            cout << NAMES [ h ] ;
+                                            h++ ;
+                                        }
+                                    else
+                                        cout << "_" ;
+                                }
+                                cout << "       |\n" ;
+                                cout << " |   PASSWORD : ________________       |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " ---------------------------------------\n" ;
+                                break ;
+                            }
+                            case '\b' :
+                            {
+                                    int h = 0 ;
+                                    if ( i > 0 ) i -- ;
+                                    gotoxy ( 16 + i , 9 ) ;
+                                    system ( "cls" );
+                                    cout << " ---------------------------------------\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |              REGISTER               |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |   NAME     : " ;
+                                    for ( int j = 0 ; j < 16 ; j ++ )
+                                    {
+                                       if ( j < i )
+                                            {
+                                                cout << NAMES [ h ] ;
+                                                h++ ;
+                                            }
+                                        else
+                                            cout << "_" ;
+                                    }
+                                    cout << "       |\n" ;
+                                    cout << " |   PASSWORD : ________________       |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " ---------------------------------------\n" ;
+                                    break ;
+                            }
+                            case 13 :
+                            {
+                                if ( i > 0 ) {
+                                    okp = 0 ;
+                                }
+                                else
+                                {
+                                    int h = 0 ;
+                                    system ( "cls" ) ;
+                                    cout << " ---------------------------------------\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |              REGISTER               |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |   NAME     : " ;
+                                    for ( int j = 0 ; j < 16 ; j ++ )
+                                    {
+                                        if ( j < i )
+                                            {
+                                                cout << NAMES [ h ] ;
+                                                h++ ;
+                                            }
+                                        else
+                                            cout << "_" ;
+                                    }
+                                    cout << "       |\n" ;
+                                    cout << " |   PASSWORD : ________________       |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |      NAME NEEDS TO BE AT LEAST      |\n" ;
+                                    cout << " |          ONE CHARACTER LONG         |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " ---------------------------------------\n" ;
+                                }
+                            }
+                            default : {
+                                if ( op != 13 ) {
+                                    int h = 0 ;
+                                    gotoxy ( 16 + i , 9 ) ;
+                                    NAMES [ i ] = op ;
+                                    i ++ ;
+                                    system ( "cls" );
+                                    cout << " ---------------------------------------\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |              REGISTER               |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |   NAME     : " ;
+                                    for ( int j = 0 ; j < 16 ; j ++ )
+                                    {
+                                       if ( j < i )
+                                            {
+                                                cout << NAMES [ h ] ;
+                                                h++ ;
+                                            }
+                                        else
+                                            cout << "_" ;
+                                    }
+                                    cout << "       |\n" ;
+                                    cout << " |   PASSWORD : ________________       |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " ---------------------------------------\n" ;
+                                }
+                            }
+                        }
+                    }
+                    if ( ok != 2 ) {
+                        int h = 0 ;
+                        system ( "cls" );
+                        cout << " ---------------------------------------\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |              REGISTER               |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |   NAME     : " ;
+                        for ( int j = 0 ; j < 16 ; j ++ )
+                        {
+                           if ( j < i )
+                                {
+                                    cout << NAMES [ h ] ;
+                                    h++ ;
+                                }
+                            else
+                                cout << "_" ;
+                        }
+                        cout << "       |\n" ;
+                        cout << " |   PASSWORD : ________________       |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " |                                     |\n" ;
+                        cout << " ---------------------------------------\n" ;
+                        while ( okp == 0)
+                        {
+                            gotoxy ( 16 + n , 9  ) ;
+                            op = getch ( ) ;
+                            system ( "cls" );
+                            switch ( op ) {
+                                case 27 : {
+                                    ok = 2 ;
+                                    system ( "cls" ) ;
+                                    cout << " ---------------------------------------\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |       REGISTER         LOGIN        |\n" ;
+                                    cout << " |         (1)             (2)         |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " ---------------------------------------\n" ;
+                                    break ;
+                                }
+                                case ' ' : {
+                                    int h = 0 ;
+                                    system ( "cls" ) ;
+                                    gotoxy ( 0 , 0 ) ;
+                                    cout << " ---------------------------------------\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |              REGISTER               |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |   NAME     : " ;
+                                    for ( int j = 0 ; j < 16 ; j ++ )
+                                    {
+                                        if ( j < i )
+                                            {
+                                                cout << NAMES [ h ] ;
+                                                h++ ;
+                                            }
+                                        else
+                                            cout << "_" ;
+                                    }
+                                    h = 0 ;
+                                    cout << "       |\n" ;
+                                    cout << " |   PASSWORD : " ;
+                                     for ( int j = 0 ; j < 16 ; j ++ )
+                                    {
+                                        if ( j < n )
+                                            {
+                                                cout << PASS [ h ] ;
+                                                h++ ;
+                                            }
+                                        else
+                                            cout << "_" ;
+                                    }
+                                    cout << "       |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " ---------------------------------------\n" ;
+                                    break ;
+                                }
+                                case '\b' :
+                                {
+                                        int h = 0 ;
+                                        if ( n > 0 ) n -- ;
+                                        gotoxy ( 16 + n , 9 ) ;
+                                        system ( "cls" );
+                                        cout << " ---------------------------------------\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |              REGISTER               |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |   NAME     : " ;
+                                        for ( int j = 0 ; j < 16 ; j ++ )
+                                        {
+                                            if ( j < i )
+                                                {
+                                                    cout << NAMES [ h ] ;
+                                                    h++ ;
+                                                }
+                                            else
+                                                cout << "_" ;
+                                        }
+                                        h = 0 ;
+                                        cout << "       |\n" ;
+                                        cout << " |   PASSWORD : " ;
+                                         for ( int j = 0 ; j < 16 ; j ++ )
+                                        {
+                                            if ( j < n )
+                                                {
+                                                    cout << PASS [ h ] ;
+                                                    h++ ;
+                                                }
+                                            else
+                                                cout << "_" ;
+                                        }
+                                        cout << "       |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " ---------------------------------------\n" ;
+                                        break ;
+                                }
+                                case 13 : {
+                                    if ( n > 0 ) {
+                                        okp = 2 ;
+                                    }
+                                    else
+                                    {
+                                        int h = 0 ;
+                                        system ( "cls" ) ;
+                                        cout << " ---------------------------------------\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |              REGISTER               |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |   NAME     : " ;
+                                        for ( int j = 0 ; j < 16 ; j ++ )
+                                        {
+                                            if ( j < i )
+                                                {
+                                                    cout << NAMES [ h ] ;
+                                                    h++ ;
+                                                }
+                                            else
+                                                cout << "_" ;
+                                        }
+                                        h = 0 ;
+                                        cout << "       |\n" ;
+                                        cout << " |   PASSWORD : " ;
+                                         for ( int j = 0 ; j < 16 ; j ++ )
+                                        {
+                                            if ( j < n )
+                                                {
+                                                    cout << PASS [ h ] ;
+                                                    h++ ;
+                                                }
+                                            else
+                                                cout << "_" ;
+                                        }
+                                        cout << "       |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |    PASSWORD NEEDS TO BE AT LEAST    |\n" ;
+                                        cout << " |          ONE CHARACTER LONG         |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " ---------------------------------------\n" ;
+                                    }
+                                }
+                                default : {
+                                    if ( op != 13 ) {
+                                        int h = 0 ;
+                                        PASS [ n ] = op ;
+                                        n ++ ;
+                                        system ( "cls" );
+                                        cout << " ---------------------------------------\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |              REGISTER               |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |   NAME     : " ;
+                                        for ( int j = 0 ; j < 16 ; j ++ )
+                                        {
+                                            if ( j < i )
+                                                {
+                                                    cout << NAMES [ h ] ;
+                                                    h++ ;
+                                                }
+                                            else
+                                                cout << "_" ;
+                                        }
+                                        cout << "       |\n" ;
+                                        cout << " |   PASSWORD : " ;
+                                        h = 0 ;
+                                        for ( int j = 0 ; j < 16 ; j ++ )
+                                        {
+                                            if ( j < n )
+                                                {
+                                                    cout << PASS [ h ] ;
+                                                    h++ ;
+                                                }
+                                            else
+                                                cout << "_" ;
+                                        }
+                                        cout << "       |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " ---------------------------------------\n" ;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                }
+                if ( ok != 2 ) {
+                    passi.seekg(0, ios::beg);
+                    passi << passmaxx + 1 << "\n";
+                    for ( int j = 0 ; j < passmaxx ; j ++ ) {
+                        int pp = 0 ;
+                        while ( PASS_ [ j ] [ pp ] != NULL ) {
+                            passi << PASS_ [ j ] [ pp ] ;
+                            pp ++ ;
+                        }
+                        passi << "|\n" ;
+                    }
+                    for ( int j = 0 ; j < n ; j ++ ) {
+                        PASS_ [ passmaxx ] [ j ] = PASS [ j ] ;
+                        passi << PASS_ [ passmaxx ] [ j ] ;
+                    }
+                    passi << "|" << "\n" ;
+                    logi.seekg(0, ios::beg);
+                    for ( int j = 0 ; j < passmaxx ; j ++ ) {
+                        int pp = 0 ;
+                        while ( NAMES_ [ j ] [ pp ] != NULL ) {
+                            logi << NAMES_ [ j ] [ pp ] ;
+                            pp ++ ;
+                        }
+                        logi << "|\n" ;
+                    }
+                    for ( int j = 0 ; j < i ; j ++ ) {
+                        NAMES_ [ passmaxx ] [ j ] = NAMES [ j ] ;
+                        logi << NAMES_ [ passmaxx ] [ j ] ;
+                    }
+                    logi << "|\n" ;
+                    passi.seekg(0, ios::beg);
+                    logi.seekg(0, ios::beg);
+                    passwordread ( PASS_ , NAMES_ , passmaxx ) ;
+                }
+                ok = 'p';
                 break ;
             }
-            case '\b' :
-            {
-                    int h = 0 ;
-                    if ( i > 0 ) i -- ;
-                    gotoxy ( 16 + i , 9 ) ;
-                    system ( "cls" );
-                    cout << " ---------------------------------------\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |               LOG IN                |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |   NAME     : " ;
-                    for ( int j = 0 ; j < 16 ; j ++ )
-                    {
-                       if ( j < i )
-                            {
-                                cout << NAMES [ h ] ;
-                                h++ ;
-                            }
-                        else
-                            cout << "_" ;
-                    }
-                    cout << "       |\n" ;
-                    cout << " |   PASSWORD : ________________       |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " ---------------------------------------\n" ;
-                    break ;
-            }
-            case 13 :
-            {
-                okp = 0 ;
-            }
             default : {
-                if ( op != 13 ) {
-                    int h = 0 ;
-                    gotoxy ( 16 + i , 9 ) ;
-                    NAMES [ i ] = op ;
-                    i ++ ;
-                    system ( "cls" );
-                    cout << " ---------------------------------------\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |               LOG IN                |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |   NAME     : " ;
-                    for ( int j = 0 ; j < 16 ; j ++ )
-                    {
-                       if ( j < i )
-                            {
-                                cout << NAMES [ h ] ;
-                                h++ ;
-                            }
-                        else
-                            cout << "_" ;
-                    }
-                    cout << "       |\n" ;
-                    cout << " |   PASSWORD : ________________       |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " ---------------------------------------\n" ;
-                }
-            }
-        }
-    }
-    int h = 0 ;
-    system ( "cls" );
-    cout << " ---------------------------------------\n" ;
-    cout << " |                                     |\n" ;
-    cout << " |                                     |\n" ;
-    cout << " |                                     |\n" ;
-    cout << " |                                     |\n" ;
-    cout << " |               LOG IN                |\n" ;
-    cout << " |                                     |\n" ;
-    cout << " |                                     |\n" ;
-    cout << " |   NAME     : " ;
-    for ( int j = 0 ; j < 16 ; j ++ )
-    {
-       if ( j < i )
-            {
-                cout << NAMES [ h ] ;
-                h++ ;
-            }
-        else
-            cout << "_" ;
-    }
-    cout << "       |\n" ;
-    cout << " |   PASSWORD : ________________       |\n" ;
-    cout << " |                                     |\n" ;
-    cout << " |                                     |\n" ;
-    cout << " |                                     |\n" ;
-    cout << " |                                     |\n" ;
-    cout << " |                                     |\n" ;
-    cout << " ---------------------------------------\n" ;
-    while ( okp == 0)
-    {
-        gotoxy ( 16 + n , 9  ) ;
-        op = getch ( ) ;
-        system ( "cls" );
-        switch ( op ) {
-            case ' ' : {
-                int h = 0 ;
+
                 system ( "cls" ) ;
-                gotoxy ( 0 , 0 ) ;
                 cout << " ---------------------------------------\n" ;
                 cout << " |                                     |\n" ;
                 cout << " |                                     |\n" ;
                 cout << " |                                     |\n" ;
                 cout << " |                                     |\n" ;
-                cout << " |               LOG IN                |\n" ;
                 cout << " |                                     |\n" ;
                 cout << " |                                     |\n" ;
-                cout << " |   NAME     : " ;
-                for ( int j = 0 ; j < 16 ; j ++ )
-                {
-                    if ( j < i )
-                        {
-                            cout << NAMES [ h ] ;
-                            h++ ;
-                        }
-                    else
-                        cout << "_" ;
-                }
-                h = 0 ;
-                cout << "       |\n" ;
-                cout << " |   PASSWORD : " ;
-                 for ( int j = 0 ; j < 16 ; j ++ )
-                {
-                    if ( j < n )
-                        {
-                            cout << PASS [ h ] ;
-                            h++ ;
-                        }
-                    else
-                        cout << "_" ;
-                }
-                cout << "       |\n" ;
+                cout << " |       REGISTER         LOGIN        |\n" ;
+                cout << " |         (1)             (2)         |\n" ;
                 cout << " |                                     |\n" ;
-                cout << " |          CAN'T INSERT SPACE         |\n" ;
+                cout << " |                                     |\n" ;
+                cout << " |          PRESS (1) OR (2)           |\n" ;
                 cout << " |                                     |\n" ;
                 cout << " |                                     |\n" ;
                 cout << " |                                     |\n" ;
                 cout << " ---------------------------------------\n" ;
+                getch ( );
                 break ;
             }
-            case '\b' :
-            {
-                    int h = 0 ;
-                    if ( n > 0 ) n -- ;
-                    gotoxy ( 16 + n , 9 ) ;
-                    system ( "cls" );
-                    cout << " ---------------------------------------\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |               LOG IN                |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |   NAME     : " ;
-                    for ( int j = 0 ; j < 16 ; j ++ )
-                    {
-                        if ( j < i )
-                            {
-                                cout << NAMES [ h ] ;
-                                h++ ;
-                            }
-                        else
-                            cout << "_" ;
-                    }
-                    h = 0 ;
-                    cout << "       |\n" ;
-                    cout << " |   PASSWORD : " ;
-                     for ( int j = 0 ; j < 16 ; j ++ )
-                    {
-                        if ( j < n )
-                            {
-                                cout << PASS [ h ] ;
-                                h++ ;
-                            }
-                        else
-                            cout << "_" ;
-                    }
-                    cout << "       |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " ---------------------------------------\n" ;
-                    break ;
             }
-            case 13 : {
-                okp = 2 ;
-            }
-            default : {
-                if ( op != 13 ) {
-                    int h = 0 ;
-                    PASS [ n ] = op ;
-                    n ++ ;
-                    system ( "cls" );
-                    cout << " ---------------------------------------\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |               LOG IN                |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |   NAME     : " ;
-                    for ( int j = 0 ; j < 16 ; j ++ )
-                    {
-                        if ( j < i )
-                            {
-                                cout << NAMES [ h ] ;
-                                h++ ;
-                            }
-                        else
-                            cout << "_" ;
-                    }
-                    cout << "       |\n" ;
-                    cout << " |   PASSWORD : " ;
-                    h = 0 ;
-                    for ( int j = 0 ; j < 16 ; j ++ )
-                    {
-                        if ( j < n )
-                            {
-                                cout << PASS [ h ] ;
-                                h++ ;
-                            }
-                        else
-                            cout << "_" ;
-                    }
-                    cout << "       |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " |                                     |\n" ;
-                    cout << " ---------------------------------------\n" ;
-                }
-            }
-        }
     }
+
     system ( "cls" ) ;
     cout << " ---------------------------------------\n" ;
     cout << " |                                     |\n" ;
@@ -1203,7 +1988,6 @@ int main()
     cout << " ---------------------------------------\n" ;
     getch();
     abort();
-    return 0;
 }
 /*time_t theTime = time(NULL);
         struct tm *aTime = localtime(&theTime);
