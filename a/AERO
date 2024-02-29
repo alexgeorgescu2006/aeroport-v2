@@ -10,9 +10,9 @@
 
 using namespace std;
 
-ifstream custi ( "CUSTOMER" ) ;
-ifstream empli ( "EMPLOYEE" ) ;
-ifstream plai ( "PLANE" ) ;
+fstream custi ( "CUSTOMER" , ios::in | ios::out ) ;
+fstream empli ( "EMPLOYEE" , ios::in | ios::out ) ;
+fstream plai ( "PLANE" , ios::in | ios::out ) ;
 fstream logi ( "LOGIN" , ios::in | ios::out ) ;
 fstream passi ( "PASSWORDS" , ios::in | ios::out ) ;
 ifstream citi ( "CITY" ) ;
@@ -27,10 +27,6 @@ ifstream pwdthi ( "PWIDTH" ) ;
 ifstream phghi ( "PHEIGHT" ) ;
 ifstream debugi ( "DEBUGI" ) ;
 
-ofstream debugo ( "DEBUGO" ) ;
-ofstream custo ( "CUSTOMER" ) ;
-ofstream emplo ( "EMPLOYEE" ) ;
-ofstream plao ( "PLANE" ) ;
 
 
 char name  [ 10001 ] [ 25 ] , city [ 200 ] [ 20 ] , country [ 200 ] [ 20 ] , jobtypes [ 25 ] [ 25 ] , languages [ 25 ] [ 25 ] , planetypes [ 16 ] [ 25 ];
@@ -62,7 +58,7 @@ struct LOCATIONS {
     char COUNTRY [ 25 ] ;
 } ;
 
-struct CUSTOMER {
+struct {
     char IDL [ 10 ] ;
     char IDG [ 14 ] ;
     char FIRST_NAME [ 40 ] ;
@@ -98,8 +94,8 @@ struct PLANE {
     LOCATIONS LOCATION ;
 } PLANE [ 300000 ] ;
 
-void CUSTOMER_READ ( ) {
-    int i = 0 , n ;
+void CUSTOMER_READ ( int &n ) {
+    int i = 0 ;
     custi >> n ;
     for ( i = 0 ; i < n ; i ++ ) {
         custi >> CUSTOMER [ i ] .IDL ;
@@ -114,8 +110,8 @@ void CUSTOMER_READ ( ) {
     }
 }
 
-void EMPLOYEE_READ ( ) {
-    int i = 0 , n ;
+void EMPLOYEE_READ ( int &n ) {
+    int i = 0 ;
     empli >> n ;
     for ( i = 0 ; i < n ; i ++ ) {
         empli >> EMPLOYEE [ i ] .IDL ;
@@ -140,8 +136,8 @@ void EMPLOYEE_READ ( ) {
     }
 }
 
-void PLANE_READ ( ) {
-    int i = 0 , n ;
+void PLANE_READ ( int &n ) {
+    int i = 0 ;
     plai >> n ;
     for ( i = 0 ; i < n ; i ++ ) {
         plai >> PLANE [ i ] .IDL ;
@@ -158,43 +154,43 @@ void PLANE_READ ( ) {
     }
 }
 
-void data_read ( ) {
-    CUSTOMER_READ ( ) ;
-    EMPLOYEE_READ ( ) ;
-    PLANE_READ ( ) ;
+void data_read ( int &n , int &m , int &p ) {
+    CUSTOMER_READ ( n ) ;
+    //EMPLOYEE_READ ( m ) ;
+    //PLANE_READ ( p ) ;
 }
 
 void CUSTOMER_RAND ( ) {
     int i = 0 , j = 0 , n , c ;
     for ( i = 0 ; i < 300000 ; i ++ ) {
-        custo << i << " " ;
+        custi<< i << " " ;
         c = ( rand ( ) % 42 ) + 48 ;
         for ( j = 0 ; j < 14 ; j ++ ) {
             while ( c > 57 && c < 65 ) {
                 c = rand ( ) % 42 + 48 ;
             }
-            custo << ( char ) c  ;
+            custi<< ( char ) c  ;
             c = rand ( ) % 42 + 48 ;
         }
-        custo << " " ;
+        custi<< " " ;
         j = rand ( ) % 10000 ;
-        custo << name [ j ] << " " ;
+        custi<< name [ j ] << " " ;
         j = rand ( ) % 10000 ;
-        custo << name [ j ] << " " ;
+        custi<< name [ j ] << " " ;
         j = rand ( ) % 31 ;
         if ( j > 29 ) {
-            custo << j << " " ;
+            custi<< j << " " ;
             int m = rand ( ) % 12 ;
             if ( j == 29 && m == 2 ) {
-                custo  << m << " " ;
+                custi << m << " " ;
                 m = ( rand ( ) % 13 + 488 ) * 4 ;
-                custo << m << " " ;
+                custi<< m << " " ;
             }
             else{
                 if ( j == 29 && m != 2 ){
-                    custo << j << " " ;
+                    custi << j << " " ;
                     j = rand ( ) % 62 + 1954 ;
-                    custo << j << " " ;
+                    custi << j << " " ;
                 }
                 else
                 {
@@ -202,9 +198,9 @@ void CUSTOMER_RAND ( ) {
                         while ( m == 2 ) {
                             m = rand ( ) % 12 ;
                         }
-                        custo << m << " " ;
+                        custi<< m << " " ;
                         j = rand ( ) % 62 + 1954 ;
-                        custo << j << " " ;
+                        custi<< j << " " ;
                     }
                     else
                     {
@@ -212,56 +208,56 @@ void CUSTOMER_RAND ( ) {
                         {
                             m = rand ( ) % 12 ;
                         }
-                        custo << m << " " ;
+                        custi<< m << " " ;
                         j = rand ( ) % 62 + 1954 ;
-                        custo << j << " " ;
+                        custi<< j << " " ;
                     }
                 }
             }
         }
         else {
-            custo << j << " " ;
+            custi<< j << " " ;
             j = rand ( ) % 12 ;
-            custo << j << " " ;
+            custi<< j << " " ;
             j = rand ( ) % 62 + 1954 ;
-            custo << j << " " ;
+            custi<< j << " " ;
         }
         j = rand ( ) % 10000 ;
-        custo << city [ j ] << " " << country [ j ]  << "\n" ;
+        custi<< city [ j ] << " " << country [ j ]  << "\n" ;
     }
 }
 
 void EMPLOYEE_RAND ( ) {
     int i = 0 , j = 0 , n , c ;
     for ( i = 0 ; i < 300000 ; i ++ ) {
-        emplo << i << " " ;
+        empli << i << " " ;
         c = ( rand ( ) % 42 ) + 48 ;
         for ( j = 0 ; j < 14 ; j ++ ) {
             while ( c > 57 && c < 65 ) {
                 c = rand ( ) % 42 + 48 ;
             }
-            emplo << ( char ) c  ;
+            empli << ( char ) c  ;
             c = rand ( ) % 42 + 48 ;
         }
-        emplo << " " ;
+        empli << " " ;
         j = rand ( ) % 10000 ;
-        emplo << name [ j ] << " " ;
+        empli << name [ j ] << " " ;
         j = rand ( ) % 10000 ;
-        emplo << name [ j ] << " " ;
+        empli << name [ j ] << " " ;
         j = rand ( ) % 31 ;
         if ( j > 29 ) {
-            emplo << j << " " ;
+            empli << j << " " ;
             int m = rand ( ) % 12 ;
             if ( j == 29 && m == 2 ) {
-                emplo  << m << " " ;
+                empli  << m << " " ;
                 m = ( rand ( ) % 13 + 485 ) * 4 ;
-                emplo << m << " " ;
+                empli << m << " " ;
             }
             else{
                 if ( j == 29 && m != 2 ){
-                    emplo << j << " " ;
+                    empli << j << " " ;
                     j = rand ( ) % 62 + 1947 ;
-                    emplo << j << " " ;
+                    empli << j << " " ;
                 }
                 else
                 {
@@ -269,9 +265,9 @@ void EMPLOYEE_RAND ( ) {
                         while ( m == 2 ) {
                             m = rand ( ) % 12 ;
                         }
-                        emplo << m << " " ;
+                        empli << m << " " ;
                         j = rand ( ) % 62 + 1947 ;
-                        emplo << j << " " ;
+                        empli << j << " " ;
                     }
                     else
                     {
@@ -279,25 +275,25 @@ void EMPLOYEE_RAND ( ) {
                         {
                             m = rand ( ) % 12 ;
                         }
-                        emplo << m << " " ;
+                        empli << m << " " ;
                         j = rand ( ) % 62 + 1947 ;
-                        emplo << j << " " ;
+                        empli << j << " " ;
                     }
                 }
             }
         }
         else {
-            emplo << j << " " ;
+            empli << j << " " ;
             j = rand ( ) % 12 ;
-            emplo << j << " " ;
+            empli << j << " " ;
             j = rand ( ) % 62 + 1947 ;
-            emplo << j << " " ;
+            empli << j << " " ;
         }
         int l ;
         l = rand ( ) % 25 ;
-        emplo << jobtypes [ l ] << " " ;
+        empli << jobtypes [ l ] << " " ;
         j = rand ( ) % 5 ;
-        emplo << j << " " ;
+        empli << j << " " ;
         int h [ 25 ] = {0} , x ;
         for ( int m = 0 ; m < j ; m ++ )
         {
@@ -305,33 +301,33 @@ void EMPLOYEE_RAND ( ) {
             while ( h [ x ] != 0 ){
                 x = rand ( ) % 30 ;
             }
-            emplo << languages [ x ] << " " ;
+            empli << languages [ x ] << " " ;
             h [ x ] ++ ;
         }
-        emplo << salaries [ l ] << " " ;
+        empli << salaries [ l ] << " " ;
         c = ( rand ( ) % 42 ) + 48 ;
         for ( j = 0 ; j < 24 ; j ++ ) {
             while ( c > 57 && c < 65 ) {
                 c = rand ( ) % 42 + 48 ;
             }
-            emplo << ( char ) c  ;
+            empli << ( char ) c  ;
             c = rand ( ) % 42 + 48 ;
         }
-        emplo << " " ;
+        empli << " " ;
         j = rand ( ) % 31 ;
         if ( j > 29 ) {
-            emplo << j << " " ;
+            empli << j << " " ;
             int m = rand ( ) % 12 ;
             if ( j == 29 && m == 2 ) {
-                emplo  << m << " " ;
+                empli  << m << " " ;
                 m = ( rand ( ) % 13 + 498 ) * 4 ;
-                emplo << m << " " ;
+                empli << m << " " ;
             }
             else{
                 if ( j == 29 && m != 2 ){
-                    emplo << j << " " ;
+                    empli << j << " " ;
                     j = rand ( ) % 62 + 1980 ;
-                    emplo << j << " " ;
+                    empli << j << " " ;
                 }
                 else
                 {
@@ -339,9 +335,9 @@ void EMPLOYEE_RAND ( ) {
                         while ( m == 2 ) {
                             m = rand ( ) % 12 ;
                         }
-                        emplo << m << " " ;
+                        empli << m << " " ;
                         j = rand ( ) % 62 + 1980 ;
-                        emplo << j << " " ;
+                        empli << j << " " ;
                     }
                     else
                     {
@@ -349,57 +345,57 @@ void EMPLOYEE_RAND ( ) {
                         {
                             m = rand ( ) % 12 ;
                         }
-                        emplo << m << " " ;
+                        empli << m << " " ;
                         j = rand ( ) % 62 + 1980 ;
-                        emplo << j << " " ;
+                        empli << j << " " ;
                     }
                 }
             }
         }
         else {
-            emplo << j << " " ;
+            empli << j << " " ;
             j = rand ( ) % 12 ;
-            emplo << j << " " ;
+            empli << j << " " ;
             j = rand ( ) % 62 + 1980 ;
-            emplo << j << " " ;
+            empli << j << " " ;
         }
         j = rand ( ) % 20 ;
-        emplo << j << " " ;
+        empli << j << " " ;
         j = rand ( ) % 10000 ;
-        emplo << city [ j ] << " " << country [ j ]  << "\n" ;
+        empli << city [ j ] << " " << country [ j ]  << "\n" ;
     }
 }
 
 void PLANE_RAND ( ) {
     int i = 0 , j = 0 , n , c ;
     for ( i = 0 ; i < 300000 ; i ++ ) {
-        plao << i << " N" ;
+        plai << i << " N" ;
         c = ( rand ( ) % 42 ) + 48 ;
         for ( j = 0 ; j < 5 ; j ++ ) {
             while ( c > 57 && c < 65 ) {
                 c = rand ( ) % 42 + 48 ;
             }
-            plao << ( char ) c  ;
+            plai << ( char ) c  ;
             c = rand ( ) % 42 + 48 ;
         }
-        plao << " " ;
+        plai << " " ;
         j = rand ( ) % 6 ;
-        plao << planetypes [ j ] << " " ;
-        plao << planeseats [ j ] << " " ;
-        plao << planeweight [ j ] << " " ;
+        plai << planetypes [ j ] << " " ;
+        plai << planeseats [ j ] << " " ;
+        plai << planeweight [ j ] << " " ;
         j = rand ( ) % 31 ;
         time_t theTime = time(NULL);
         struct tm *aTime = localtime(&theTime);
         int YYEAR = aTime->tm_year + 1900;
         if ( j > 29 ) {
-            plao << j << " " ;
+            plai << j << " " ;
             int m = rand ( ) % 12 ;
             if ( j == 29 && m == 2 && ( YYEAR - 1 ) % 4 == 0) {
-                plao  << m << " " ;
+                plai  << m << " " ;
             }
             else{
                 if ( j == 29 && m != 2 ){
-                    plao << j << " " ;
+                    plai << j << " " ;
                 }
                 else
                 {
@@ -407,7 +403,7 @@ void PLANE_RAND ( ) {
                         while ( m == 2 ) {
                             m = rand ( ) % 12 ;
                         }
-                        plao << m << " " ;
+                        plai << m << " " ;
                     }
                     else
                     {
@@ -415,19 +411,19 @@ void PLANE_RAND ( ) {
                         {
                             m = rand ( ) % 12 ;
                         }
-                        plao << m << " " ;
+                        plai << m << " " ;
                     }
                 }
             }
         }
         else {
-            plao << j << " " ;
+            plai << j << " " ;
             j = rand ( ) % 12 ;
-            plao << j << " " ;
+            plai << j << " " ;
         }
-        plao << YYEAR - 1 << " " ;
+        plai << YYEAR - 1 << " " ;
         j = rand ( ) % 10000 ;
-        emplo << city [ j ] << " " << country [ j ]  << "\n" ;
+        empli << city [ j ] << " " << country [ j ]  << "\n" ;
     }
 }
 
@@ -470,7 +466,7 @@ void passwordread ( char PASS [ 20 ] [ 20 ] , char NAMES [ 20 ] [ 20 ] , int &n 
 
 int main()
 {
-    int ok = 1 , okp = 1 , okfirstscreen = 1 ;
+    int ok = 1 , okp = 1 , okfirstscreen = 1 , custommaxx , employeemaxx , planesmaxx ;
     char op;
     int rand ;
     int i = 0 , n = 0  , passmaxx ;
@@ -481,7 +477,7 @@ int main()
     if ( rand == 1 )
         data_rand ( ) ;
     else*/
-    //data_read ( ) ;
+    data_read ( custommaxx , employeemaxx , planesmaxx ) ;
     system ( "cls" ) ;
     cout << " ---------------------------------------\n" ;
     cout << " |                                     |\n" ;
@@ -1550,7 +1546,7 @@ int main()
             }
             }
     }
-
+    char CUSTOMERNAME [ 20 ] , CUSTOMERIDG [ 20 ] ;
     system ( "cls" ) ;
     cout << " ---------------------------------------\n" ;
     cout << " |                                     |\n" ;
@@ -1594,12 +1590,1034 @@ int main()
                     opp = getch ( ) ;
                     switch ( opp ) {
                         case '1' : {
+                            for ( int aaaa = 0 ; aaaa < 20 ; aaaa ++ ) {
+                                NAMES [ aaaa ] = PASS [ aaaa ] = NULL ;
+                            }
+                            ok = 1 ;
+                            while ( ok == 1 )
+                            {
+                                system ( "cls" ) ;
+                                cout << " ---------------------------------------\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |           CUSTOMER  SEARCH          |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |   NAME     : ________________       |\n" ;
+                                cout << " |   IDG      : ________________       |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " ---------------------------------------\n" ;
+                                i = n = 0 ;
+                                okp = 1 ;
+                                while ( okp == 1 && ok != 2 ) {
+                                    gotoxy ( 16 + i , 8 ) ;
+                                    op = getch ( ) ;
+                                    system ( "cls" );
+                                    switch ( op ) {
+                                        case 27 : {
+                                            ok = 2 ;
+                                            system ( "cls" ) ;
+                                            cout << " ---------------------------------------\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " | SEARCH FOR CUSTOMER   ADD CUSTOMER  |\n" ;
+                                            cout << " |        (1)               (2)        |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |  REMOVE CUSTOMER  SEE ALL CUSTOMERS |\n" ;
+                                            cout << " |        (3)              (4)         |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " ---------------------------------------\n" ;
+                                            break ;
+                                        }
+                                        case ' ' : {
+                                            int h = 0 ;
+                                            system ( "cls" ) ;
+                                            gotoxy ( 0 , 0 ) ;
+                                            cout << " ---------------------------------------\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |           CUSTOMER  SEARCH          |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |   NAME     : " ;
+                                            for ( int j = 0 ; j < 16 ; j ++ )
+                                            {
+                                                if ( j < i )
+                                                    {
+                                                       // cout << j << " " << i << " " ;
+                                                        cout << CUSTOMERNAME [ h ] ;
+                                                        h++ ;
+                                                    }
+                                                else
+                                                    cout << "_" ;
+                                            }
+                                            cout << "       |\n" ;
+                                            cout << " |   IDG      : ________________       |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " ---------------------------------------\n" ;
+                                            break ;
+                                        }
+                                        case '\b' :
+                                        {
+                                                int h = 0 ;
+                                                if ( i > 0 ) i -- ;
+                                                gotoxy ( 16 + i , 9 ) ;
+                                                system ( "cls" );
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |           CUSTOMER  SEARCH          |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |   NAME     : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ )
+                                                {
+                                                   if ( j < i )
+                                                        {
+                                                            cout << CUSTOMERNAME[ h ] ;
+                                                            h++ ;
+                                                        }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |   IDG      : ________________       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                        }
+                                        case 13 :
+                                        {
+                                            if ( i > 0 ) {
+                                                okp = 0 ;
+                                            }
+                                            else
+                                            {
+                                                int h = 0 ;
+                                                system ( "cls" ) ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |           CUSTOMER  SEARCH          |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;;
+                                                cout << " |   NAME     : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ )
+                                                {
+                                                    if ( j >= i )
+                                                        cout << "_" ;
+                                                    else
+                                                        {
+                                                            cout << CUSTOMERNAME[ h ] ;
+                                                            h++ ;
+                                                        }
 
-                        }
-                        case '2' : {
-
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |   IDG      : ________________       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |      NAME NEEDS TO BE AT LEAST      |\n" ;
+                                                cout << " |          ONE CHARACTER LONG         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                getch ( ) ;
+                                                break;
+                                            }
+                                        }
+                                        default : {
+                                            if ( op != 13 && op != ' ' ) {
+                                                int h = 0 ;
+                                                gotoxy ( 16 + i , 9 ) ;
+                                                CUSTOMERNAME[ i ] = op ;
+                                                i ++ ;
+                                                system ( "cls" );
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |           CUSTOMER  SEARCH          |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |   NAME     : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ )
+                                                {
+                                                   if ( j < i )
+                                                        {
+                                                            cout << CUSTOMERNAME[ h ] ;
+                                                            h++ ;
+                                                        }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |   IDG      : ________________       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                            }
+                                        }
+                                    }
+                                }
+                                    if ( ok != 2 ) {
+                                        int h = 0 ;
+                                        system ( "cls" );
+                                        cout << " ---------------------------------------\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |           CUSTOMER  SEARCH          |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |   NAME     : " ;
+                                        for ( int j = 0 ; j < 16 ; j ++ )
+                                        {
+                                           if ( j < i )
+                                                {
+                                                    cout << CUSTOMERNAME[ h ] ;
+                                                    h++ ;
+                                                }
+                                            else
+                                                cout << "_" ;
+                                        }
+                                        cout << "       |\n" ;
+                                        cout << " |   IDG      : ________________       |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " ---------------------------------------\n" ;
+                                        while ( okp == 0)
+                                        {
+                                            gotoxy ( 16 + n , 9  ) ;
+                                            op = getch ( ) ;
+                                            system ( "cls" );
+                                            switch ( op ) {
+                                                case 27 : {
+                                                    ok = 2 ;
+                                                    system ( "cls" ) ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " | SEARCH FOR CUSTOMER   ADD CUSTOMER  |\n" ;
+                                                    cout << " |        (1)               (2)        |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |  REMOVE CUSTOMER  SEE ALL CUSTOMERS |\n" ;
+                                                    cout << " |        (3)              (4)         |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    break ;
+                                                }
+                                                case ' ' : {
+                                                    int h = 0 ;
+                                                    system ( "cls" ) ;
+                                                    gotoxy ( 0 , 0 ) ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |           CUSTOMER  SEARCH          |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |   NAME     : " ;
+                                                    for ( int j = 0 ; j < 16 ; j ++ )
+                                                    {
+                                                        if ( j < i )
+                                                            {
+                                                                cout << CUSTOMERNAME[ h ] ;
+                                                                h++ ;
+                                                            }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    h = 0 ;
+                                                    cout << "       |\n" ;
+                                                    cout << " |   IDG      : " ;
+                                                     for ( int j = 0 ; j < 16 ; j ++ )
+                                                    {
+                                                        if ( j < n )
+                                                            {
+                                                                cout << CUSTOMERIDG [ h ] ;
+                                                                h++ ;
+                                                            }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    cout << "       |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    break ;
+                                                }
+                                                case '\b' :
+                                                {
+                                                        int h = 0 ;
+                                                        if ( n > 0 ) n -- ;
+                                                        gotoxy ( 16 + n , 9 ) ;
+                                                        system ( "cls" );
+                                                        cout << " ---------------------------------------\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |           CUSTOMER  SEARCH          |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |   NAME     : " ;
+                                                        for ( int j = 0 ; j < 16 ; j ++ )
+                                                        {
+                                                            if ( j < i )
+                                                                {
+                                                                    cout << CUSTOMERNAME[ h ] ;
+                                                                    h++ ;
+                                                                }
+                                                            else
+                                                                cout << "_" ;
+                                                        }
+                                                        h = 0 ;
+                                                        cout << "       |\n" ;
+                                                        cout << " |   IDG      : " ;
+                                                         for ( int j = 0 ; j < 16 ; j ++ )
+                                                        {
+                                                            if ( j < n )
+                                                                {
+                                                                    cout << CUSTOMERIDG [ h ] ;
+                                                                    h++ ;
+                                                                }
+                                                            else
+                                                                cout << "_" ;
+                                                        }
+                                                        cout << "       |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " ---------------------------------------\n" ;
+                                                        break ;
+                                                }
+                                                case 13 : {
+                                                    if ( n > 0 ) {
+                                                        okp = 2 ;
+                                                    }
+                                                    else
+                                                    {
+                                                        int h = 0 ;
+                                                        system ( "cls" ) ;
+                                                        cout << " ---------------------------------------\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                       cout << " |           CUSTOMER  SEARCH          |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |   NAME     : " ;
+                                                        for ( int j = 0 ; j < 16 ; j ++ )
+                                                        {
+                                                            if ( j < i )
+                                                                {
+                                                                    cout << CUSTOMERNAME[ h ] ;
+                                                                    h++ ;
+                                                                }
+                                                            else
+                                                                cout << "_" ;
+                                                        }
+                                                        h = 0 ;
+                                                        cout << "       |\n" ;
+                                                        cout << " |   IDG      : " ;
+                                                         for ( int j = 0 ; j < 16 ; j ++ )
+                                                        {
+                                                            if ( j < n )
+                                                                {
+                                                                    cout << CUSTOMERIDG [ h ] ;
+                                                                    h++ ;
+                                                                }
+                                                            else
+                                                                cout << "_" ;
+                                                        }
+                                                        cout << "       |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |    PASSWORD NEEDS TO BE AT LEAST    |\n" ;
+                                                        cout << " |          ONE CHARACTER LONG         |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " ---------------------------------------\n" ;
+                                                    }
+                                                }
+                                                default : {
+                                                    if ( op != 13 ) {
+                                                        int h = 0 ;
+                                                        CUSTOMERIDG [ n ] = op ;
+                                                        n ++ ;
+                                                        system ( "cls" );
+                                                        cout << " ---------------------------------------\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |           CUSTOMER  SEARCH          |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |   NAME     : " ;
+                                                        for ( int j = 0 ; j < 16 ; j ++ )
+                                                        {
+                                                            if ( j < i )
+                                                                {
+                                                                    cout << CUSTOMERNAME[ h ] ;
+                                                                    h++ ;
+                                                                }
+                                                            else
+                                                                cout << "_" ;
+                                                        }
+                                                        cout << "       |\n" ;
+                                                        cout << " |   IDG      : " ;
+                                                        h = 0 ;
+                                                        for ( int j = 0 ; j < 16 ; j ++ )
+                                                        {
+                                                            if ( j < n )
+                                                                {
+                                                                    cout << CUSTOMERIDG [ h ] ;
+                                                                    h++ ;
+                                                                }
+                                                            else
+                                                                cout << "_" ;
+                                                        }
+                                                        cout << "       |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " ---------------------------------------\n" ;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        int search1 , search2 ;
+                                        int maxx , ok2 ;
+                                        if ( i > n ) {
+                                            maxx = i ;
+                                        }
+                                        else
+                                            maxx = n ;
+                                        for ( search1 = 0 ; search1 < custommaxx ; search1 ++ ) {
+                                            ok2 = 1 ;
+                                            search2 = 0 ;
+                                            while ( search2 < maxx ) {
+                                                if ( search2 < i && CUSTOMER[ search1 ] .LAST_NAME[ search2 ]  != CUSTOMERNAME[ search2 ] ) {
+                                                    search2 = maxx ;
+                                                    ok2 = 0 ;
+                                                }
+                                                if ( search2 < n && CUSTOMER[ search1 ] .IDG [ search2 ] != CUSTOMERIDG [ search2 ] )
+                                                {
+                                                    search2 = maxx ;
+                                                    ok2 = 0 ;
+                                                }
+                                                search2 ++ ;
+                                            }
+                                            if ( ok2 == 1 ) {
+                                                ok = 0 ;
+                                                cout << "    ID LOCAL        :  " << CUSTOMER [ search1 ] .IDL << "\n" ;
+                                                cout << "    ID GLOBAL       :  " << CUSTOMER [ search1 ] .IDG << "\n\n" ;
+                                                cout << "    FIRST NAME      :  " << CUSTOMER [ search1 ] .FIRST_NAME << "\n" ;
+                                                cout << "    LAST NAME       :  " << CUSTOMER [ search1 ] .LAST_NAME << "\n\n" ;
+                                                cout << "    DATE OF BIRTH   :  " << CUSTOMER [ search1 ] .DDATE_OF_BIRTH.DDAY << "/" << CUSTOMER [ search1 ]  .DDATE_OF_BIRTH.MMONTH << "/" << CUSTOMER [ search1 ]  .DDATE_OF_BIRTH.YYEAR << "\n\n" ;
+                                                cout << "    CURRENT CITY    :  " << CUSTOMER [ search1 ] .LOCATION.CITY << "\n" ;
+                                                cout << "    CURRENT COUNTRY :  " << CUSTOMER [ search1 ] .LOCATION.COUNTRY << "\n" ;
+                                                search1 = custommaxx ;
+                                            }
+                                        }
+                                        if ( ok == 1 ) {
+                                            system ( "cls" ) ;
+                                            cout << " ---------------------------------------\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |           CUSTOMER  SEARCH          |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |        COULDN'T FIND CUSTOMER       |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " ---------------------------------------\n" ;
+                                            getch ( ) ;
+                                        }
+                                    }
+                            }
+                            break;
+                            ok = 'p';
                         }
                         case '3' : {
+                            for ( int aaaa = 0 ; aaaa < 20 ; aaaa ++ ) {
+                                NAMES [ aaaa ] = PASS [ aaaa ] = NULL ;
+                            }
+                            ok = 1 ;
+                            while ( ok == 1 )
+                            {
+                                system ( "cls" ) ;
+                                cout << " ---------------------------------------\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |           CUSTOMER  REMOVAL         |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |   NAME     : ________________       |\n" ;
+                                cout << " |   IDG      : ________________       |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " ---------------------------------------\n" ;
+                                i = n = 0 ;
+                                okp = 1 ;
+                                while ( okp == 1 && ok != 2 ) {
+                                    gotoxy ( 16 + i , 8 ) ;
+                                    op = getch ( ) ;
+                                    system ( "cls" );
+                                    switch ( op ) {
+                                        case 27 : {
+                                            ok = 2 ;
+                                            system ( "cls" ) ;
+                                            cout << " ---------------------------------------\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " | SEARCH FOR CUSTOMER   ADD CUSTOMER  |\n" ;
+                                            cout << " |        (1)               (2)        |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |  REMOVE CUSTOMER  SEE ALL CUSTOMERS |\n" ;
+                                            cout << " |        (3)              (4)         |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " ---------------------------------------\n" ;
+                                            break ;
+                                        }
+                                        case ' ' : {
+                                            int h = 0 ;
+                                            system ( "cls" ) ;
+                                            gotoxy ( 0 , 0 ) ;
+                                            cout << " ---------------------------------------\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |           CUSTOMER  REMOVAL         |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |   NAME     : " ;
+                                            for ( int j = 0 ; j < 16 ; j ++ )
+                                            {
+                                                if ( j < i )
+                                                    {
+                                                       // cout << j << " " << i << " " ;
+                                                        cout << CUSTOMERNAME [ h ] ;
+                                                        h++ ;
+                                                    }
+                                                else
+                                                    cout << "_" ;
+                                            }
+                                            cout << "       |\n" ;
+                                            cout << " |   IDG      : ________________       |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " ---------------------------------------\n" ;
+                                            break ;
+                                        }
+                                        case '\b' :
+                                        {
+                                                int h = 0 ;
+                                                if ( i > 0 ) i -- ;
+                                                gotoxy ( 16 + i , 9 ) ;
+                                                system ( "cls" );
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |           CUSTOMER  REMOVAL         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |   NAME     : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ )
+                                                {
+                                                   if ( j < i )
+                                                        {
+                                                            cout << CUSTOMERNAME[ h ] ;
+                                                            h++ ;
+                                                        }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |   IDG      : ________________       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                        }
+                                        case 13 :
+                                        {
+                                            if ( i > 0 ) {
+                                                okp = 0 ;
+                                            }
+                                            else
+                                            {
+                                                int h = 0 ;
+                                                system ( "cls" ) ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |           CUSTOMER  REMOVAL         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |   NAME     : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ )
+                                                {
+                                                    if ( j >= i )
+                                                        cout << "_" ;
+                                                    else
+                                                        {
+                                                            cout << CUSTOMERNAME[ h ] ;
+                                                            h++ ;
+                                                        }
+
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |   IDG      : ________________       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |      NAME NEEDS TO BE AT LEAST      |\n" ;
+                                                cout << " |          ONE CHARACTER LONG         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                getch ( ) ;
+                                                break;
+                                            }
+                                        }
+                                        default : {
+                                            if ( op != 13 && op != ' ' ) {
+                                                int h = 0 ;
+                                                gotoxy ( 16 + i , 9 ) ;
+                                                CUSTOMERNAME[ i ] = op ;
+                                                i ++ ;
+                                                system ( "cls" );
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |           CUSTOMER  REMOVAL         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |   NAME     : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ )
+                                                {
+                                                   if ( j < i )
+                                                        {
+                                                            cout << CUSTOMERNAME[ h ] ;
+                                                            h++ ;
+                                                        }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |   IDG      : ________________       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                            }
+                                        }
+                                    }
+                                }
+                                    if ( ok != 2 ) {
+                                        int h = 0 ;
+                                        system ( "cls" );
+                                        cout << " ---------------------------------------\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |           CUSTOMER  REMOVAL         |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |   NAME     : " ;
+                                        for ( int j = 0 ; j < 16 ; j ++ )
+                                        {
+                                           if ( j < i )
+                                                {
+                                                    cout << CUSTOMERNAME[ h ] ;
+                                                    h++ ;
+                                                }
+                                            else
+                                                cout << "_" ;
+                                        }
+                                        cout << "       |\n" ;
+                                        cout << " |   IDG      : ________________       |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " ---------------------------------------\n" ;
+                                        while ( okp == 0)
+                                        {
+                                            gotoxy ( 16 + n , 9  ) ;
+                                            op = getch ( ) ;
+                                            system ( "cls" );
+                                            switch ( op ) {
+                                                case 27 : {
+                                                    ok = 2 ;
+                                                    system ( "cls" ) ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " | SEARCH FOR CUSTOMER   ADD CUSTOMER  |\n" ;
+                                                    cout << " |        (1)               (2)        |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |  REMOVE CUSTOMER  SEE ALL CUSTOMERS |\n" ;
+                                                    cout << " |        (3)              (4)         |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    break ;
+                                                }
+                                                case ' ' : {
+                                                    int h = 0 ;
+                                                    system ( "cls" ) ;
+                                                    gotoxy ( 0 , 0 ) ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |           CUSTOMER  REMOVAL         |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |   NAME     : " ;
+                                                    for ( int j = 0 ; j < 16 ; j ++ )
+                                                    {
+                                                        if ( j < i )
+                                                            {
+                                                                cout << CUSTOMERNAME[ h ] ;
+                                                                h++ ;
+                                                            }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    h = 0 ;
+                                                    cout << "       |\n" ;
+                                                    cout << " |   IDG      : " ;
+                                                     for ( int j = 0 ; j < 16 ; j ++ )
+                                                    {
+                                                        if ( j < n )
+                                                            {
+                                                                cout << CUSTOMERIDG [ h ] ;
+                                                                h++ ;
+                                                            }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    cout << "       |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    break ;
+                                                }
+                                                case '\b' :
+                                                {
+                                                        int h = 0 ;
+                                                        if ( n > 0 ) n -- ;
+                                                        gotoxy ( 16 + n , 9 ) ;
+                                                        system ( "cls" );
+                                                        cout << " ---------------------------------------\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |           CUSTOMER  REMOVAL         |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |   NAME     : " ;
+                                                        for ( int j = 0 ; j < 16 ; j ++ )
+                                                        {
+                                                            if ( j < i )
+                                                                {
+                                                                    cout << CUSTOMERNAME[ h ] ;
+                                                                    h++ ;
+                                                                }
+                                                            else
+                                                                cout << "_" ;
+                                                        }
+                                                        h = 0 ;
+                                                        cout << "       |\n" ;
+                                                        cout << " |   IDG      : " ;
+                                                         for ( int j = 0 ; j < 16 ; j ++ )
+                                                        {
+                                                            if ( j < n )
+                                                                {
+                                                                    cout << CUSTOMERIDG [ h ] ;
+                                                                    h++ ;
+                                                                }
+                                                            else
+                                                                cout << "_" ;
+                                                        }
+                                                        cout << "       |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " ---------------------------------------\n" ;
+                                                        break ;
+                                                }
+                                                case 13 : {
+                                                    if ( n > 0 ) {
+                                                        okp = 2 ;
+                                                    }
+                                                    else
+                                                    {
+                                                        int h = 0 ;
+                                                        system ( "cls" ) ;
+                                                        cout << " ---------------------------------------\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |           CUSTOMER  REMOVAL         |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |   NAME     : " ;
+                                                        for ( int j = 0 ; j < 16 ; j ++ )
+                                                        {
+                                                            if ( j < i )
+                                                                {
+                                                                    cout << CUSTOMERNAME[ h ] ;
+                                                                    h++ ;
+                                                                }
+                                                            else
+                                                                cout << "_" ;
+                                                        }
+                                                        h = 0 ;
+                                                        cout << "       |\n" ;
+                                                        cout << " |   IDG      : " ;
+                                                         for ( int j = 0 ; j < 16 ; j ++ )
+                                                        {
+                                                            if ( j < n )
+                                                                {
+                                                                    cout << CUSTOMERIDG [ h ] ;
+                                                                    h++ ;
+                                                                }
+                                                            else
+                                                                cout << "_" ;
+                                                        }
+                                                        cout << "       |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |    PASSWORD NEEDS TO BE AT LEAST    |\n" ;
+                                                        cout << " |          ONE CHARACTER LONG         |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " ---------------------------------------\n" ;
+                                                    }
+                                                }
+                                                default : {
+                                                    if ( op != 13 ) {
+                                                        int h = 0 ;
+                                                        CUSTOMERIDG [ n ] = op ;
+                                                        n ++ ;
+                                                        system ( "cls" );
+                                                        cout << " ---------------------------------------\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |           CUSTOMER  REMOVAL         |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |   NAME     : " ;
+                                                        for ( int j = 0 ; j < 16 ; j ++ )
+                                                        {
+                                                            if ( j < i )
+                                                                {
+                                                                    cout << CUSTOMERNAME[ h ] ;
+                                                                    h++ ;
+                                                                }
+                                                            else
+                                                                cout << "_" ;
+                                                        }
+                                                        cout << "       |\n" ;
+                                                        cout << " |   IDG      : " ;
+                                                        h = 0 ;
+                                                        for ( int j = 0 ; j < 16 ; j ++ )
+                                                        {
+                                                            if ( j < n )
+                                                                {
+                                                                    cout << CUSTOMERIDG [ h ] ;
+                                                                    h++ ;
+                                                                }
+                                                            else
+                                                                cout << "_" ;
+                                                        }
+                                                        cout << "       |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " ---------------------------------------\n" ;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        int search1 , search2 ;
+                                        int maxx , ok2 ;
+                                        if ( i > n ) {
+                                            maxx = i ;
+                                        }
+                                        else
+                                            maxx = n ;
+                                        for ( search1 = 0 ; search1 < custommaxx ; search1 ++ ) {
+                                            ok2 = 1 ;
+                                            search2 = 0 ;
+                                            while ( search2 < maxx ) {
+                                                if ( search2 < i && CUSTOMER[ search1 ] .LAST_NAME[ search2 ]  != CUSTOMERNAME[ search2 ] ) {
+                                                    search2 = maxx ;
+                                                    ok2 = 0 ;
+                                                }
+                                                if ( search2 < n && CUSTOMER[ search1 ] .IDG [ search2 ] != CUSTOMERIDG [ search2 ] )
+                                                {
+                                                    search2 = maxx ;
+                                                    ok2 = 0 ;
+                                                }
+                                                search2 ++ ;
+                                            }
+                                            if ( ok2 == 1 ) {
+                                                custi.seekg(0, ios::beg);
+                                                custi << custommaxx - 1 << "\n" ;
+                                                for ( int j = 0 ; j < search1 ; j ++ ) {
+                                                    custi << CUSTOMER [ j ] .IDL << " " ;
+                                                    custi << CUSTOMER [ j ] .IDG << " " ;
+                                                    custi << CUSTOMER [ j ] .FIRST_NAME << " " ;
+                                                    custi << CUSTOMER [ j ] .LAST_NAME << " " ;
+                                                    custi << CUSTOMER [ j ] .DDATE_OF_BIRTH.DDAY << " " << CUSTOMER [ j ]  .DDATE_OF_BIRTH.MMONTH << " " << CUSTOMER [ j ]  .DDATE_OF_BIRTH.YYEAR << " " ;
+                                                    custi << CUSTOMER [ j ] .LOCATION.CITY << " " ;
+                                                    custi <<  CUSTOMER [ j ] .LOCATION.COUNTRY << "\n" ;
+
+                                                }
+                                                for ( int j = search1 ; j < custommaxx ; j ++ ) {
+                                                    custi << CUSTOMER [ j ] .IDL << " " ;
+                                                    custi << CUSTOMER [ j ] .IDG << " " ;
+                                                    custi << CUSTOMER [ j ] .FIRST_NAME << " " ;
+                                                    custi << CUSTOMER [ j ] .LAST_NAME << " " ;
+                                                    custi << CUSTOMER [ j ] .DDATE_OF_BIRTH.DDAY << " " << CUSTOMER [ j ]  .DDATE_OF_BIRTH.MMONTH << " " << CUSTOMER [ j ]  .DDATE_OF_BIRTH.YYEAR << " " ;
+                                                    custi << CUSTOMER [ j ] .LOCATION.CITY << " " ;
+                                                    custi <<  CUSTOMER [ j ] .LOCATION.COUNTRY << "\n" ;
+                                                }
+                                                custommaxx -- ;
+                                                custi.seekg(0, ios::beg);
+                                                CUSTOMER_READ ( custommaxx ) ;
+                                                search1 = custommaxx ;
+                                            }
+                                        }
+                                        if ( ok == 1 ) {
+                                            system ( "cls" ) ;
+                                            cout << " ---------------------------------------\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |           CUSTOMER  REMOVAL         |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |        COULDN'T FIND CUSTOMER       |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " ---------------------------------------\n" ;
+                                            getch ( ) ;
+                                        }
+                                    }
+                            }
+                            break;
+                            ok = 'p';
+                        }
+                        case '2' : {
 
                         }
                         case '4' : {
@@ -1672,6 +2690,7 @@ int main()
                 op = 27 ;
                 break;
             }
+
             case '2' : {
                 system ( "cls" ) ;
                 cout << " ---------------------------------------\n" ;
@@ -1999,24 +3018,24 @@ int main()
             if ( MMONTH % 2 == 0 ){
                 if ( MMONTH == 2 ) {
                     if ( j + DDAY > 28 ) {
-                        custo << j + DDAY - 28 << " " << MMONTH + 1 << " " << YYEAR << " " ;
+                        custi<< j + DDAY - 28 << " " << MMONTH + 1 << " " << YYEAR << " " ;
                     }
                     else
-                        custo << j + DDAY << " " << MMONTH << " " << YYEAR << " " ;
+                        custi<< j + DDAY << " " << MMONTH << " " << YYEAR << " " ;
                 }
                 else
                 {
                     if ( j + DDAY > 30 )
-                        custo << j + DDAY - 30 << " " << MMONTH + 1 << " " << YYEAR << " " ;
+                        custi<< j + DDAY - 30 << " " << MMONTH + 1 << " " << YYEAR << " " ;
                     else
-                     custo << j + DDAY << " " << MMONTH << " " << YYEAR << " " ;
+                     custi<< j + DDAY << " " << MMONTH << " " << YYEAR << " " ;
                 }
             }
             else
             {   if ( j + DDAY > 31 )
-                    custo << j + DDAY - 31 << " " << MMONTH + 1 << " " << YYEAR << " " ;
+                    custi<< j + DDAY - 31 << " " << MMONTH + 1 << " " << YYEAR << " " ;
                 else
-                    custo << j + DDAY << " " << MMONTH << " " << YYEAR << " " ;
+                    custi<< j + DDAY << " " << MMONTH << " " << YYEAR << " " ;
             }
         }
         else
@@ -2024,20 +3043,20 @@ int main()
            if ( MMONTH % 2 == 0 ){
                 if ( MMONTH == 12 ) {
                     if ( j + DDAY > 31 ) {
-                        custo << j + DDAY - 31 << " " << 1 << " " << YYEAR + 1 << " " ;
+                        custi<< j + DDAY - 31 << " " << 1 << " " << YYEAR + 1 << " " ;
                     }
                 }
                 else
                 {
                     if ( j + DDAY > 31 ) {
-                        custo << j + DDAY - 31 << " " << MMONTH + 1 << " " << YYEAR << " " ;
+                        custi<< j + DDAY - 31 << " " << MMONTH + 1 << " " << YYEAR << " " ;
                     }
                 }
             }
             else
             {
                   if ( j + DDAY > 30 ) {
-                        custo << j + DDAY - 30 << " " << MMONTH + 1 << " " << YYEAR << " " ;
+                        custi<< j + DDAY - 30 << " " << MMONTH + 1 << " " << YYEAR << " " ;
                     }
             }
         }*/
