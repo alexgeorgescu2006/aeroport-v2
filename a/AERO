@@ -27,6 +27,7 @@ ifstream pwdthi ( "PWIDTH" ) ;
 ifstream phghi ( "PHEIGHT" ) ;
 ifstream debugi ( "DEBUGI" ) ;
 
+fstream ofs ;
 
 
 char name  [ 10001 ] [ 25 ] , city [ 200 ] [ 20 ] , country [ 200 ] [ 20 ] , jobtypes [ 25 ] [ 25 ] , languages [ 25 ] [ 25 ] , planetypes [ 16 ] [ 25 ];
@@ -2565,31 +2566,50 @@ int main()
                                                 search2 ++ ;
                                             }
                                             if ( ok2 == 1 ) {
-                                                custi.seekg(0, ios::beg);
-                                                custi << custommaxx - 1 << "\n" ;
+                                                ofs.open("CUSTOMER", ios::out | ios::trunc);
+                                                ofs << custommaxx - 1 << "\n" ;
                                                 for ( int j = 0 ; j < search1 ; j ++ ) {
-                                                    custi << CUSTOMER [ j ] .IDL << " " ;
-                                                    custi << CUSTOMER [ j ] .IDG << " " ;
-                                                    custi << CUSTOMER [ j ] .FIRST_NAME << " " ;
-                                                    custi << CUSTOMER [ j ] .LAST_NAME << " " ;
-                                                    custi << CUSTOMER [ j ] .DDATE_OF_BIRTH.DDAY << " " << CUSTOMER [ j ]  .DDATE_OF_BIRTH.MMONTH << " " << CUSTOMER [ j ]  .DDATE_OF_BIRTH.YYEAR << " " ;
-                                                    custi << CUSTOMER [ j ] .LOCATION.CITY << " " ;
-                                                    custi <<  CUSTOMER [ j ] .LOCATION.COUNTRY << "\n" ;
+                                                    ofs << CUSTOMER [ j ] .IDL << " " ;
+                                                    ofs << CUSTOMER [ j ] .IDG << " " ;
+                                                    ofs << CUSTOMER [ j ] .FIRST_NAME << " " ;
+                                                    ofs << CUSTOMER [ j ] .LAST_NAME << " " ;
+                                                    ofs << CUSTOMER [ j ] .DDATE_OF_BIRTH.DDAY << " " << CUSTOMER [ j ]  .DDATE_OF_BIRTH.MMONTH << " " << CUSTOMER [ j ]  .DDATE_OF_BIRTH.YYEAR << " " ;
+                                                    ofs << CUSTOMER [ j ] .LOCATION.CITY << " " ;
+                                                    ofs <<  CUSTOMER [ j ] .LOCATION.COUNTRY << "\n" ;
 
                                                 }
-                                                for ( int j = search1 ; j < custommaxx ; j ++ ) {
-                                                    custi << CUSTOMER [ j ] .IDL << " " ;
-                                                    custi << CUSTOMER [ j ] .IDG << " " ;
-                                                    custi << CUSTOMER [ j ] .FIRST_NAME << " " ;
-                                                    custi << CUSTOMER [ j ] .LAST_NAME << " " ;
-                                                    custi << CUSTOMER [ j ] .DDATE_OF_BIRTH.DDAY << " " << CUSTOMER [ j ]  .DDATE_OF_BIRTH.MMONTH << " " << CUSTOMER [ j ]  .DDATE_OF_BIRTH.YYEAR << " " ;
-                                                    custi << CUSTOMER [ j ] .LOCATION.CITY << " " ;
-                                                    custi <<  CUSTOMER [ j ] .LOCATION.COUNTRY << "\n" ;
+                                                for ( int j = search1 + 1  ; j < custommaxx ; j ++ ) {
+                                                    ofs << CUSTOMER [ j ] .IDL << " " ;
+                                                    ofs << CUSTOMER [ j ] .IDG << " " ;
+                                                    ofs << CUSTOMER [ j ] .FIRST_NAME << " " ;
+                                                    ofs << CUSTOMER [ j ] .LAST_NAME << " " ;
+                                                    ofs << CUSTOMER [ j ] .DDATE_OF_BIRTH.DDAY << " " << CUSTOMER [ j ]  .DDATE_OF_BIRTH.MMONTH << " " << CUSTOMER [ j ]  .DDATE_OF_BIRTH.YYEAR << " " ;
+                                                    ofs << CUSTOMER [ j ] .LOCATION.CITY << " " ;
+                                                    ofs <<  CUSTOMER [ j ] .LOCATION.COUNTRY << "\n" ;
                                                 }
                                                 custommaxx -- ;
-                                                custi.seekg(0, ios::beg);
+                                                ofs.close () ;
                                                 CUSTOMER_READ ( custommaxx ) ;
                                                 search1 = custommaxx ;
+                                                ok = 1 ;
+                                                system ( "cls" ) ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |           CUSTOMER  REMOVAL         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |           CUSTOMER  REMOVED         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                getch ( ) ;
                                             }
                                         }
                                         if ( ok == 1 ) {
@@ -2618,7 +2638,24 @@ int main()
                             ok = 'p';
                         }
                         case '2' : {
-
+                                system ( "cls" ) ;
+                                cout << " ---------------------------------------\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |              ADD CUSTOMER           |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " ---------------------------------------\n" ;
+                                getch ( ) ;
                         }
                         case '4' : {
 
