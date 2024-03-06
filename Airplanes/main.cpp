@@ -164,36 +164,37 @@ void data_read ( int &n , int &m , int &p ) {
 }
 
 void CUSTOMER_RAND ( ) {
+    ofs.open("CUSTOMER", ios::out | ios::trunc);
     int i = 0 , j = 0 , n , c ;
     for ( i = 0 ; i < 300000 ; i ++ ) {
-        custi<< i << " " ;
+        ofs<< i << " " ;
         c = ( rand ( ) % 42 ) + 48 ;
         for ( j = 0 ; j < 14 ; j ++ ) {
             while ( c > 57 && c < 65 ) {
                 c = rand ( ) % 42 + 48 ;
             }
-            custi<< ( char ) c  ;
+            ofs<< ( char ) c  ;
             c = rand ( ) % 42 + 48 ;
         }
-        custi<< " " ;
+        ofs<< " " ;
         j = rand ( ) % 10000 ;
-        custi<< name [ j ] << " " ;
+        ofs<< name [ j ] << " " ;
         j = rand ( ) % 10000 ;
-        custi<< name [ j ] << " " ;
+        ofs<< name [ j ] << " " ;
         j = rand ( ) % 31 ;
         if ( j > 29 ) {
-            custi<< j << " " ;
+            ofs<< j << " " ;
             int m = rand ( ) % 12 ;
             if ( j == 29 && m == 2 ) {
-                custi << m << " " ;
+                ofs << m << " " ;
                 m = ( rand ( ) % 13 + 488 ) * 4 ;
-                custi<< m << " " ;
+                ofs<< m << " " ;
             }
             else{
                 if ( j == 29 && m != 2 ){
-                    custi << j << " " ;
+                    ofs << j << " " ;
                     j = rand ( ) % 62 + 1954 ;
-                    custi << j << " " ;
+                    ofs << j << " " ;
                 }
                 else
                 {
@@ -201,9 +202,9 @@ void CUSTOMER_RAND ( ) {
                         while ( m == 2 ) {
                             m = rand ( ) % 12 ;
                         }
-                        custi<< m << " " ;
+                        ofs<< m << " " ;
                         j = rand ( ) % 62 + 1954 ;
-                        custi<< j << " " ;
+                        ofs<< j << " " ;
                     }
                     else
                     {
@@ -211,56 +212,57 @@ void CUSTOMER_RAND ( ) {
                         {
                             m = rand ( ) % 12 ;
                         }
-                        custi<< m << " " ;
+                        ofs<< m << " " ;
                         j = rand ( ) % 62 + 1954 ;
-                        custi<< j << " " ;
+                        ofs<< j << " " ;
                     }
                 }
             }
         }
         else {
-            custi<< j << " " ;
+            ofs<< j << " " ;
             j = rand ( ) % 12 ;
-            custi<< j << " " ;
+            ofs<< j << " " ;
             j = rand ( ) % 62 + 1954 ;
-            custi<< j << " " ;
+            ofs<< j << " " ;
         }
         j = rand ( ) % 10000 ;
-        custi<< city [ j ] << " " << country [ j ]  << "\n" ;
+        ofs<< city [ j ] << " " << country [ j ]  << "\n" ;
     }
 }
 
 void EMPLOYEE_RAND ( ) {
+    ofs.open("EMPLOYEE", ios::out | ios::trunc);
     int i = 0 , j = 0 , n , c ;
     for ( i = 0 ; i < 300000 ; i ++ ) {
-        empli << i << " " ;
+        ofs << i << " " ;
         c = ( rand ( ) % 42 ) + 48 ;
         for ( j = 0 ; j < 14 ; j ++ ) {
             while ( c > 57 && c < 65 ) {
                 c = rand ( ) % 42 + 48 ;
             }
-            empli << ( char ) c  ;
+            ofs << ( char ) c  ;
             c = rand ( ) % 42 + 48 ;
         }
-        empli << " " ;
+        ofs << " " ;
         j = rand ( ) % 10000 ;
-        empli << name [ j ] << " " ;
+        ofs << name [ j ] << " " ;
         j = rand ( ) % 10000 ;
-        empli << name [ j ] << " " ;
+        ofs << name [ j ] << " " ;
         j = rand ( ) % 31 ;
         if ( j > 29 ) {
-            empli << j << " " ;
+            ofs << j << " " ;
             int m = rand ( ) % 12 ;
             if ( j == 29 && m == 2 ) {
-                empli  << m << " " ;
+                ofs  << m << " " ;
                 m = ( rand ( ) % 13 + 485 ) * 4 ;
-                empli << m << " " ;
+                ofs << m << " " ;
             }
             else{
                 if ( j == 29 && m != 2 ){
-                    empli << j << " " ;
+                    ofs << j << " " ;
                     j = rand ( ) % 62 + 1947 ;
-                    empli << j << " " ;
+                    ofs << j << " " ;
                 }
                 else
                 {
@@ -268,9 +270,9 @@ void EMPLOYEE_RAND ( ) {
                         while ( m == 2 ) {
                             m = rand ( ) % 12 ;
                         }
-                        empli << m << " " ;
+                        ofs << m << " " ;
                         j = rand ( ) % 62 + 1947 ;
-                        empli << j << " " ;
+                        ofs << j << " " ;
                     }
                     else
                     {
@@ -278,25 +280,25 @@ void EMPLOYEE_RAND ( ) {
                         {
                             m = rand ( ) % 12 ;
                         }
-                        empli << m << " " ;
+                        ofs << m << " " ;
                         j = rand ( ) % 62 + 1947 ;
-                        empli << j << " " ;
+                        ofs << j << " " ;
                     }
                 }
             }
         }
         else {
-            empli << j << " " ;
+            ofs << j << " " ;
             j = rand ( ) % 12 ;
-            empli << j << " " ;
+            ofs << j << " " ;
             j = rand ( ) % 62 + 1947 ;
-            empli << j << " " ;
+            ofs << j << " " ;
         }
         int l ;
         l = rand ( ) % 25 ;
-        empli << jobtypes [ l ] << " " ;
+        ofs << jobtypes [ l ] << " " ;
         j = rand ( ) % 5 ;
-        empli << j << " " ;
+        ofs << j << " " ;
         int h [ 25 ] = {0} , x ;
         for ( int m = 0 ; m < j ; m ++ )
         {
@@ -304,33 +306,33 @@ void EMPLOYEE_RAND ( ) {
             while ( h [ x ] != 0 ){
                 x = rand ( ) % 30 ;
             }
-            empli << languages [ x ] << " " ;
+            ofs << languages [ x ] << " " ;
             h [ x ] ++ ;
         }
-        empli << salaries [ l ] << " " ;
+        ofs << salaries [ l ] << " " ;
         c = ( rand ( ) % 42 ) + 48 ;
         for ( j = 0 ; j < 24 ; j ++ ) {
             while ( c > 57 && c < 65 ) {
                 c = rand ( ) % 42 + 48 ;
             }
-            empli << ( char ) c  ;
+            ofs << ( char ) c  ;
             c = rand ( ) % 42 + 48 ;
         }
-        empli << " " ;
+        ofs << " " ;
         j = rand ( ) % 31 ;
         if ( j > 29 ) {
-            empli << j << " " ;
+            ofs << j << " " ;
             int m = rand ( ) % 12 ;
             if ( j == 29 && m == 2 ) {
-                empli  << m << " " ;
+                ofs  << m << " " ;
                 m = ( rand ( ) % 13 + 498 ) * 4 ;
-                empli << m << " " ;
+                ofs << m << " " ;
             }
             else{
                 if ( j == 29 && m != 2 ){
-                    empli << j << " " ;
+                    ofs << j << " " ;
                     j = rand ( ) % 62 + 1980 ;
-                    empli << j << " " ;
+                    ofs << j << " " ;
                 }
                 else
                 {
@@ -338,9 +340,9 @@ void EMPLOYEE_RAND ( ) {
                         while ( m == 2 ) {
                             m = rand ( ) % 12 ;
                         }
-                        empli << m << " " ;
+                        ofs << m << " " ;
                         j = rand ( ) % 62 + 1980 ;
-                        empli << j << " " ;
+                        ofs << j << " " ;
                     }
                     else
                     {
@@ -348,57 +350,58 @@ void EMPLOYEE_RAND ( ) {
                         {
                             m = rand ( ) % 12 ;
                         }
-                        empli << m << " " ;
+                        ofs << m << " " ;
                         j = rand ( ) % 62 + 1980 ;
-                        empli << j << " " ;
+                        ofs << j << " " ;
                     }
                 }
             }
         }
         else {
-            empli << j << " " ;
+            ofs << j << " " ;
             j = rand ( ) % 12 ;
-            empli << j << " " ;
+            ofs << j << " " ;
             j = rand ( ) % 62 + 1980 ;
-            empli << j << " " ;
+            ofs << j << " " ;
         }
         j = rand ( ) % 20 ;
-        empli << j << " " ;
+        ofs << j << " " ;
         j = rand ( ) % 10000 ;
-        empli << city [ j ] << " " << country [ j ]  << "\n" ;
+        ofs << city [ j ] << " " << country [ j ]  << "\n" ;
     }
 }
 
 void PLANE_RAND ( ) {
+    ofs.open("CUSTOMER", ios::out | ios::trunc);
     int i = 0 , j = 0 , n , c ;
     for ( i = 0 ; i < 300000 ; i ++ ) {
-        plai << i << " N" ;
+        ofs << i << " N" ;
         c = ( rand ( ) % 42 ) + 48 ;
         for ( j = 0 ; j < 5 ; j ++ ) {
             while ( c > 57 && c < 65 ) {
                 c = rand ( ) % 42 + 48 ;
             }
-            plai << ( char ) c  ;
+            ofs << ( char ) c  ;
             c = rand ( ) % 42 + 48 ;
         }
-        plai << " " ;
+        ofs << " " ;
         j = rand ( ) % 6 ;
-        plai << planetypes [ j ] << " " ;
-        plai << planeseats [ j ] << " " ;
-        plai << planeweight [ j ] << " " ;
+        ofs << planetypes [ j ] << " " ;
+        ofs << planeseats [ j ] << " " ;
+        ofs << planeweight [ j ] << " " ;
         j = rand ( ) % 31 ;
         time_t theTime = time(NULL);
         struct tm *aTime = localtime(&theTime);
         int YYEAR = aTime->tm_year + 1900;
         if ( j > 29 ) {
-            plai << j << " " ;
+            ofs << j << " " ;
             int m = rand ( ) % 12 ;
             if ( j == 29 && m == 2 && ( YYEAR - 1 ) % 4 == 0) {
-                plai  << m << " " ;
+                ofs  << m << " " ;
             }
             else{
                 if ( j == 29 && m != 2 ){
-                    plai << j << " " ;
+                    ofs << j << " " ;
                 }
                 else
                 {
@@ -406,7 +409,7 @@ void PLANE_RAND ( ) {
                         while ( m == 2 ) {
                             m = rand ( ) % 12 ;
                         }
-                        plai << m << " " ;
+                        ofs << m << " " ;
                     }
                     else
                     {
@@ -414,19 +417,19 @@ void PLANE_RAND ( ) {
                         {
                             m = rand ( ) % 12 ;
                         }
-                        plai << m << " " ;
+                        ofs << m << " " ;
                     }
                 }
             }
         }
         else {
-            plai << j << " " ;
+            ofs << j << " " ;
             j = rand ( ) % 12 ;
-            plai << j << " " ;
+            ofs << j << " " ;
         }
-        plai << YYEAR - 1 << " " ;
+        ofs << YYEAR - 1 << " " ;
         j = rand ( ) % 10000 ;
-        empli << city [ j ] << " " << country [ j ]  << "\n" ;
+        ofs << city [ j ] << " " << country [ j ]  << "\n" ;
     }
 }
 
@@ -770,8 +773,7 @@ int main()
                         cout << " |                                     |\n" ;
                         cout << " |                                     |\n" ;
                         cout << " ---------------------------------------\n" ;
-                        while ( okp == 0)
-                        {
+                        while ( okp == 0) {
                             gotoxy ( 16 + n , 9  ) ;
                             op = getch ( ) ;
                             system ( "cls" );
@@ -842,8 +844,7 @@ int main()
                                     cout << " ---------------------------------------\n" ;
                                     break ;
                                 }
-                                case '\b' :
-                                {
+                                case '\b' : {
                                         int h = 0 ;
                                         if ( n > 0 ) n -- ;
                                         gotoxy ( 16 + n , 9 ) ;
@@ -4081,7 +4082,6 @@ int main()
                 op = 27 ;
                 break;
             }
-
             case '2' : {
                 system ( "cls" ) ;
                 cout << " ---------------------------------------\n" ;
