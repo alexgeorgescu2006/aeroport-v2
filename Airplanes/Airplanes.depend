@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1709743619 source:c:\users\dell\onedrive\desktop\mine\r,w&d stuff\c++ programming\airplanes\main.cpp
+	<iostream>
+	<fstream>
+	<stdlib.h>
+	<conio.h>
+	<cstdlib>
+	<time.h>
+	<chrono>
+	<windows.h>
+	<string>
+	<cctype>
+
