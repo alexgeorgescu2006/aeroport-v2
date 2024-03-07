@@ -3893,6 +3893,7 @@ int main()
                                     }
                                 }
                                 if ( okex == 0 ) {
+                                    CUSTOMER_READ ( custommaxx ) ;
                                     ofs.open("CUSTOMER", ios::out | ios::trunc);
                                     ofs << custommaxx + 1 << "\n" ;
                                     for ( int j = 0 ; j < custommaxx ; j ++ ) {
