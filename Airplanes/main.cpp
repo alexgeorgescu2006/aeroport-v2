@@ -3413,7 +3413,7 @@ int main()
                                                 break ;
                                             }
                                             default : {
-                                                if ( i <     8 ) {
+                                                if ( i < 8 ) {
                                                     if ( isdigit ( opp ) ) {
                                                             system ( "cls" ) ;
                                                             DATE [ i ] = opp ;
@@ -3978,6 +3978,210 @@ int main()
                                         cout << "    CURRENT CITY    :  " << CUSTOMER [ j ] .LOCATION.CITY << "\n" ;
                                         cout << "    CURRENT COUNTRY :  " << CUSTOMER [ j ] .LOCATION.COUNTRY << "\n\n\n\n" ;
                                         cout << "            " << j + 1 << "/" << custommaxx ;
+                                        break ;
+                                    }
+                                    case 's' : {
+                                        system( "cls" ) ;
+                                        cout << "    ID LOCAL        :  " << CUSTOMER [ j ] .IDL << "\n" ;
+                                        cout << "    ID GLOBAL       :  " << CUSTOMER [ j ] .IDG << "\n\n" ;
+                                        cout << "    FIRST NAME      :  " << CUSTOMER [ j ] .FIRST_NAME << "\n" ;
+                                        cout << "    LAST NAME       :  " << CUSTOMER [ j ] .LAST_NAME << "\n\n" ;
+                                        cout << "    DATE OF BIRTH   :  " << CUSTOMER [ j ] .DDATE_OF_BIRTH.DDAY << "/" << CUSTOMER [ j ]  .DDATE_OF_BIRTH.MMONTH << "/" << CUSTOMER [ j ]  .DDATE_OF_BIRTH.YYEAR << "\n\n" ;
+                                        cout << "    CURRENT CITY    :  " << CUSTOMER [ j ] .LOCATION.CITY << "\n" ;
+                                        cout << "    CURRENT COUNTRY :  " << CUSTOMER [ j ] .LOCATION.COUNTRY << "\n\n\n\n" ;
+                                        cout << "           _____/" << custommaxx ;
+                                        char charac [ 6 ] = { NULL } , lol ;
+                                        int okpppp = 1 , pos = 0 ;
+                                        while ( okpppp ) {
+                                            gotoxy ( 11 + pos , 13 ) ;
+                                            lol = getch ( ) ;
+                                            switch ( lol )
+                                            {
+                                                case 's' : {
+                                                    okpppp = 0 ;
+                                                    system( "cls" ) ;
+                                                    cout << "    ID LOCAL        :  " << CUSTOMER [ j ] .IDL << "\n" ;
+                                                    cout << "    ID GLOBAL       :  " << CUSTOMER [ j ] .IDG << "\n\n" ;
+                                                    cout << "    FIRST NAME      :  " << CUSTOMER [ j ] .FIRST_NAME << "\n" ;
+                                                    cout << "    LAST NAME       :  " << CUSTOMER [ j ] .LAST_NAME << "\n\n" ;
+                                                    cout << "    DATE OF BIRTH   :  " << CUSTOMER [ j ] .DDATE_OF_BIRTH.DDAY << "/" << CUSTOMER [ j ]  .DDATE_OF_BIRTH.MMONTH << "/" << CUSTOMER [ j ]  .DDATE_OF_BIRTH.YYEAR << "\n\n" ;
+                                                    cout << "    CURRENT CITY    :  " << CUSTOMER [ j ] .LOCATION.CITY << "\n" ;
+                                                    cout << "    CURRENT COUNTRY :  " << CUSTOMER [ j ] .LOCATION.COUNTRY << "\n\n\n\n" ;
+                                                    cout << "            " << j + 1 << "/" << custommaxx ;
+                                                    break ;
+                                                }
+                                                case 27 : {
+                                                    okpppp = 0 ;
+                                                    system( "cls" ) ;
+                                                    cout << "    ID LOCAL        :  " << CUSTOMER [ j ] .IDL << "\n" ;
+                                                    cout << "    ID GLOBAL       :  " << CUSTOMER [ j ] .IDG << "\n\n" ;
+                                                    cout << "    FIRST NAME      :  " << CUSTOMER [ j ] .FIRST_NAME << "\n" ;
+                                                    cout << "    LAST NAME       :  " << CUSTOMER [ j ] .LAST_NAME << "\n\n" ;
+                                                    cout << "    DATE OF BIRTH   :  " << CUSTOMER [ j ] .DDATE_OF_BIRTH.DDAY << "/" << CUSTOMER [ j ]  .DDATE_OF_BIRTH.MMONTH << "/" << CUSTOMER [ j ]  .DDATE_OF_BIRTH.YYEAR << "\n\n" ;
+                                                    cout << "    CURRENT CITY    :  " << CUSTOMER [ j ] .LOCATION.CITY << "\n" ;
+                                                    cout << "    CURRENT COUNTRY :  " << CUSTOMER [ j ] .LOCATION.COUNTRY << "\n\n\n\n" ;
+                                                    cout << "            " << j + 1 << "/" << custommaxx ;
+                                                    break ;
+                                                }
+                                                case '\b' : {
+                                                    if ( pos > 0 ) {
+                                                            pos -- ;
+                                                            int popo = 0 ;
+                                                            system( "cls" ) ;
+                                                            cout << "    ID LOCAL        :  " << CUSTOMER [ j ] .IDL << "\n" ;
+                                                            cout << "    ID GLOBAL       :  " << CUSTOMER [ j ] .IDG << "\n\n" ;
+                                                            cout << "    FIRST NAME      :  " << CUSTOMER [ j ] .FIRST_NAME << "\n" ;
+                                                            cout << "    LAST NAME       :  " << CUSTOMER [ j ] .LAST_NAME << "\n\n" ;
+                                                            cout << "    DATE OF BIRTH   :  " << CUSTOMER [ j ] .DDATE_OF_BIRTH.DDAY << "/" << CUSTOMER [ j ]  .DDATE_OF_BIRTH.MMONTH << "/" << CUSTOMER [ j ]  .DDATE_OF_BIRTH.YYEAR << "\n\n" ;
+                                                            cout << "    CURRENT CITY    :  " << CUSTOMER [ j ] .LOCATION.CITY << "\n" ;
+                                                            cout << "    CURRENT COUNTRY :  " << CUSTOMER [ j ] .LOCATION.COUNTRY << "\n\n\n\n           " ;
+                                                            for ( int opo = 0 ; opo < 5 ; opo ++ ) {
+                                                                if ( opo < pos ) {
+                                                                    cout << charac [ popo ] ;
+                                                                    popo ++ ;
+                                                                }
+                                                                else
+                                                                    cout << "_" ;
+                                                            }
+                                                            cout << "/" << custommaxx ;
+                                                        }
+                                                        else {
+                                                            system( "cls" ) ;
+                                                            cout << "    ID LOCAL        :  " << CUSTOMER [ j ] .IDL << "\n" ;
+                                                            cout << "    ID GLOBAL       :  " << CUSTOMER [ j ] .IDG << "\n\n" ;
+                                                            cout << "    FIRST NAME      :  " << CUSTOMER [ j ] .FIRST_NAME << "\n" ;
+                                                            cout << "    LAST NAME       :  " << CUSTOMER [ j ] .LAST_NAME << "\n\n" ;
+                                                            cout << "    DATE OF BIRTH   :  " << CUSTOMER [ j ] .DDATE_OF_BIRTH.DDAY << "/" << CUSTOMER [ j ]  .DDATE_OF_BIRTH.MMONTH << "/" << CUSTOMER [ j ]  .DDATE_OF_BIRTH.YYEAR << "\n\n" ;
+                                                            cout << "    CURRENT CITY    :  " << CUSTOMER [ j ] .LOCATION.CITY << "\n" ;
+                                                            cout << "    CURRENT COUNTRY :  " << CUSTOMER [ j ] .LOCATION.COUNTRY << "\n\n" ;
+                                                            cout << "    NUMBER TOO BIG \n\n           " ;
+                                                            int popo = 0 ;
+                                                            for ( int opo = 0 ; opo < 5 ; opo ++ ) {
+                                                                if ( opo < pos ) {
+                                                                    cout << charac [ popo ] ;
+                                                                    popo ++ ;
+                                                                }
+                                                                else
+                                                                    cout << "_" ;
+                                                            }
+                                                            cout << "/" << custommaxx ;
+                                                        }
+                                                    break ;
+                                                }
+                                                case 13 : {
+                                                    int numb = 0 , opo = 0 ;
+                                                    while ( opo < pos ) {
+                                                        numb = numb * 10 + ( charac [ opo ] - '0' ) ;
+                                                        opo ++ ;
+                                                    }
+                                                    if ( numb > custommaxx ) {
+                                                            system ( "cls" ) ;
+                                                            cout << "    ID LOCAL        :  " << CUSTOMER [ j ] .IDL << "\n" ;
+                                                            cout << "    ID GLOBAL       :  " << CUSTOMER [ j ] .IDG << "\n\n" ;
+                                                            cout << "    FIRST NAME      :  " << CUSTOMER [ j ] .FIRST_NAME << "\n" ;
+                                                            cout << "    LAST NAME       :  " << CUSTOMER [ j ] .LAST_NAME << "\n\n" ;
+                                                            cout << "    DATE OF BIRTH   :  " << CUSTOMER [ j ] .DDATE_OF_BIRTH.DDAY << "/" << CUSTOMER [ j ]  .DDATE_OF_BIRTH.MMONTH << "/" << CUSTOMER [ j ]  .DDATE_OF_BIRTH.YYEAR << "\n\n" ;
+                                                            cout << "    CURRENT CITY    :  " << CUSTOMER [ j ] .LOCATION.CITY << "\n" ;
+                                                            cout << "    CURRENT COUNTRY :  " << CUSTOMER [ j ] .LOCATION.COUNTRY << "\n\n" ;
+                                                            cout << "    NUMBER TOO BIG \n\n           " ;
+                                                            int popo = 0 ;
+                                                            for ( int opo = 0 ; opo < 5 ; opo ++ ) {
+                                                                if ( opo < pos ) {
+                                                                    cout << charac [ popo ] ;
+                                                                    popo ++ ;
+                                                                }
+                                                                else
+                                                                    cout << "_" ;
+                                                            }
+                                                            cout << "/" << custommaxx ;
+                                                    }
+                                                    else
+                                                    {
+                                                        j = numb - 1 ;
+                                                        okpppp = 0 ;
+                                                        system( "cls" ) ;
+                                                        cout << "    ID LOCAL        :  " << CUSTOMER [ j ] .IDL << "\n" ;
+                                                        cout << "    ID GLOBAL       :  " << CUSTOMER [ j ] .IDG << "\n\n" ;
+                                                        cout << "    FIRST NAME      :  " << CUSTOMER [ j ] .FIRST_NAME << "\n" ;
+                                                        cout << "    LAST NAME       :  " << CUSTOMER [ j ] .LAST_NAME << "\n\n" ;
+                                                        cout << "    DATE OF BIRTH   :  " << CUSTOMER [ j ] .DDATE_OF_BIRTH.DDAY << "/" << CUSTOMER [ j ]  .DDATE_OF_BIRTH.MMONTH << "/" << CUSTOMER [ j ]  .DDATE_OF_BIRTH.YYEAR << "\n\n" ;
+                                                        cout << "    CURRENT CITY    :  " << CUSTOMER [ j ] .LOCATION.CITY << "\n" ;
+                                                        cout << "    CURRENT COUNTRY :  " << CUSTOMER [ j ] .LOCATION.COUNTRY << "\n\n\n\n" ;
+                                                        cout << "            " << j + 1 << "/" << custommaxx ;
+                                                    }
+                                                    break ;
+                                                }
+                                                default : {
+                                                    if ( isdigit ( lol ) ) {
+                                                        if ( pos < 5 ) {
+                                                            charac [ pos ] = lol ;
+                                                            pos ++ ;
+                                                            int popo = 0 ;
+                                                            system( "cls" ) ;
+                                                            cout << "    ID LOCAL        :  " << CUSTOMER [ j ] .IDL << "\n" ;
+                                                            cout << "    ID GLOBAL       :  " << CUSTOMER [ j ] .IDG << "\n\n" ;
+                                                            cout << "    FIRST NAME      :  " << CUSTOMER [ j ] .FIRST_NAME << "\n" ;
+                                                            cout << "    LAST NAME       :  " << CUSTOMER [ j ] .LAST_NAME << "\n\n" ;
+                                                            cout << "    DATE OF BIRTH   :  " << CUSTOMER [ j ] .DDATE_OF_BIRTH.DDAY << "/" << CUSTOMER [ j ]  .DDATE_OF_BIRTH.MMONTH << "/" << CUSTOMER [ j ]  .DDATE_OF_BIRTH.YYEAR << "\n\n" ;
+                                                            cout << "    CURRENT CITY    :  " << CUSTOMER [ j ] .LOCATION.CITY << "\n" ;
+                                                            cout << "    CURRENT COUNTRY :  " << CUSTOMER [ j ] .LOCATION.COUNTRY << "\n\n\n\n           " ;
+                                                            for ( int opo = 0 ; opo < 5 ; opo ++ ) {
+                                                                if ( opo < pos ) {
+                                                                    cout << charac [ popo ] ;
+                                                                    popo ++ ;
+                                                                }
+                                                                else
+                                                                    cout << "_" ;
+                                                            }
+                                                            cout << "/" << custommaxx ;
+                                                        }
+                                                        else {
+                                                            system( "cls" ) ;
+                                                            cout << "    ID LOCAL        :  " << CUSTOMER [ j ] .IDL << "\n" ;
+                                                            cout << "    ID GLOBAL       :  " << CUSTOMER [ j ] .IDG << "\n\n" ;
+                                                            cout << "    FIRST NAME      :  " << CUSTOMER [ j ] .FIRST_NAME << "\n" ;
+                                                            cout << "    LAST NAME       :  " << CUSTOMER [ j ] .LAST_NAME << "\n\n" ;
+                                                            cout << "    DATE OF BIRTH   :  " << CUSTOMER [ j ] .DDATE_OF_BIRTH.DDAY << "/" << CUSTOMER [ j ]  .DDATE_OF_BIRTH.MMONTH << "/" << CUSTOMER [ j ]  .DDATE_OF_BIRTH.YYEAR << "\n\n" ;
+                                                            cout << "    CURRENT CITY    :  " << CUSTOMER [ j ] .LOCATION.CITY << "\n" ;
+                                                            cout << "    CURRENT COUNTRY :  " << CUSTOMER [ j ] .LOCATION.COUNTRY << "\n\n" ;
+                                                            cout << "    NUMBER TOO BIG \n\n           " ;
+                                                            int popo = 0 ;
+                                                            for ( int opo = 0 ; opo < 5 ; opo ++ ) {
+                                                                if ( opo < pos ) {
+                                                                    cout << charac [ popo ] ;
+                                                                    popo ++ ;
+                                                                }
+                                                                else
+                                                                    cout << "_" ;
+                                                            }
+                                                            cout << "/" << custommaxx ;
+                                                        }
+                                                    }
+                                                    else {
+                                                        system( "cls" ) ;
+                                                        cout << "    ID LOCAL        :  " << CUSTOMER [ j ] .IDL << "\n" ;
+                                                        cout << "    ID GLOBAL       :  " << CUSTOMER [ j ] .IDG << "\n\n" ;
+                                                        cout << "    FIRST NAME      :  " << CUSTOMER [ j ] .FIRST_NAME << "\n" ;
+                                                        cout << "    LAST NAME       :  " << CUSTOMER [ j ] .LAST_NAME << "\n\n" ;
+                                                        cout << "    DATE OF BIRTH   :  " << CUSTOMER [ j ] .DDATE_OF_BIRTH.DDAY << "/" << CUSTOMER [ j ]  .DDATE_OF_BIRTH.MMONTH << "/" << CUSTOMER [ j ]  .DDATE_OF_BIRTH.YYEAR << "\n\n" ;
+                                                        cout << "    CURRENT CITY    :  " << CUSTOMER [ j ] .LOCATION.CITY << "\n" ;
+                                                        cout << "    CURRENT COUNTRY :  " << CUSTOMER [ j ] .LOCATION.COUNTRY << "\n\n" ;
+                                                        cout << "    WRITE A NUMBER TO SEARCH \n\n           " ;
+                                                        int popo = 0 ;
+                                                            for ( int opo = 0 ; opo < 5 ; opo ++ ) {
+                                                                if ( opo < pos ) {
+                                                                    cout << charac [ popo ] ;
+                                                                    popo ++ ;
+                                                                }
+                                                                else
+                                                                    cout << "_" ;
+                                                            }
+                                                        cout << "/" << custommaxx ;
+                                                    }
+                                                    break;
+                                                }
+                                            }
+                                        }
                                         break ;
                                     }
                                     case 27 : {
