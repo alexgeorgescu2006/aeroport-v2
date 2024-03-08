@@ -11,7 +11,6 @@
 
 using namespace std;
 
-fstream custi ( "CUSTOMER" , ios::in | ios::out ) ;
 fstream empli ( "EMPLOYEE" , ios::in | ios::out ) ;
 fstream plai ( "PLANE" , ios::in | ios::out ) ;
 fstream logi ( "LOGIN" , ios::in | ios::out ) ;
@@ -62,7 +61,7 @@ struct LOCATIONS {
 
 struct {
     char IDL [ 10 ] ;
-    char IDG [ 14 ] ;
+    char IDG [ 15 ] ;
     char FIRST_NAME [ 40 ] ;
     char LAST_NAME [ 20 ] ;
     DDATE DDATE_OF_BIRTH;
@@ -97,6 +96,7 @@ struct PLANE {
 } PLANE [ 300000 ] ;
 
 void CUSTOMER_READ ( int &n ) {
+    fstream custi ( "CUSTOMER" , ios::in | ios::out ) ;
     int i = 0 ;
     custi >> n ;
     for ( i = 0 ; i < n ; i ++ ) {
@@ -109,8 +109,10 @@ void CUSTOMER_READ ( int &n ) {
         custi >> CUSTOMER [ i ] .DDATE_OF_BIRTH.YYEAR ;
         custi >> CUSTOMER [ i ] .LOCATION.CITY ;
         custi >> CUSTOMER [ i ] .LOCATION.COUNTRY ;
-        custi.get ( ) ;
+        system( "cls" ) ;
+        getch ( ) ;
     }
+    custi.close ( ) ;
 }
 
 void EMPLOYEE_READ ( int &n ) {
@@ -1879,7 +1881,7 @@ int main()
                                         cout << " |                                     |\n" ;
                                         cout << " |                                     |\n" ;
                                         cout << " ---------------------------------------\n" ;
-                                        while ( okp == 0)
+                                        while ( okp == 0 && ok != 2 )
                                         {
                                             gotoxy ( 16 + n , 9  ) ;
                                             op = getch ( ) ;
@@ -3939,6 +3941,7 @@ int main()
                                 break ;
                         }
                         case '4' : {
+                            CUSTOMER_READ ( custommaxx );
                             char oppp ;
                             int j = 0 ;
                             int okex = 1 ;
