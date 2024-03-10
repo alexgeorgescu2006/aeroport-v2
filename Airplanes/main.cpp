@@ -110,7 +110,6 @@ void CUSTOMER_READ ( int &n ) {
         custi >> CUSTOMER [ i ] .LOCATION.CITY ;
         custi >> CUSTOMER [ i ] .LOCATION.COUNTRY ;
         system( "cls" ) ;
-        getch ( ) ;
     }
     custi.close ( ) ;
 }
