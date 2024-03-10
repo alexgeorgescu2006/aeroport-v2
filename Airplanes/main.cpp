@@ -11,7 +11,6 @@
 
 using namespace std;
 
-fstream empli ( "EMPLOYEE" , ios::in | ios::out ) ;
 fstream logi ( "LOGIN" , ios::in | ios::out ) ;
 fstream passi ( "PASSWORDS" , ios::in | ios::out ) ;
 ifstream citi ( "CITY" ) ;
@@ -113,6 +112,7 @@ void CUSTOMER_READ ( int &n ) {
 }
 
 void EMPLOYEE_READ ( int &n ) {
+    ifstream empli ( "EMPLOYEE" ) ;
     int i = 0 ;
     empli >> n ;
     for ( i = 0 ; i < n ; i ++ ) {
@@ -125,7 +125,7 @@ void EMPLOYEE_READ ( int &n ) {
         empli >> EMPLOYEE [ i ] .DDATE_OF_BIRTH.YYEAR ;
         empli >> EMPLOYEE [ i ] .TYPE_OF_JOB ;
         empli >> EMPLOYEE [ i ] .NUMBER_OF_LANGUAGES_SPOKEN ;
-        for ( int j ; j < EMPLOYEE [ i ] .NUMBER_OF_LANGUAGES_SPOKEN ; j ++ )
+        for ( int j = 0 ; j < EMPLOYEE [ i ] .NUMBER_OF_LANGUAGES_SPOKEN ; j ++ )
             empli >> EMPLOYEE [ i ] .LANGUAGES_SPOKEN [ j ] ;
         empli >> EMPLOYEE [ i ] .SALARY_MMONTHLY ;
         empli >> EMPLOYEE [ i ] .BANK_ACC ;
@@ -136,6 +136,7 @@ void EMPLOYEE_READ ( int &n ) {
         empli >> EMPLOYEE [ i ] .LOCATION.CITY ;
         empli >> EMPLOYEE [ i ] .LOCATION.COUNTRY ;
     }
+    empli.close () ;
 }
 
 void PLANE_READ ( int &n ) {
@@ -162,7 +163,7 @@ void PLANE_READ ( int &n ) {
 
 void data_read ( int &n , int &m , int &p ) {
     CUSTOMER_READ ( n ) ;
-    //EMPLOYEE_READ ( m ) ;
+    EMPLOYEE_READ ( m ) ;
     PLANE_READ ( p ) ;
 }
 
@@ -1603,16 +1604,17 @@ int main()
             }
     }
 
-    char IDL [ 10 ] ;
-    char IDG [ 14 ] ;
-    char FNAME [ 40 ] ;
-    char LNAME [ 20 ] ;
-    char DATE [ 9 ] ;
-    char CIT [ 25 ] , COUNT [ 25 ] ;
-    char CUSTOMERNAME [ 20 ] , CUSTOMERIDG [ 20 ] ;
-    char PLANETYPE  [ 30 ] , PLANEIDG [ 7 ] ;
-    char HGT [ 5 ]  , LNT [ 5 ] , WDT [ 5 ] ;
-    char MS [ 5 ] , MW [ 5 ] ;
+    char IDL [ 10 ] = { NULL };
+    char IDG [ 14 ]= { NULL } ;
+    char FNAME [ 40 ] = { NULL };
+    char LNAME [ 20 ] = { NULL };
+    char DATE [ 9 ] = { NULL };
+    char CIT [ 25 ] = { NULL }, COUNT [ 25 ] = { NULL };
+    char CUSTOMERNAME [ 20 ] = { NULL } , CUSTOMERIDG [ 20 ] = { NULL };
+    char EMPLOYEENAME [ 20 ] = { NULL } , EMPLYEEIDG [ 20 ]= { NULL } ;
+    char PLANETYPE  [ 30 ] = { NULL }, PLANEIDG [ 7 ] = { NULL };
+    char HGT [ 5 ]  = { NULL }, LNT [ 5 ]= { NULL } , WDT [ 5 ]= { NULL } ;
+    char MS [ 5 ] = { NULL }, MW [ 5 ]= { NULL } ;
     system ( "cls" ) ;
     cout << " ---------------------------------------\n" ;
     cout << " |                                     |\n" ;
@@ -7844,22 +7846,1547 @@ int main()
                     opp = getch ( ) ;
                     switch ( opp ) {
                         case '1' : {
+                            for ( int aaaa = 0 ; aaaa < 20 ; aaaa ++ ) {
+                                NAMES [ aaaa ] = PASS [ aaaa ] = NULL ;
+                            }
+                            ok = 1 ;
+                            while ( ok == 1 )
+                            {
+                                system ( "cls" ) ;
+                                cout << " ---------------------------------------\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |           EMPLOYEE  SEARCH          |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |   NAME     : ________________       |\n" ;
+                                cout << " |   IDG      : ________________       |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " ---------------------------------------\n" ;
+                                i = n = 0 ;
+                                okp = 1 ;
+                                while ( okp == 1 && ok != 2 ) {
+                                    gotoxy ( 16 + i , 8 ) ;
+                                    op = getch ( ) ;
+                                    system ( "cls" );
+                                    switch ( op ) {
+                                        case 27 : {
+                                            ok = 2 ;
+                                            system ( "cls" ) ;
+                                            cout << " ---------------------------------------\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " | SEARCH FOR EMPLOYEE   ADD EMPLOYEE  |\n" ;
+                                            cout << " |        (1)               (2)        |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |  REMOVE EMPLOYEE  SEE ALL EMPLOYEES |\n" ;
+                                            cout << " |        (3)              (4)         |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " ---------------------------------------\n" ;
+                                            break ;
+                                        }
+                                        case ' ' : {
+                                            int h = 0 ;
+                                            system ( "cls" ) ;
+                                            gotoxy ( 0 , 0 ) ;
+                                            cout << " ---------------------------------------\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |           EMPLOYEE  SEARCH          |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |   NAME     : " ;
+                                            for ( int j = 0 ; j < 16 ; j ++ )
+                                            {
+                                                if ( j < i )
+                                                    {
+                                                       // cout << j << " " << i << " " ;
+                                                        cout << EMPLOYEENAME [ h ] ;
+                                                        h++ ;
+                                                    }
+                                                else
+                                                    cout << "_" ;
+                                            }
+                                            cout << "       |\n" ;
+                                            cout << " |   IDG      : ________________       |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " ---------------------------------------\n" ;
+                                            break ;
+                                        }
+                                        case '\b' :
+                                        {
+                                                int h = 0 ;
+                                                if ( i > 0 ) i -- ;
+                                                gotoxy ( 16 + i , 9 ) ;
+                                                system ( "cls" );
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |           EMPLOYEE  SEARCH          |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |   NAME     : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ )
+                                                {
+                                                   if ( j < i )
+                                                        {
+                                                            cout << EMPLOYEENAME[ h ] ;
+                                                            h++ ;
+                                                        }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |   IDG      : ________________       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                        }
+                                        case 13 :
+                                        {
+                                            if ( i > 0 ) {
+                                                okp = 0 ;
+                                            }
+                                            else
+                                            {
+                                                int h = 0 ;
+                                                system ( "cls" ) ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |           EMPLOYEE  SEARCH          |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;;
+                                                cout << " |   NAME     : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ )
+                                                {
+                                                    if ( j >= i )
+                                                        cout << "_" ;
+                                                    else
+                                                        {
+                                                            cout << EMPLOYEENAME[ h ] ;
+                                                            h++ ;
+                                                        }
 
-                        }
-                        case '2' : {
-
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |   IDG      : ________________       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |      NAME NEEDS TO BE AT LEAST      |\n" ;
+                                                cout << " |          ONE CHARACTER LONG         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                getch ( ) ;
+                                                break;
+                                            }
+                                        }
+                                        default : {
+                                            if ( op != 13 && op != ' ' ) {
+                                                int h = 0 ;
+                                                gotoxy ( 16 + i , 9 ) ;
+                                                EMPLOYEENAME[ i ] = op ;
+                                                i ++ ;
+                                                system ( "cls" );
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |           EMPLOYEE  SEARCH          |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |   NAME     : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ )
+                                                {
+                                                   if ( j < i )
+                                                        {
+                                                            cout << EMPLOYEENAME[ h ] ;
+                                                            h++ ;
+                                                        }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |   IDG      : ________________       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                            }
+                                        }
+                                    }
+                                }
+                                    if ( ok != 2 ) {
+                                        int h = 0 ;
+                                        system ( "cls" );
+                                        cout << " ---------------------------------------\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |           EMPLOYEE  SEARCH          |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |   NAME     : " ;
+                                        for ( int j = 0 ; j < 16 ; j ++ )
+                                        {
+                                           if ( j < i )
+                                                {
+                                                    cout << EMPLOYEENAME[ h ] ;
+                                                    h++ ;
+                                                }
+                                            else
+                                                cout << "_" ;
+                                        }
+                                        cout << "       |\n" ;
+                                        cout << " |   IDG      : ________________       |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " ---------------------------------------\n" ;
+                                        while ( okp == 0 && ok != 2 )
+                                        {
+                                            gotoxy ( 16 + n , 9  ) ;
+                                            op = getch ( ) ;
+                                            system ( "cls" );
+                                            switch ( op ) {
+                                                case 27 : {
+                                                    ok = 2 ;
+                                                    system ( "cls" ) ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " | SEARCH FOR EMPLOYEE   ADD EMPLOYEE  |\n" ;
+                                                    cout << " |        (1)               (2)        |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |  REMOVE EMPLOYEE  SEE ALL EMPLOYEES |\n" ;
+                                                    cout << " |        (3)              (4)         |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    break ;
+                                                }
+                                                case ' ' : {
+                                                    int h = 0 ;
+                                                    system ( "cls" ) ;
+                                                    gotoxy ( 0 , 0 ) ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |           EMPLOYEE  SEARCH          |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |   NAME     : " ;
+                                                    for ( int j = 0 ; j < 16 ; j ++ )
+                                                    {
+                                                        if ( j < i )
+                                                            {
+                                                                cout << EMPLOYEENAME[ h ] ;
+                                                                h++ ;
+                                                            }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    h = 0 ;
+                                                    cout << "       |\n" ;
+                                                    cout << " |   IDG      : " ;
+                                                     for ( int j = 0 ; j < 16 ; j ++ )
+                                                    {
+                                                        if ( j < n )
+                                                            {
+                                                                cout << EMPLYEEIDG [ h ] ;
+                                                                h++ ;
+                                                            }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    cout << "       |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    break ;
+                                                }
+                                                case '\b' :
+                                                {
+                                                        int h = 0 ;
+                                                        if ( n > 0 ) n -- ;
+                                                        gotoxy ( 16 + n , 9 ) ;
+                                                        system ( "cls" );
+                                                        cout << " ---------------------------------------\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |           EMPLOYEE  SEARCH          |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |   NAME     : " ;
+                                                        for ( int j = 0 ; j < 16 ; j ++ )
+                                                        {
+                                                            if ( j < i )
+                                                                {
+                                                                    cout << EMPLOYEENAME[ h ] ;
+                                                                    h++ ;
+                                                                }
+                                                            else
+                                                                cout << "_" ;
+                                                        }
+                                                        h = 0 ;
+                                                        cout << "       |\n" ;
+                                                        cout << " |   IDG      : " ;
+                                                         for ( int j = 0 ; j < 16 ; j ++ )
+                                                        {
+                                                            if ( j < n )
+                                                                {
+                                                                    cout << EMPLYEEIDG [ h ] ;
+                                                                    h++ ;
+                                                                }
+                                                            else
+                                                                cout << "_" ;
+                                                        }
+                                                        cout << "       |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " ---------------------------------------\n" ;
+                                                        break ;
+                                                }
+                                                case 13 : {
+                                                    if ( n > 0 ) {
+                                                        okp = 2 ;
+                                                    }
+                                                    else
+                                                    {
+                                                        int h = 0 ;
+                                                        system ( "cls" ) ;
+                                                        cout << " ---------------------------------------\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                       cout << " |           EMPLOYEE  SEARCH          |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |   NAME     : " ;
+                                                        for ( int j = 0 ; j < 16 ; j ++ )
+                                                        {
+                                                            if ( j < i )
+                                                                {
+                                                                    cout << EMPLOYEENAME[ h ] ;
+                                                                    h++ ;
+                                                                }
+                                                            else
+                                                                cout << "_" ;
+                                                        }
+                                                        h = 0 ;
+                                                        cout << "       |\n" ;
+                                                        cout << " |   IDG      : " ;
+                                                         for ( int j = 0 ; j < 16 ; j ++ )
+                                                        {
+                                                            if ( j < n )
+                                                                {
+                                                                    cout << EMPLYEEIDG [ h ] ;
+                                                                    h++ ;
+                                                                }
+                                                            else
+                                                                cout << "_" ;
+                                                        }
+                                                        cout << "       |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |    PASSWORD NEEDS TO BE AT LEAST    |\n" ;
+                                                        cout << " |          ONE CHARACTER LONG         |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " ---------------------------------------\n" ;
+                                                    }
+                                                }
+                                                default : {
+                                                    if ( op != 13 ) {
+                                                        int h = 0 ;
+                                                        EMPLYEEIDG [ n ] = op ;
+                                                        n ++ ;
+                                                        system ( "cls" );
+                                                        cout << " ---------------------------------------\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |           EMPLOYEE  SEARCH          |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |   NAME     : " ;
+                                                        for ( int j = 0 ; j < 16 ; j ++ )
+                                                        {
+                                                            if ( j < i )
+                                                                {
+                                                                    cout << EMPLOYEENAME[ h ] ;
+                                                                    h++ ;
+                                                                }
+                                                            else
+                                                                cout << "_" ;
+                                                        }
+                                                        cout << "       |\n" ;
+                                                        cout << " |   IDG      : " ;
+                                                        h = 0 ;
+                                                        for ( int j = 0 ; j < 16 ; j ++ )
+                                                        {
+                                                            if ( j < n )
+                                                                {
+                                                                    cout << EMPLYEEIDG [ h ] ;
+                                                                    h++ ;
+                                                                }
+                                                            else
+                                                                cout << "_" ;
+                                                        }
+                                                        cout << "       |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " ---------------------------------------\n" ;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        int search1 , search2 ;
+                                        int maxx , ok2 ;
+                                        if ( i > n ) {
+                                            maxx = i ;
+                                        }
+                                        else
+                                            maxx = n ;
+                                        for ( search1 = 0 ; search1 < employeemaxx ; search1 ++ ) {
+                                            ok2 = 1 ;
+                                            search2 = 0 ;
+                                            while ( search2 < maxx ) {
+                                                if ( search2 < i && EMPLOYEE[ search1 ] .LAST_NAME[ search2 ]  != EMPLOYEENAME[ search2 ] ) {
+                                                    search2 = maxx ;
+                                                    ok2 = 0 ;
+                                                }
+                                                if ( search2 < n && EMPLOYEE[ search1 ] .IDG [ search2 ] != EMPLYEEIDG [ search2 ] )
+                                                {
+                                                    search2 = maxx ;
+                                                    ok2 = 0 ;
+                                                }
+                                                search2 ++ ;
+                                            }
+                                            if ( ok2 == 1 ) {
+                                                ok = 0 ;
+                                                system ( "cls" ) ;
+                                                cout << "    ID LOCAL        :  " << EMPLOYEE [ search1 ] .IDL << "\n" ;
+                                                cout << "    ID GLOBAL       :  " << EMPLOYEE [ search1 ] .IDG << "\n\n" ;
+                                                cout << "    FIRST NAME      :  " << EMPLOYEE [ search1 ] .FIRST_NAME << "\n" ;
+                                                cout << "    LAST NAME       :  " << EMPLOYEE [ search1 ] .LAST_NAME << "\n\n" ;
+                                                cout << "    DATE OF BIRTH   :  " << EMPLOYEE [ search1 ] .DDATE_OF_BIRTH.DDAY << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_BIRTH.MMONTH << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_BIRTH.YYEAR << "\n\n" ;
+                                                cout << "    TYPE OF JOB     :  " << EMPLOYEE [ search1 ] .TYPE_OF_JOB << "\n" ;
+                                                cout << "    NUMBER OF LANGUAGES SPOKEN :  " << EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN << "\n" ;
+                                                cout << "    LANGUAGES SPOKEN:  " ;
+                                                for ( int jj = 0 ; jj < EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN - 1 ; jj ++ ) {
+                                                    cout << EMPLOYEE [ search1 ] .LANGUAGES_SPOKEN [ jj ] << "  ,  ";
+                                                }
+                                                cout << EMPLOYEE [ search1 ] .LANGUAGES_SPOKEN [ EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN - 1 ] << "\n";
+                                                cout << "    SALARY MONTHLY  :  " << EMPLOYEE [ search1 ] .SALARY_MMONTHLY << "\n" ;
+                                                cout << "    BANK ACCOUNT    :  " << EMPLOYEE [ search1 ] .BANK_ACC << "\n" ;
+                                                cout << "    WORK START DATE :  " << EMPLOYEE [ search1 ] .DDATE_OF_START.DDAY << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_START.MMONTH << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_START.YYEAR << "\n\n" ;
+                                                cout << "    VACATION DAYS   :  " << EMPLOYEE [ search1 ] .VACATION_DDAYS << "\n" ;
+                                                cout << "    CURRENT CITY    :  " << EMPLOYEE [ search1 ] .LOCATION.CITY << "\n" ;
+                                                cout << "    CURRENT COUNTRY :  " << EMPLOYEE [ search1 ] .LOCATION.COUNTRY << "\n" ;
+                                                search1 = employeemaxx ;
+                                            }
+                                        }
+                                        if ( ok == 1 ) {
+                                            system ( "cls" ) ;
+                                            cout << " ---------------------------------------\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |           EMPLOYEE  SEARCH          |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |        COULDN'T FIND EMPLOYEE       |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " ---------------------------------------\n" ;
+                                            getch ( ) ;
+                                        }
+                                    }
+                            }
+                            break;
+                            ok = 'p';
                         }
                         case '3' : {
+                            for ( int aaaa = 0 ; aaaa < 20 ; aaaa ++ ) {
+                                NAMES [ aaaa ] = PASS [ aaaa ] = NULL ;
+                            }
+                            ok = 1 ;
+                            while ( ok == 1 )
+                            {
+                                system ( "cls" ) ;
+                                cout << " ---------------------------------------\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |           EMPLOYEE  REMOVAL         |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |   NAME     : ________________       |\n" ;
+                                cout << " |   IDG      : ________________       |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " ---------------------------------------\n" ;
+                                i = n = 0 ;
+                                okp = 1 ;
+                                while ( okp == 1 && ok != 2 ) {
+                                    gotoxy ( 16 + i , 8 ) ;
+                                    op = getch ( ) ;
+                                    system ( "cls" );
+                                    switch ( op ) {
+                                        case 27 : {
+                                            ok = 2 ;
+                                            system ( "cls" ) ;
+                                            cout << " ---------------------------------------\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " | SEARCH FOR EMPLOYEE   ADD EMPLOYEE  |\n" ;
+                                            cout << " |        (1)               (2)        |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |  REMOVE EMPLOYEE  SEE ALL EMPLOYEES |\n" ;
+                                            cout << " |        (3)              (4)         |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " ---------------------------------------\n" ;
+                                            break ;
+                                        }
+                                        case ' ' : {
+                                            int h = 0 ;
+                                            system ( "cls" ) ;
+                                            gotoxy ( 0 , 0 ) ;
+                                            cout << " ---------------------------------------\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |           EMPLOYEE  REMOVAL         |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |   NAME     : " ;
+                                            for ( int j = 0 ; j < 16 ; j ++ )
+                                            {
+                                                if ( j < i )
+                                                    {
+                                                       // cout << j << " " << i << " " ;
+                                                        cout << EMPLOYEENAME [ h ] ;
+                                                        h++ ;
+                                                    }
+                                                else
+                                                    cout << "_" ;
+                                            }
+                                            cout << "       |\n" ;
+                                            cout << " |   IDG      : ________________       |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " ---------------------------------------\n" ;
+                                            break ;
+                                        }
+                                        case '\b' :
+                                        {
+                                                int h = 0 ;
+                                                if ( i > 0 ) i -- ;
+                                                gotoxy ( 16 + i , 9 ) ;
+                                                system ( "cls" );
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |           EMPLOYEE  REMOVAL         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |   NAME     : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ )
+                                                {
+                                                   if ( j < i )
+                                                        {
+                                                            cout << EMPLOYEENAME[ h ] ;
+                                                            h++ ;
+                                                        }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |   IDG      : ________________       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                        }
+                                        case 13 :
+                                        {
+                                            if ( i > 0 ) {
+                                                okp = 0 ;
+                                            }
+                                            else
+                                            {
+                                                int h = 0 ;
+                                                system ( "cls" ) ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |           EMPLOYEE  REMOVAL         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |   NAME     : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ )
+                                                {
+                                                    if ( j >= i )
+                                                        cout << "_" ;
+                                                    else
+                                                        {
+                                                            cout << EMPLOYEENAME[ h ] ;
+                                                            h++ ;
+                                                        }
 
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |   IDG      : ________________       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |      NAME NEEDS TO BE AT LEAST      |\n" ;
+                                                cout << " |          ONE CHARACTER LONG         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                getch ( ) ;
+                                                break;
+                                            }
+                                        }
+                                        default : {
+                                            if ( op != 13 && op != ' ' ) {
+                                                int h = 0 ;
+                                                gotoxy ( 16 + i , 9 ) ;
+                                                EMPLOYEENAME[ i ] = op ;
+                                                i ++ ;
+                                                system ( "cls" );
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |           EMPLOYEE  REMOVAL         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |   NAME     : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ )
+                                                {
+                                                   if ( j < i )
+                                                        {
+                                                            cout << EMPLOYEENAME[ h ] ;
+                                                            h++ ;
+                                                        }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |   IDG      : ________________       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                            }
+                                        }
+                                    }
+                                }
+                                    if ( ok != 2 ) {
+                                        int h = 0 ;
+                                        system ( "cls" );
+                                        cout << " ---------------------------------------\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |           EMPLOYEE  REMOVAL         |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |   NAME     : " ;
+                                        for ( int j = 0 ; j < 16 ; j ++ )
+                                        {
+                                           if ( j < i )
+                                                {
+                                                    cout << EMPLOYEENAME[ h ] ;
+                                                    h++ ;
+                                                }
+                                            else
+                                                cout << "_" ;
+                                        }
+                                        cout << "       |\n" ;
+                                        cout << " |   IDG      : ________________       |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " ---------------------------------------\n" ;
+                                        while ( okp == 0)
+                                        {
+                                            gotoxy ( 16 + n , 9  ) ;
+                                            op = getch ( ) ;
+                                            system ( "cls" );
+                                            switch ( op ) {
+                                                case 27 : {
+                                                    ok = 2 ;
+                                                    system ( "cls" ) ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " | SEARCH FOR EMPLOYEE   ADD EMPLOYEE  |\n" ;
+                                                    cout << " |        (1)               (2)        |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |  REMOVE EMPLOYEE  SEE ALL EMPLOYEES |\n" ;
+                                                    cout << " |        (3)              (4)         |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    break ;
+                                                }
+                                                case ' ' : {
+                                                    int h = 0 ;
+                                                    system ( "cls" ) ;
+                                                    gotoxy ( 0 , 0 ) ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |           EMPLOYEE  REMOVAL         |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |   NAME     : " ;
+                                                    for ( int j = 0 ; j < 16 ; j ++ )
+                                                    {
+                                                        if ( j < i )
+                                                            {
+                                                                cout << EMPLOYEENAME[ h ] ;
+                                                                h++ ;
+                                                            }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    h = 0 ;
+                                                    cout << "       |\n" ;
+                                                    cout << " |   IDG      : " ;
+                                                     for ( int j = 0 ; j < 16 ; j ++ )
+                                                    {
+                                                        if ( j < n )
+                                                            {
+                                                                cout << EMPLYEEIDG [ h ] ;
+                                                                h++ ;
+                                                            }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    cout << "       |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    break ;
+                                                }
+                                                case '\b' :
+                                                {
+                                                        int h = 0 ;
+                                                        if ( n > 0 ) n -- ;
+                                                        gotoxy ( 16 + n , 9 ) ;
+                                                        system ( "cls" );
+                                                        cout << " ---------------------------------------\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |           EMPLOYEE  REMOVAL         |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |   NAME     : " ;
+                                                        for ( int j = 0 ; j < 16 ; j ++ )
+                                                        {
+                                                            if ( j < i )
+                                                                {
+                                                                    cout << EMPLOYEENAME[ h ] ;
+                                                                    h++ ;
+                                                                }
+                                                            else
+                                                                cout << "_" ;
+                                                        }
+                                                        h = 0 ;
+                                                        cout << "       |\n" ;
+                                                        cout << " |   IDG      : " ;
+                                                         for ( int j = 0 ; j < 16 ; j ++ )
+                                                        {
+                                                            if ( j < n )
+                                                                {
+                                                                    cout << EMPLYEEIDG [ h ] ;
+                                                                    h++ ;
+                                                                }
+                                                            else
+                                                                cout << "_" ;
+                                                        }
+                                                        cout << "       |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " ---------------------------------------\n" ;
+                                                        break ;
+                                                }
+                                                case 13 : {
+                                                    if ( n > 0 ) {
+                                                        okp = 2 ;
+                                                    }
+                                                    else
+                                                    {
+                                                        int h = 0 ;
+                                                        system ( "cls" ) ;
+                                                        cout << " ---------------------------------------\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |           EMPLOYEE  REMOVAL         |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |   NAME     : " ;
+                                                        for ( int j = 0 ; j < 16 ; j ++ )
+                                                        {
+                                                            if ( j < i )
+                                                                {
+                                                                    cout << EMPLOYEENAME[ h ] ;
+                                                                    h++ ;
+                                                                }
+                                                            else
+                                                                cout << "_" ;
+                                                        }
+                                                        h = 0 ;
+                                                        cout << "       |\n" ;
+                                                        cout << " |   IDG      : " ;
+                                                         for ( int j = 0 ; j < 16 ; j ++ )
+                                                        {
+                                                            if ( j < n )
+                                                                {
+                                                                    cout << EMPLYEEIDG [ h ] ;
+                                                                    h++ ;
+                                                                }
+                                                            else
+                                                                cout << "_" ;
+                                                        }
+                                                        cout << "       |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |    PASSWORD NEEDS TO BE AT LEAST    |\n" ;
+                                                        cout << " |          ONE CHARACTER LONG         |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " ---------------------------------------\n" ;
+                                                    }
+                                                }
+                                                default : {
+                                                    if ( op != 13 ) {
+                                                        int h = 0 ;
+                                                        EMPLYEEIDG [ n ] = op ;
+                                                        n ++ ;
+                                                        system ( "cls" );
+                                                        cout << " ---------------------------------------\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |           EMPLOYEE  REMOVAL         |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |   NAME     : " ;
+                                                        for ( int j = 0 ; j < 16 ; j ++ )
+                                                        {
+                                                            if ( j < i )
+                                                                {
+                                                                    cout << EMPLOYEENAME[ h ] ;
+                                                                    h++ ;
+                                                                }
+                                                            else
+                                                                cout << "_" ;
+                                                        }
+                                                        cout << "       |\n" ;
+                                                        cout << " |   IDG      : " ;
+                                                        h = 0 ;
+                                                        for ( int j = 0 ; j < 16 ; j ++ )
+                                                        {
+                                                            if ( j < n )
+                                                                {
+                                                                    cout << EMPLYEEIDG [ h ] ;
+                                                                    h++ ;
+                                                                }
+                                                            else
+                                                                cout << "_" ;
+                                                        }
+                                                        cout << "       |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " ---------------------------------------\n" ;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        int search1 , search2 ;
+                                        int maxx , ok2 ;
+                                        if ( i > n ) {
+                                            maxx = i ;
+                                        }
+                                        else
+                                            maxx = n ;
+                                        for ( search1 = 0 ; search1 < employeemaxx ; search1 ++ ) {
+                                            ok2 = 1 ;
+                                            search2 = 0 ;
+                                            while ( search2 < maxx ) {
+                                                if ( search2 < i && EMPLOYEE[ search1 ] .LAST_NAME[ search2 ]  != EMPLOYEENAME[ search2 ] ) {
+                                                    search2 = maxx ;
+                                                    ok2 = 0 ;
+                                                }
+                                                if ( search2 < n && EMPLOYEE[ search1 ] .IDG [ search2 ] != EMPLYEEIDG [ search2 ] )
+                                                {
+                                                    search2 = maxx ;
+                                                    ok2 = 0 ;
+                                                }
+                                                search2 ++ ;
+                                            }
+                                            if ( ok2 == 1 ) {
+                                                ofs.open("EMPLOYEE", ios::out | ios::trunc);
+                                                ofs << employeemaxx - 1 << "\n" ;
+                                                for ( int j = 0 ; j < search1 ; j ++ ) {
+                                                    ofs << j + 1 << " " ;
+                                                    ofs << EMPLOYEE [ j ] .IDG << " " ;
+                                                    ofs << EMPLOYEE [ j ] .FIRST_NAME << " " ;
+                                                    ofs << EMPLOYEE [ j ] .LAST_NAME << " " ;
+                                                    ofs << EMPLOYEE [ j ] .DDATE_OF_BIRTH.DDAY << " " << EMPLOYEE [ j ]  .DDATE_OF_BIRTH.MMONTH << " " << EMPLOYEE [ j ]  .DDATE_OF_BIRTH.YYEAR << " " ;
+                                                    ofs << EMPLOYEE [ j ] .TYPE_OF_JOB << " " ;
+                                                    ofs << EMPLOYEE [ j ] .NUMBER_OF_LANGUAGES_SPOKEN << " " ;
+                                                    for ( int jj = 0 ; jj < EMPLOYEE [ j ] .NUMBER_OF_LANGUAGES_SPOKEN ; jj ++ )
+                                                        ofs << EMPLOYEE [ j ] .LANGUAGES_SPOKEN [ jj ] << " " ;
+                                                    ofs << EMPLOYEE [ j ] .SALARY_MMONTHLY << " " ;
+                                                    ofs << EMPLOYEE [ j ] .BANK_ACC << " " ;
+                                                    ofs << EMPLOYEE [ j ] .DDATE_OF_START.DDAY << " " << EMPLOYEE [ j ]  .DDATE_OF_START.MMONTH << " " << EMPLOYEE [ j ]  .DDATE_OF_START.YYEAR << " " ;
+                                                    ofs << EMPLOYEE [ j ] .VACATION_DDAYS << " " ;
+                                                    ofs << EMPLOYEE [ j ] .LOCATION.CITY << " " ;
+                                                    ofs << EMPLOYEE [ j ] .LOCATION.COUNTRY << "\n" ;
+
+                                                }
+                                                for ( int j = search1 + 1  ; j < employeemaxx ; j ++ ) {
+                                                    ofs << j << " " ;
+                                                    ofs << EMPLOYEE [ j ] .IDG << " " ;
+                                                    ofs << EMPLOYEE [ j ] .FIRST_NAME << " " ;
+                                                    ofs << EMPLOYEE [ j ] .LAST_NAME << " " ;
+                                                    ofs << EMPLOYEE [ j ] .DDATE_OF_BIRTH.DDAY << " " << EMPLOYEE [ j ]  .DDATE_OF_BIRTH.MMONTH << " " << EMPLOYEE [ j ]  .DDATE_OF_BIRTH.YYEAR << " " ;
+                                                    ofs << EMPLOYEE [ j ] .TYPE_OF_JOB << " " ;
+                                                    ofs << EMPLOYEE [ j ] .NUMBER_OF_LANGUAGES_SPOKEN << " " ;
+                                                    for ( int jj = 0 ; jj < EMPLOYEE [ j ] .NUMBER_OF_LANGUAGES_SPOKEN ; jj ++ )
+                                                        ofs << EMPLOYEE [ j ] .LANGUAGES_SPOKEN [ jj ] << " " ;
+                                                    ofs << EMPLOYEE [ j ] .SALARY_MMONTHLY << " " ;
+                                                    ofs << EMPLOYEE [ j ] .BANK_ACC << " " ;
+                                                    ofs << EMPLOYEE [ j ] .DDATE_OF_START.DDAY << " " << EMPLOYEE [ j ]  .DDATE_OF_START.MMONTH << " " << EMPLOYEE [ j ]  .DDATE_OF_START.YYEAR << " " ;
+                                                    ofs << EMPLOYEE [ j ] .VACATION_DDAYS << " " ;
+                                                    ofs << EMPLOYEE [ j ] .LOCATION.CITY << " " ;
+                                                    ofs << EMPLOYEE [ j ] .LOCATION.COUNTRY << "\n" ;
+
+                                                }
+                                                employeemaxx -- ;
+                                                ofs.close () ;
+                                                EMPLOYEE_READ ( employeemaxx ) ;
+                                                search1 = employeemaxx ;
+                                                ok = 0 ;
+                                                system ( "cls" ) ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |           EMPLOYEE  REMOVAL         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |           EMPLOYEE  REMOVED         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                getch ( ) ;
+                                            }
+                                        }
+                                        if ( ok == 1 ) {
+                                            system ( "cls" ) ;
+                                            cout << " ---------------------------------------\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |           EMPLOYEE  REMOVAL         |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |        COULDN'T FIND EMPLOYEE       |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " ---------------------------------------\n" ;
+                                            getch ( ) ;
+                                        }
+                                    }
+                            }
+                            okp = 2 ;
+                            break;
+                            ok = 'p';
+                        }
+                        case '2' : {
+                                break ;
                         }
                         case '4' : {
-
+                            EMPLOYEE_READ ( employeemaxx );
+                            char oppp ;
+                            int search1 = 0 ;
+                            int okex = 1 ;
+                            system ( "cls" ) ;
+                            cout << "    ID LOCAL        :  " << EMPLOYEE [ search1 ] .IDL << "\n" ;
+                            cout << "    ID GLOBAL       :  " << EMPLOYEE [ search1 ] .IDG << "\n\n" ;
+                            cout << "    FIRST NAME      :  " << EMPLOYEE [ search1 ] .FIRST_NAME << "\n" ;
+                            cout << "    LAST NAME       :  " << EMPLOYEE [ search1 ] .LAST_NAME << "\n\n" ;
+                            cout << "    DATE OF BIRTH   :  " << EMPLOYEE [ search1 ] .DDATE_OF_BIRTH.DDAY << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_BIRTH.MMONTH << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_BIRTH.YYEAR << "\n\n" ;
+                            cout << "    TYPE OF JOB     :  " << EMPLOYEE [ search1 ] .TYPE_OF_JOB << "\n" ;
+                            cout << "    NUMBER OF LANGUAGES SPOKEN :  " << EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN << "\n" ;
+                            cout << "    LANGUAGES SPOKEN:  " ;
+                            for ( int jj = 0 ; jj < EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN - 1 ; jj ++ ) {
+                                cout << EMPLOYEE [ search1 ] .LANGUAGES_SPOKEN [ jj ] << "  ,  ";
+                            }
+                            cout << EMPLOYEE [ search1 ] .LANGUAGES_SPOKEN [ EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN - 1 ] << "\n";
+                            cout << "    SALARY MONTHLY  :  " << EMPLOYEE [ search1 ] .SALARY_MMONTHLY << "\n" ;
+                            cout << "    BANK ACCOUNT    :  " << EMPLOYEE [ search1 ] .BANK_ACC << "\n" ;
+                            cout << "    WORK START DATE :  " << EMPLOYEE [ search1 ] .DDATE_OF_START.DDAY << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_START.MMONTH << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_START.YYEAR << "\n\n" ;
+                            cout << "    VACATION DAYS   :  " << EMPLOYEE [ search1 ] .VACATION_DDAYS << "\n" ;
+                            cout << "    CURRENT CITY    :  " << EMPLOYEE [ search1 ] .LOCATION.CITY << "\n" ;
+                            cout << "    CURRENT COUNTRY :  " << EMPLOYEE [ search1 ] .LOCATION.COUNTRY << "\n\n\n\n" ;
+                            cout << "            " << search1 + 1 << "/" << employeemaxx ;
+                            while ( okex ) {
+                                oppp = getch ( ) ;
+                                switch ( oppp ) {
+                                    case 'a' : {
+                                        system( "cls" ) ;
+                                        if ( search1 > 0 ) search1 -- ;
+                                        cout << "    ID LOCAL        :  " << EMPLOYEE [ search1 ] .IDL << "\n" ;
+                                        cout << "    ID GLOBAL       :  " << EMPLOYEE [ search1 ] .IDG << "\n\n" ;
+                                        cout << "    FIRST NAME      :  " << EMPLOYEE [ search1 ] .FIRST_NAME << "\n" ;
+                                        cout << "    LAST NAME       :  " << EMPLOYEE [ search1 ] .LAST_NAME << "\n\n" ;
+                                        cout << "    DATE OF BIRTH   :  " << EMPLOYEE [ search1 ] .DDATE_OF_BIRTH.DDAY << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_BIRTH.MMONTH << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_BIRTH.YYEAR << "\n\n" ;
+                                        cout << "    TYPE OF JOB     :  " << EMPLOYEE [ search1 ] .TYPE_OF_JOB << "\n" ;
+                                        cout << "    NUMBER OF LANGUAGES SPOKEN :  " << EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN << "\n" ;
+                                        cout << "    LANGUAGES SPOKEN:  " ;
+                                        for ( int jj = 0 ; jj < EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN - 1 ; jj ++ ) {
+                                            cout << EMPLOYEE [ search1 ] .LANGUAGES_SPOKEN [ jj ] << "  ,  ";
+                                        }
+                                        cout << EMPLOYEE [ search1 ] .LANGUAGES_SPOKEN [ EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN - 1 ] << "\n";
+                                        cout << "    SALARY MONTHLY  :  " << EMPLOYEE [ search1 ] .SALARY_MMONTHLY << "\n" ;
+                                        cout << "    BANK ACCOUNT    :  " << EMPLOYEE [ search1 ] .BANK_ACC << "\n" ;
+                                        cout << "    WORK START DATE :  " << EMPLOYEE [ search1 ] .DDATE_OF_START.DDAY << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_START.MMONTH << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_START.YYEAR << "\n\n" ;
+                                        cout << "    VACATION DAYS   :  " << EMPLOYEE [ search1 ] .VACATION_DDAYS << "\n" ;
+                                        cout << "    CURRENT CITY    :  " << EMPLOYEE [ search1 ] .LOCATION.CITY << "\n" ;
+                                        cout << "    CURRENT COUNTRY :  " << EMPLOYEE [ search1 ] .LOCATION.COUNTRY << "\n\n\n\n" ;
+                                        cout << "            " << search1 + 1 << "/" << employeemaxx ;
+                                        break ;
+                                    }
+                                    case 'd' : {
+                                        system( "cls" ) ;
+                                        if ( search1 < custommaxx - 1 ) search1 ++ ;
+                                        cout << "    ID LOCAL        :  " << EMPLOYEE [ search1 ] .IDL << "\n" ;
+                                        cout << "    ID GLOBAL       :  " << EMPLOYEE [ search1 ] .IDG << "\n\n" ;
+                                        cout << "    FIRST NAME      :  " << EMPLOYEE [ search1 ] .FIRST_NAME << "\n" ;
+                                        cout << "    LAST NAME       :  " << EMPLOYEE [ search1 ] .LAST_NAME << "\n\n" ;
+                                        cout << "    DATE OF BIRTH   :  " << EMPLOYEE [ search1 ] .DDATE_OF_BIRTH.DDAY << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_BIRTH.MMONTH << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_BIRTH.YYEAR << "\n\n" ;
+                                        cout << "    TYPE OF JOB     :  " << EMPLOYEE [ search1 ] .TYPE_OF_JOB << "\n" ;
+                                        cout << "    NUMBER OF LANGUAGES SPOKEN :  " << EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN << "\n" ;
+                                        cout << "    LANGUAGES SPOKEN:  " ;
+                                        for ( int jj = 0 ; jj < EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN - 1 ; jj ++ ) {
+                                            cout << EMPLOYEE [ search1 ] .LANGUAGES_SPOKEN [ jj ] << "  ,  ";
+                                        }
+                                        cout << EMPLOYEE [ search1 ] .LANGUAGES_SPOKEN [ EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN - 1 ] << "\n";
+                                        cout << "    SALARY MONTHLY  :  " << EMPLOYEE [ search1 ] .SALARY_MMONTHLY << "\n" ;
+                                        cout << "    BANK ACCOUNT    :  " << EMPLOYEE [ search1 ] .BANK_ACC << "\n" ;
+                                        cout << "    WORK START DATE :  " << EMPLOYEE [ search1 ] .DDATE_OF_START.DDAY << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_START.MMONTH << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_START.YYEAR << "\n\n" ;
+                                        cout << "    VACATION DAYS   :  " << EMPLOYEE [ search1 ] .VACATION_DDAYS << "\n" ;
+                                        cout << "    CURRENT CITY    :  " << EMPLOYEE [ search1 ] .LOCATION.CITY << "\n" ;
+                                        cout << "    CURRENT COUNTRY :  " << EMPLOYEE [ search1 ] .LOCATION.COUNTRY << "\n\n\n\n" ;
+                                        cout << "            " << search1 + 1 << "/" << employeemaxx ;
+                                        break ;
+                                    }
+                                    case 's' : {
+                                        system ( "cls" ) ;
+                                        cout << "    ID LOCAL        :  " << EMPLOYEE [ search1 ] .IDL << "\n" ;
+                                        cout << "    ID GLOBAL       :  " << EMPLOYEE [ search1 ] .IDG << "\n\n" ;
+                                        cout << "    FIRST NAME      :  " << EMPLOYEE [ search1 ] .FIRST_NAME << "\n" ;
+                                        cout << "    LAST NAME       :  " << EMPLOYEE [ search1 ] .LAST_NAME << "\n\n" ;
+                                        cout << "    DATE OF BIRTH   :  " << EMPLOYEE [ search1 ] .DDATE_OF_BIRTH.DDAY << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_BIRTH.MMONTH << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_BIRTH.YYEAR << "\n\n" ;
+                                        cout << "    TYPE OF JOB     :  " << EMPLOYEE [ search1 ] .TYPE_OF_JOB << "\n" ;
+                                        cout << "    NUMBER OF LANGUAGES SPOKEN :  " << EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN << "\n" ;
+                                        cout << "    LANGUAGES SPOKEN:  " ;
+                                        for ( int jj = 0 ; jj < EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN - 1 ; jj ++ ) {
+                                            cout << EMPLOYEE [ search1 ] .LANGUAGES_SPOKEN [ jj ] << "  ,  ";
+                                        }
+                                        cout << EMPLOYEE [ search1 ] .LANGUAGES_SPOKEN [ EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN - 1 ] << "\n";
+                                        cout << "    SALARY MONTHLY  :  " << EMPLOYEE [ search1 ] .SALARY_MMONTHLY << "\n" ;
+                                        cout << "    BANK ACCOUNT    :  " << EMPLOYEE [ search1 ] .BANK_ACC << "\n" ;
+                                        cout << "    WORK START DATE :  " << EMPLOYEE [ search1 ] .DDATE_OF_START.DDAY << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_START.MMONTH << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_START.YYEAR << "\n\n" ;
+                                        cout << "    VACATION DAYS   :  " << EMPLOYEE [ search1 ] .VACATION_DDAYS << "\n" ;
+                                        cout << "    CURRENT CITY    :  " << EMPLOYEE [ search1 ] .LOCATION.CITY << "\n" ;
+                                        cout << "    CURRENT COUNTRY :  " << EMPLOYEE [ search1 ] .LOCATION.COUNTRY << "\n\n\n\n" ;
+                                        cout << "          _____/" << employeemaxx ;
+                                        char charac [ 6 ] = { NULL } , lol ;
+                                        int okpppp = 1 , pos = 0 ;
+                                        while ( okpppp ) {
+                                            gotoxy ( 10 + pos , 21 ) ;
+                                            lol = getch ( ) ;
+                                            switch ( lol )
+                                            {
+                                                case 's' : {
+                                                    okpppp = 0 ;
+                                                    system ( "cls" ) ;
+                                                    cout << "    ID LOCAL        :  " << EMPLOYEE [ search1 ] .IDL << "\n" ;
+                                                    cout << "    ID GLOBAL       :  " << EMPLOYEE [ search1 ] .IDG << "\n\n" ;
+                                                    cout << "    FIRST NAME      :  " << EMPLOYEE [ search1 ] .FIRST_NAME << "\n" ;
+                                                    cout << "    LAST NAME       :  " << EMPLOYEE [ search1 ] .LAST_NAME << "\n\n" ;
+                                                    cout << "    DATE OF BIRTH   :  " << EMPLOYEE [ search1 ] .DDATE_OF_BIRTH.DDAY << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_BIRTH.MMONTH << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_BIRTH.YYEAR << "\n\n" ;
+                                                    cout << "    TYPE OF JOB     :  " << EMPLOYEE [ search1 ] .TYPE_OF_JOB << "\n" ;
+                                                    cout << "    NUMBER OF LANGUAGES SPOKEN :  " << EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN << "\n" ;
+                                                    cout << "    LANGUAGES SPOKEN:  " ;
+                                                    for ( int jj = 0 ; jj < EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN - 1 ; jj ++ ) {
+                                                        cout << EMPLOYEE [ search1 ] .LANGUAGES_SPOKEN [ jj ] << "  ,  ";
+                                                    }
+                                                    cout << EMPLOYEE [ search1 ] .LANGUAGES_SPOKEN [ EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN - 1 ] << "\n";
+                                                    cout << "    SALARY MONTHLY  :  " << EMPLOYEE [ search1 ] .SALARY_MMONTHLY << "\n" ;
+                                                    cout << "    BANK ACCOUNT    :  " << EMPLOYEE [ search1 ] .BANK_ACC << "\n" ;
+                                                    cout << "    WORK START DATE :  " << EMPLOYEE [ search1 ] .DDATE_OF_START.DDAY << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_START.MMONTH << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_START.YYEAR << "\n\n" ;
+                                                    cout << "    VACATION DAYS   :  " << EMPLOYEE [ search1 ] .VACATION_DDAYS << "\n" ;
+                                                    cout << "    CURRENT CITY    :  " << EMPLOYEE [ search1 ] .LOCATION.CITY << "\n" ;
+                                                    cout << "    CURRENT COUNTRY :  " << EMPLOYEE [ search1 ] .LOCATION.COUNTRY << "\n\n\n\n" ;
+                                                    cout << "            " << search1 + 1 << "/" << employeemaxx ;
+                                                    break ;
+                                                }
+                                                case 27 : {
+                                                    okpppp = 0 ;
+                                                    system ( "cls" ) ;
+                                                    cout << "    ID LOCAL        :  " << EMPLOYEE [ search1 ] .IDL << "\n" ;
+                                                    cout << "    ID GLOBAL       :  " << EMPLOYEE [ search1 ] .IDG << "\n\n" ;
+                                                    cout << "    FIRST NAME      :  " << EMPLOYEE [ search1 ] .FIRST_NAME << "\n" ;
+                                                    cout << "    LAST NAME       :  " << EMPLOYEE [ search1 ] .LAST_NAME << "\n\n" ;
+                                                    cout << "    DATE OF BIRTH   :  " << EMPLOYEE [ search1 ] .DDATE_OF_BIRTH.DDAY << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_BIRTH.MMONTH << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_BIRTH.YYEAR << "\n\n" ;
+                                                    cout << "    TYPE OF JOB     :  " << EMPLOYEE [ search1 ] .TYPE_OF_JOB << "\n" ;
+                                                    cout << "    NUMBER OF LANGUAGES SPOKEN :  " << EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN << "\n" ;
+                                                    cout << "    LANGUAGES SPOKEN:  " ;
+                                                    for ( int jj = 0 ; jj < EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN - 1 ; jj ++ ) {
+                                                        cout << EMPLOYEE [ search1 ] .LANGUAGES_SPOKEN [ jj ] << "  ,  ";
+                                                    }
+                                                    cout << EMPLOYEE [ search1 ] .LANGUAGES_SPOKEN [ EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN - 1 ] << "\n";
+                                                    cout << "    SALARY MONTHLY  :  " << EMPLOYEE [ search1 ] .SALARY_MMONTHLY << "\n" ;
+                                                    cout << "    BANK ACCOUNT    :  " << EMPLOYEE [ search1 ] .BANK_ACC << "\n" ;
+                                                    cout << "    WORK START DATE :  " << EMPLOYEE [ search1 ] .DDATE_OF_START.DDAY << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_START.MMONTH << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_START.YYEAR << "\n\n" ;
+                                                    cout << "    VACATION DAYS   :  " << EMPLOYEE [ search1 ] .VACATION_DDAYS << "\n" ;
+                                                    cout << "    CURRENT CITY    :  " << EMPLOYEE [ search1 ] .LOCATION.CITY << "\n" ;
+                                                    cout << "    CURRENT COUNTRY :  " << EMPLOYEE [ search1 ] .LOCATION.COUNTRY << "\n\n\n\n" ;
+                                                    cout << "            " << search1 + 1 << "/" << employeemaxx ;
+                                                    break ;
+                                                }
+                                                case '\b' : {
+                                                    if ( pos > 0 ) {
+                                                            pos -- ;
+                                                            int popo = 0 ;
+                                                            system( "cls" ) ;
+                                                            cout << "    ID LOCAL        :  " << EMPLOYEE [ search1 ] .IDL << "\n" ;
+                                                            cout << "    ID GLOBAL       :  " << EMPLOYEE [ search1 ] .IDG << "\n\n" ;
+                                                            cout << "    FIRST NAME      :  " << EMPLOYEE [ search1 ] .FIRST_NAME << "\n" ;
+                                                            cout << "    LAST NAME       :  " << EMPLOYEE [ search1 ] .LAST_NAME << "\n\n" ;
+                                                            cout << "    DATE OF BIRTH   :  " << EMPLOYEE [ search1 ] .DDATE_OF_BIRTH.DDAY << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_BIRTH.MMONTH << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_BIRTH.YYEAR << "\n\n" ;
+                                                            cout << "    TYPE OF JOB     :  " << EMPLOYEE [ search1 ] .TYPE_OF_JOB << "\n" ;
+                                                            cout << "    NUMBER OF LANGUAGES SPOKEN :  " << EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN << "\n" ;
+                                                            cout << "    LANGUAGES SPOKEN:  " ;
+                                                            for ( int jj = 0 ; jj < EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN - 1 ; jj ++ ) {
+                                                                cout << EMPLOYEE [ search1 ] .LANGUAGES_SPOKEN [ jj ] << "  ,  ";
+                                                            }
+                                                            cout << EMPLOYEE [ search1 ] .LANGUAGES_SPOKEN [ EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN - 1 ] << "\n";
+                                                            cout << "    SALARY MONTHLY  :  " << EMPLOYEE [ search1 ] .SALARY_MMONTHLY << "\n" ;
+                                                            cout << "    BANK ACCOUNT    :  " << EMPLOYEE [ search1 ] .BANK_ACC << "\n" ;
+                                                            cout << "    WORK START DATE :  " << EMPLOYEE [ search1 ] .DDATE_OF_START.DDAY << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_START.MMONTH << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_START.YYEAR << "\n\n" ;
+                                                            cout << "    VACATION DAYS   :  " << EMPLOYEE [ search1 ] .VACATION_DDAYS << "\n" ;
+                                                            cout << "    CURRENT CITY    :  " << EMPLOYEE [ search1 ] .LOCATION.CITY << "\n" ;
+                                                            cout << "    CURRENT COUNTRY :  " << EMPLOYEE [ search1 ] .LOCATION.COUNTRY << "\n\n\n\n          " ;
+                                                            for ( int opo = 0 ; opo < 5 ; opo ++ ) {
+                                                                if ( opo < pos ) {
+                                                                    cout << charac [ popo ] ;
+                                                                    popo ++ ;
+                                                                }
+                                                                else
+                                                                    cout << "_" ;
+                                                            }
+                                                            cout << "/" << employeemaxx ;
+                                                        }
+                                                        else {
+                                                            system( "cls" ) ;
+                                                            cout << "    ID LOCAL        :  " << EMPLOYEE [ search1 ] .IDL << "\n" ;
+                                                            cout << "    ID GLOBAL       :  " << EMPLOYEE [ search1 ] .IDG << "\n\n" ;
+                                                            cout << "    FIRST NAME      :  " << EMPLOYEE [ search1 ] .FIRST_NAME << "\n" ;
+                                                            cout << "    LAST NAME       :  " << EMPLOYEE [ search1 ] .LAST_NAME << "\n\n" ;
+                                                            cout << "    DATE OF BIRTH   :  " << EMPLOYEE [ search1 ] .DDATE_OF_BIRTH.DDAY << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_BIRTH.MMONTH << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_BIRTH.YYEAR << "\n\n" ;
+                                                            cout << "    TYPE OF JOB     :  " << EMPLOYEE [ search1 ] .TYPE_OF_JOB << "\n" ;
+                                                            cout << "    NUMBER OF LANGUAGES SPOKEN :  " << EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN << "\n" ;
+                                                            cout << "    LANGUAGES SPOKEN:  " ;
+                                                            for ( int jj = 0 ; jj < EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN - 1 ; jj ++ ) {
+                                                                cout << EMPLOYEE [ search1 ] .LANGUAGES_SPOKEN [ jj ] << "  ,  ";
+                                                            }
+                                                            cout << EMPLOYEE [ search1 ] .LANGUAGES_SPOKEN [ EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN - 1 ] << "\n";
+                                                            cout << "    SALARY MONTHLY  :  " << EMPLOYEE [ search1 ] .SALARY_MMONTHLY << "\n" ;
+                                                            cout << "    BANK ACCOUNT    :  " << EMPLOYEE [ search1 ] .BANK_ACC << "\n" ;
+                                                            cout << "    WORK START DATE :  " << EMPLOYEE [ search1 ] .DDATE_OF_START.DDAY << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_START.MMONTH << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_START.YYEAR << "\n\n" ;
+                                                            cout << "    VACATION DAYS   :  " << EMPLOYEE [ search1 ] .VACATION_DDAYS << "\n" ;
+                                                            cout << "    CURRENT CITY    :  " << EMPLOYEE [ search1 ] .LOCATION.CITY << "\n" ;
+                                                            cout << "    CURRENT COUNTRY :  " << EMPLOYEE [ search1 ] .LOCATION.COUNTRY << "\n\n\n\n          " ;
+                                                            int popo = 0 ;
+                                                            for ( int opo = 0 ; opo < 5 ; opo ++ ) {
+                                                                if ( opo < pos ) {
+                                                                    cout << charac [ popo ] ;
+                                                                    popo ++ ;
+                                                                }
+                                                                else
+                                                                    cout << "_" ;
+                                                            }
+                                                            cout << "/" << employeemaxx;
+                                                        }
+                                                    break ;
+                                                }
+                                                case 13 : {
+                                                    int numb = 0 , opo = 0 ;
+                                                    while ( opo < pos ) {
+                                                        numb = numb * 10 + ( charac [ opo ] - '0' ) ;
+                                                        opo ++ ;
+                                                    }
+                                                    if ( numb > custommaxx || numb== 0 ) {
+                                                            system ( "cls" ) ;
+                                                            cout << "    ID LOCAL        :  " << EMPLOYEE [ search1 ] .IDL << "\n" ;
+                                                            cout << "    ID GLOBAL       :  " << EMPLOYEE [ search1 ] .IDG << "\n\n" ;
+                                                            cout << "    FIRST NAME      :  " << EMPLOYEE [ search1 ] .FIRST_NAME << "\n" ;
+                                                            cout << "    LAST NAME       :  " << EMPLOYEE [ search1 ] .LAST_NAME << "\n\n" ;
+                                                            cout << "    DATE OF BIRTH   :  " << EMPLOYEE [ search1 ] .DDATE_OF_BIRTH.DDAY << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_BIRTH.MMONTH << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_BIRTH.YYEAR << "\n\n" ;
+                                                            cout << "    TYPE OF JOB     :  " << EMPLOYEE [ search1 ] .TYPE_OF_JOB << "\n" ;
+                                                            cout << "    NUMBER OF LANGUAGES SPOKEN :  " << EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN << "\n" ;
+                                                            cout << "    LANGUAGES SPOKEN:  " ;
+                                                            for ( int jj = 0 ; jj < EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN - 1 ; jj ++ ) {
+                                                                cout << EMPLOYEE [ search1 ] .LANGUAGES_SPOKEN [ jj ] << "  ,  ";
+                                                            }
+                                                            cout << EMPLOYEE [ search1 ] .LANGUAGES_SPOKEN [ EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN - 1 ] << "\n";
+                                                            cout << "    SALARY MONTHLY  :  " << EMPLOYEE [ search1 ] .SALARY_MMONTHLY << "\n" ;
+                                                            cout << "    BANK ACCOUNT    :  " << EMPLOYEE [ search1 ] .BANK_ACC << "\n" ;
+                                                            cout << "    WORK START DATE :  " << EMPLOYEE [ search1 ] .DDATE_OF_START.DDAY << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_START.MMONTH << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_START.YYEAR << "\n\n" ;
+                                                            cout << "    VACATION DAYS   :  " << EMPLOYEE [ search1 ] .VACATION_DDAYS << "\n" ;
+                                                            cout << "    CURRENT CITY    :  " << EMPLOYEE [ search1 ] .LOCATION.CITY << "\n" ;
+                                                            cout << "    CURRENT COUNTRY :  " << EMPLOYEE [ search1 ] .LOCATION.COUNTRY << "\n\n" ;
+                                                            cout << "    NUMBER TOO BIG OR SMALL\n\n          " ;
+                                                            int popo = 0 ;
+                                                            for ( int opo = 0 ; opo < 5 ; opo ++ ) {
+                                                                if ( opo < pos ) {
+                                                                    cout << charac [ popo ] ;
+                                                                    popo ++ ;
+                                                                }
+                                                                else
+                                                                    cout << "_" ;
+                                                            }
+                                                            cout << "/" << employeemaxx ;
+                                                    }
+                                                    else
+                                                    {
+                                                        search1 = numb - 1 ;
+                                                        okpppp = 0 ;
+                                                        system( "cls" ) ;
+                                                        cout << "    ID LOCAL        :  " << EMPLOYEE [ search1 ] .IDL << "\n" ;
+                                                        cout << "    ID GLOBAL       :  " << EMPLOYEE [ search1 ] .IDG << "\n\n" ;
+                                                        cout << "    FIRST NAME      :  " << EMPLOYEE [ search1 ] .FIRST_NAME << "\n" ;
+                                                        cout << "    LAST NAME       :  " << EMPLOYEE [ search1 ] .LAST_NAME << "\n\n" ;
+                                                        cout << "    DATE OF BIRTH   :  " << EMPLOYEE [ search1 ] .DDATE_OF_BIRTH.DDAY << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_BIRTH.MMONTH << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_BIRTH.YYEAR << "\n\n" ;
+                                                        cout << "    TYPE OF JOB     :  " << EMPLOYEE [ search1 ] .TYPE_OF_JOB << "\n" ;
+                                                        cout << "    NUMBER OF LANGUAGES SPOKEN :  " << EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN << "\n" ;
+                                                        cout << "    LANGUAGES SPOKEN:  " ;
+                                                        for ( int jj = 0 ; jj < EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN - 1 ; jj ++ ) {
+                                                            cout << EMPLOYEE [ search1 ] .LANGUAGES_SPOKEN [ jj ] << "  ,  ";
+                                                        }
+                                                        cout << EMPLOYEE [ search1 ] .LANGUAGES_SPOKEN [ EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN - 1 ] << "\n";
+                                                        cout << "    SALARY MONTHLY  :  " << EMPLOYEE [ search1 ] .SALARY_MMONTHLY << "\n" ;
+                                                        cout << "    BANK ACCOUNT    :  " << EMPLOYEE [ search1 ] .BANK_ACC << "\n" ;
+                                                        cout << "    WORK START DATE :  " << EMPLOYEE [ search1 ] .DDATE_OF_START.DDAY << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_START.MMONTH << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_START.YYEAR << "\n\n" ;
+                                                        cout << "    VACATION DAYS   :  " << EMPLOYEE [ search1 ] .VACATION_DDAYS << "\n" ;
+                                                        cout << "    CURRENT CITY    :  " << EMPLOYEE [ search1 ] .LOCATION.CITY << "\n" ;
+                                                        cout << "    CURRENT COUNTRY :  " << EMPLOYEE [ search1 ] .LOCATION.COUNTRY << "\n\n\n\n" ;
+                                                        cout << "            " << search1 + 1 << "/" << employeemaxx ;
+                                                    }
+                                                    break ;
+                                                }
+                                                default : {
+                                                    if ( isdigit ( lol ) ) {
+                                                        if ( pos < 5 ) {
+                                                            charac [ pos ] = lol ;
+                                                            pos ++ ;
+                                                            int popo = 0 ;
+                                                            system( "cls" ) ;
+                                                            cout << "    ID LOCAL        :  " << EMPLOYEE [ search1 ] .IDL << "\n" ;
+                                                            cout << "    ID GLOBAL       :  " << EMPLOYEE [ search1 ] .IDG << "\n\n" ;
+                                                            cout << "    FIRST NAME      :  " << EMPLOYEE [ search1 ] .FIRST_NAME << "\n" ;
+                                                            cout << "    LAST NAME       :  " << EMPLOYEE [ search1 ] .LAST_NAME << "\n\n" ;
+                                                            cout << "    DATE OF BIRTH   :  " << EMPLOYEE [ search1 ] .DDATE_OF_BIRTH.DDAY << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_BIRTH.MMONTH << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_BIRTH.YYEAR << "\n\n" ;
+                                                            cout << "    TYPE OF JOB     :  " << EMPLOYEE [ search1 ] .TYPE_OF_JOB << "\n" ;
+                                                            cout << "    NUMBER OF LANGUAGES SPOKEN :  " << EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN << "\n" ;
+                                                            cout << "    LANGUAGES SPOKEN:  " ;
+                                                            for ( int jj = 0 ; jj < EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN - 1 ; jj ++ ) {
+                                                                cout << EMPLOYEE [ search1 ] .LANGUAGES_SPOKEN [ jj ] << "  ,  ";
+                                                            }
+                                                            cout << EMPLOYEE [ search1 ] .LANGUAGES_SPOKEN [ EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN - 1 ] << "\n";
+                                                            cout << "    SALARY MONTHLY  :  " << EMPLOYEE [ search1 ] .SALARY_MMONTHLY << "\n" ;
+                                                            cout << "    BANK ACCOUNT    :  " << EMPLOYEE [ search1 ] .BANK_ACC << "\n" ;
+                                                            cout << "    WORK START DATE :  " << EMPLOYEE [ search1 ] .DDATE_OF_START.DDAY << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_START.MMONTH << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_START.YYEAR << "\n\n" ;
+                                                            cout << "    VACATION DAYS   :  " << EMPLOYEE [ search1 ] .VACATION_DDAYS << "\n" ;
+                                                            cout << "    CURRENT CITY    :  " << EMPLOYEE [ search1 ] .LOCATION.CITY << "\n" ;
+                                                            cout << "    CURRENT COUNTRY :  " << EMPLOYEE [ search1 ] .LOCATION.COUNTRY << "\n\n\n\n          " ;
+                                                            for ( int opo = 0 ; opo < 5 ; opo ++ ) {
+                                                                if ( opo < pos ) {
+                                                                    cout << charac [ popo ] ;
+                                                                    popo ++ ;
+                                                                }
+                                                                else
+                                                                    cout << "_" ;
+                                                            }
+                                                            cout << "/" << employeemaxx ;
+                                                        }
+                                                        else {
+                                                            system( "cls" ) ;
+                                                            cout << "    ID LOCAL        :  " << EMPLOYEE [ search1 ] .IDL << "\n" ;
+                                                            cout << "    ID GLOBAL       :  " << EMPLOYEE [ search1 ] .IDG << "\n\n" ;
+                                                            cout << "    FIRST NAME      :  " << EMPLOYEE [ search1 ] .FIRST_NAME << "\n" ;
+                                                            cout << "    LAST NAME       :  " << EMPLOYEE [ search1 ] .LAST_NAME << "\n\n" ;
+                                                            cout << "    DATE OF BIRTH   :  " << EMPLOYEE [ search1 ] .DDATE_OF_BIRTH.DDAY << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_BIRTH.MMONTH << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_BIRTH.YYEAR << "\n\n" ;
+                                                            cout << "    TYPE OF JOB     :  " << EMPLOYEE [ search1 ] .TYPE_OF_JOB << "\n" ;
+                                                            cout << "    NUMBER OF LANGUAGES SPOKEN :  " << EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN << "\n" ;
+                                                            cout << "    LANGUAGES SPOKEN:  " ;
+                                                            for ( int jj = 0 ; jj < EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN - 1 ; jj ++ ) {
+                                                                cout << EMPLOYEE [ search1 ] .LANGUAGES_SPOKEN [ jj ] << "  ,  ";
+                                                            }
+                                                            cout << EMPLOYEE [ search1 ] .LANGUAGES_SPOKEN [ EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN - 1 ] << "\n";
+                                                            cout << "    SALARY MONTHLY  :  " << EMPLOYEE [ search1 ] .SALARY_MMONTHLY << "\n" ;
+                                                            cout << "    BANK ACCOUNT    :  " << EMPLOYEE [ search1 ] .BANK_ACC << "\n" ;
+                                                            cout << "    WORK START DATE :  " << EMPLOYEE [ search1 ] .DDATE_OF_START.DDAY << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_START.MMONTH << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_START.YYEAR << "\n\n" ;
+                                                            cout << "    VACATION DAYS   :  " << EMPLOYEE [ search1 ] .VACATION_DDAYS << "\n" ;
+                                                            cout << "    CURRENT CITY    :  " << EMPLOYEE [ search1 ] .LOCATION.CITY << "\n" ;
+                                                            cout << "    CURRENT COUNTRY :  " << EMPLOYEE [ search1 ] .LOCATION.COUNTRY << "\n\n" ;
+                                                            cout << "    NUMBER TOO BIG\n\n          " ;
+                                                            int popo = 0 ;
+                                                            for ( int opo = 0 ; opo < 5 ; opo ++ ) {
+                                                                if ( opo < pos ) {
+                                                                    cout << charac [ popo ] ;
+                                                                    popo ++ ;
+                                                                }
+                                                                else
+                                                                    cout << "_" ;
+                                                            }
+                                                            cout << "/" << employeemaxx ;
+                                                        }
+                                                    }
+                                                    else {
+                                                        system( "cls" ) ;
+                                                        cout << "    ID LOCAL        :  " << EMPLOYEE [ search1 ] .IDL << "\n" ;
+                                                        cout << "    ID GLOBAL       :  " << EMPLOYEE [ search1 ] .IDG << "\n\n" ;
+                                                        cout << "    FIRST NAME      :  " << EMPLOYEE [ search1 ] .FIRST_NAME << "\n" ;
+                                                        cout << "    LAST NAME       :  " << EMPLOYEE [ search1 ] .LAST_NAME << "\n\n" ;
+                                                        cout << "    DATE OF BIRTH   :  " << EMPLOYEE [ search1 ] .DDATE_OF_BIRTH.DDAY << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_BIRTH.MMONTH << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_BIRTH.YYEAR << "\n\n" ;
+                                                        cout << "    TYPE OF JOB     :  " << EMPLOYEE [ search1 ] .TYPE_OF_JOB << "\n" ;
+                                                        cout << "    NUMBER OF LANGUAGES SPOKEN :  " << EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN << "\n" ;
+                                                        cout << "    LANGUAGES SPOKEN:  " ;
+                                                        for ( int jj = 0 ; jj < EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN - 1 ; jj ++ ) {
+                                                            cout << EMPLOYEE [ search1 ] .LANGUAGES_SPOKEN [ jj ] << "  ,  ";
+                                                        }
+                                                        cout << EMPLOYEE [ search1 ] .LANGUAGES_SPOKEN [ EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN - 1 ] << "\n";
+                                                        cout << "    SALARY MONTHLY  :  " << EMPLOYEE [ search1 ] .SALARY_MMONTHLY << "\n" ;
+                                                        cout << "    BANK ACCOUNT    :  " << EMPLOYEE [ search1 ] .BANK_ACC << "\n" ;
+                                                        cout << "    WORK START DATE :  " << EMPLOYEE [ search1 ] .DDATE_OF_START.DDAY << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_START.MMONTH << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_START.YYEAR << "\n\n" ;
+                                                        cout << "    VACATION DAYS   :  " << EMPLOYEE [ search1 ] .VACATION_DDAYS << "\n" ;
+                                                        cout << "    CURRENT CITY    :  " << EMPLOYEE [ search1 ] .LOCATION.CITY << "\n" ;
+                                                        cout << "    CURRENT COUNTRY :  " << EMPLOYEE [ search1 ] .LOCATION.COUNTRY << "\n\n" ;
+                                                        cout << "    WRITE A NUMBER TO SEARCH\n\n          " ;
+                                                        int popo = 0 ;
+                                                            for ( int opo = 0 ; opo < 5 ; opo ++ ) {
+                                                                if ( opo < pos ) {
+                                                                    cout << charac [ popo ] ;
+                                                                    popo ++ ;
+                                                                }
+                                                                else
+                                                                    cout << "_" ;
+                                                            }
+                                                        cout << "/" << employeemaxx ;
+                                                    }
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        break ;
+                                    }
+                                    case 27 : {
+                                        system ( "cls" ) ;
+                                        cout << " ---------------------------------------\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " | SEARCH FOR EMPLOYEE   ADD EMPLOYEE  |\n" ;
+                                        cout << " |        (1)               (2)        |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |  REMOVE EMPLOYEE  SEE ALL EMPLOYEE |\n" ;
+                                        cout << " |        (3)              (4)         |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " ---------------------------------------\n" ;
+                                        okex = 0 ;
+                                        break ;
+                                    }
+                                    default : {
+                                        system( "cls" ) ;
+                                        cout << "    ID LOCAL        :  " << EMPLOYEE [ search1 ] .IDL << "\n" ;
+                                        cout << "    ID GLOBAL       :  " << EMPLOYEE [ search1 ] .IDG << "\n\n" ;
+                                        cout << "    FIRST NAME      :  " << EMPLOYEE [ search1 ] .FIRST_NAME << "\n" ;
+                                        cout << "    LAST NAME       :  " << EMPLOYEE [ search1 ] .LAST_NAME << "\n\n" ;
+                                        cout << "    DATE OF BIRTH   :  " << EMPLOYEE [ search1 ] .DDATE_OF_BIRTH.DDAY << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_BIRTH.MMONTH << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_BIRTH.YYEAR << "\n\n" ;
+                                        cout << "    TYPE OF JOB     :  " << EMPLOYEE [ search1 ] .TYPE_OF_JOB << "\n" ;
+                                        cout << "    NUMBER OF LANGUAGES SPOKEN :  " << EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN << "\n" ;
+                                        cout << "    LANGUAGES SPOKEN:  " ;
+                                        for ( int jj = 0 ; jj < EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN - 1 ; jj ++ ) {
+                                            cout << EMPLOYEE [ search1 ] .LANGUAGES_SPOKEN [ jj ] << "  ,  ";
+                                        }
+                                        cout << EMPLOYEE [ search1 ] .LANGUAGES_SPOKEN [ EMPLOYEE [ search1 ] .NUMBER_OF_LANGUAGES_SPOKEN - 1 ] << "\n";
+                                        cout << "    SALARY MONTHLY  :  " << EMPLOYEE [ search1 ] .SALARY_MMONTHLY << "\n" ;
+                                        cout << "    BANK ACCOUNT    :  " << EMPLOYEE [ search1 ] .BANK_ACC << "\n" ;
+                                        cout << "    WORK START DATE :  " << EMPLOYEE [ search1 ] .DDATE_OF_START.DDAY << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_START.MMONTH << "/" << EMPLOYEE [ search1 ]  .DDATE_OF_START.YYEAR << "\n\n" ;
+                                        cout << "    VACATION DAYS   :  " << EMPLOYEE [ search1 ] .VACATION_DDAYS << "\n" ;
+                                        cout << "    CURRENT CITY    :  " << EMPLOYEE [ search1 ] .LOCATION.CITY << "\n" ;
+                                        cout << "    CURRENT COUNTRY :  " << EMPLOYEE [ search1 ] .LOCATION.COUNTRY << "\n\n" ;
+                                        cout << "    PRESS EITHER A OR D TO MOVE \n\n" ;
+                                        cout << "            " << search1 + 1 << "/" << custommaxx ;
+                                        break ;
+                                    }
+                                }
+                            }
+                            okp = 2 ;
+                            break ;
                         }
                         case 32 :{
                             okp = 3 ;
                         }
                         case 27 : {
-
+                            system ( "cls" ) ;
+                            cout << " ---------------------------------------\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " | SEARCH FOR EMPLOYEE   ADD EMPLOYEE  |\n" ;
+                            cout << " |        (1)               (2)        |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |  REMOVE EMPLOYEE   SORT  EMPLOYEES  |\n" ;
+                            cout << " |        (3)              (4)         |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " ---------------------------------------\n" ;
+                            okp = 2 ;
+                            break;
                         }
                         default : {
                             if ( opp != 27 ) {
