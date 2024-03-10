@@ -1615,6 +1615,10 @@ int main()
     char PLANETYPE  [ 30 ] = { NULL }, PLANEIDG [ 7 ] = { NULL };
     char HGT [ 5 ]  = { NULL }, LNT [ 5 ]= { NULL } , WDT [ 5 ]= { NULL } ;
     char MS [ 5 ] = { NULL }, MW [ 5 ]= { NULL } ;
+    char BNK [ 20 ] = { NULL } , DATE2 [ 9 ] = { NULL } ;
+    char JTYPE [ 20 ]  = { NULL } ;
+    char NLS [ 5 ]  = { NULL } , LS [ 10 ] [ 15 ]  = { NULL } ;
+    char VD [ 4 ] = { NULL } ;
     system ( "cls" ) ;
     cout << " ---------------------------------------\n" ;
     cout << " |                                     |\n" ;
@@ -2393,7 +2397,7 @@ int main()
                                         cout << " |                                     |\n" ;
                                         cout << " |                                     |\n" ;
                                         cout << " ---------------------------------------\n" ;
-                                        while ( okp == 0)
+                                        while ( okp == 0 && ok != 2 )
                                         {
                                             gotoxy ( 16 + n , 9  ) ;
                                             op = getch ( ) ;
@@ -5113,7 +5117,7 @@ int main()
                                         cout << " |                                     |\n" ;
                                         cout << " |                                     |\n" ;
                                         cout << " ---------------------------------------\n" ;
-                                        while ( okp == 0)
+                                        while ( okp == 0 && ok != 2 )
                                         {
                                             gotoxy ( 16 + n , 9  ) ;
                                             op = getch ( ) ;
@@ -8593,7 +8597,7 @@ int main()
                                         cout << " |                                     |\n" ;
                                         cout << " |                                     |\n" ;
                                         cout << " ---------------------------------------\n" ;
-                                        while ( okp == 0)
+                                        while ( okp == 0 && ok != 2 )
                                         {
                                             gotoxy ( 16 + n , 9  ) ;
                                             op = getch ( ) ;
@@ -8923,6 +8927,2465 @@ int main()
                             ok = 'p';
                         }
                         case '2' : {
+                                int okex = 0 ;
+                                for ( i = 0 ; i < 25 ; i ++ ) {
+                                    IDL [ i ] = IDG [ i ] = FNAME [ i ] = LNAME [ i ] = DATE [ i ] = CIT [ i ] = COUNT [ i ] = NULL ;
+                                }
+                                system ( "cls" ) ;
+                                cout << " ---------------------------------------\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |              ADD EMPLOYEE           |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " | FIRST NAME : ________________       |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " ---------------------------------------\n" ;
+                                i = 0 ;
+                                ok = 1 ;
+                                /*char IDL [ 10 ] ;
+                                char IDG [ 14 ] ;
+                                char FIRST_NAME [ 40 ] ;
+                                char LAST_NAME [ 20 ] ;
+                                DDATE DDATE_OF_BIRTH;
+                                char TYPE_OF_JOB [ 15 ] ;
+                                int NUMBER_OF_LANGUAGES_SPOKEN ;
+                                char LANGUAGES_SPOKEN [ 10 ] [ 15 ] ;
+                                int SALARY_MMONTHLY ;
+                                char BANK_ACC [ 25 ] ;
+                                DDATE DDATE_OF_START ;
+                                int VACATION_DDAYS ;
+                                LOCATIONS LOCATION ;*/
+                                if ( okex == 0 ) {
+                                    while ( ok ) {
+                                        gotoxy ( 16 + i , 8 ) ;
+                                        opp = getch ( ) ;
+                                        system ( "cls" ) ;
+                                        switch ( opp ) {
+                                            case 27 : {
+                                                system ( "cls" ) ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | SEARCH FOR EMPLOYEE   ADD EMPLOYEE  |\n" ;
+                                                cout << " |        (1)               (2)        |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  REMOVE EMPLOYEE  SEE ALL EMPLOYEES |\n" ;
+                                                cout << " |        (3)              (4)         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                okex = 1 ;
+                                                ok = 0 ;
+                                                break ;
+                                            }
+                                            case ' ' : {
+                                                system ( "cls" ) ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD EMPLOYEE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | FIRST NAME : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << FNAME  [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case '\b' : {
+                                                system ( "cls" ) ;
+                                                if ( i > 0 ) { i -- ; FNAME [ i ] = NULL ;}
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD EMPLOYEE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | FIRST NAME : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << FNAME  [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case 13 : {
+                                                if ( i > 0 ) {
+                                                    ok = 0 ;
+                                                }
+                                                else
+                                                {
+                                                    system ( "cls" ) ;
+                                                    gotoxy ( 0 , 0 ) ;
+                                                    int h = 0 ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |              ADD EMPLOYEE           |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " | FIRST NAME : " ;
+                                                    for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                        if ( j < i ) {
+                                                            cout << FNAME  [ h ] ;
+                                                            h ++ ;
+                                                        }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    cout << "       |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |      NAME NEEDS TO BE AT LEAST      |\n" ;
+                                                    cout << " |          ONE CHARACTER LONG         |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                }
+                                                break ;
+                                            }
+                                            default : {
+                                                system ( "cls" ) ;
+                                                FNAME [ i ] = opp ;
+                                                i ++ ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD EMPLOYEE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | FIRST NAME : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << FNAME  [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                        }
+                                    }
+                                }
+                                if ( okex == 0 ) {
+                                    ok = 1 ;
+                                    system ( "cls" ) ;
+                                    cout << " ---------------------------------------\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |              ADD EMPLOYEE           |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |  LAST NAME : ________________       |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " ---------------------------------------\n" ;
+                                    i = 0 ;
+                                    while ( ok ) {
+                                        gotoxy ( 16 + i , 8 ) ;
+                                        opp = getch ( ) ;
+                                        system ( "cls" ) ;
+                                        switch ( opp ) {
+                                            case 27 : {
+                                                system ( "cls" ) ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | SEARCH FOR EMPLOYEE   ADD EMPLOYEE  |\n" ;
+                                                cout << " |        (1)               (2)        |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  REMOVE EMPLOYEE  SEE ALL EMPLOYEES |\n" ;
+                                                cout << " |        (3)              (4)         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                okex = 1 ;
+                                                ok = 0 ;
+                                                break ;
+                                            }
+                                            case ' ' : {
+                                                system ( "cls" ) ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD EMPLOYEE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  LAST NAME : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << LNAME  [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case '\b' : {
+                                                system ( "cls" ) ;
+                                                if ( i > 0 ) { i -- ; LNAME [ i ] = NULL ;}
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD EMPLOYEE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  LAST NAME : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << LNAME  [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case 13 : {
+                                                if ( i > 0 ) {
+                                                    ok = 0 ;
+                                                }
+                                                else
+                                                {
+                                                    system ( "cls" ) ;
+                                                    gotoxy ( 0 , 0 ) ;
+                                                    int h = 0 ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |              ADD EMPLOYEE           |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |  LAST NAME : " ;
+                                                    for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                        if ( j < i ) {
+                                                            cout << LNAME  [ h ] ;
+                                                            h ++ ;
+                                                        }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    cout << "       |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |      NAME NEEDS TO BE AT LEAST      |\n" ;
+                                                    cout << " |          ONE CHARACTER LONG         |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                }
+                                                break ;
+                                            }
+                                            default : {
+                                                system ( "cls" ) ;
+                                                LNAME [ i ] = opp ;
+                                                i ++ ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD EMPLOYEE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  LAST NAME : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << LNAME  [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                        }
+                                    }
+                                }
+                                if ( okex == 0 ) {
+                                    ok = 1 ;
+                                    system ( "cls" ) ;
+                                    cout << " ---------------------------------------\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |              ADD EMPLOYEE           |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |  ID NUMBER : ________________       |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " ---------------------------------------\n" ;
+                                    i = 0 ;
+                                    while ( ok ) {
+                                        gotoxy ( 16 + i , 8 ) ;
+                                        opp = getch ( ) ;
+                                        system ( "cls" ) ;
+                                        switch ( opp ) {
+                                            case 27 : {
+                                                system ( "cls" ) ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | SEARCH FOR EMPLOYEE   ADD EMPLOYEE  |\n" ;
+                                                cout << " |        (1)               (2)        |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  REMOVE EMPLOYEE  SEE ALL EMPLOYEES |\n" ;
+                                                cout << " |        (3)              (4)         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                okex = 1 ;
+                                                ok = 0 ;
+                                                break ;
+                                            }
+                                            case ' ' : {
+                                                system ( "cls" ) ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD EMPLOYEE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  ID NUMBER : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << IDG  [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case '\b' : {
+                                                system ( "cls" ) ;
+                                                if ( i > 0 ) { i -- ; IDG [ i ] = NULL ;}
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD EMPLOYEE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  ID NUMBER : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << IDG  [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case 13 : {
+                                                if ( i > 0 ) {
+                                                    ok = 0 ;
+                                                }
+                                                else
+                                                {
+                                                    system ( "cls" ) ;
+                                                    gotoxy ( 0 , 0 ) ;
+                                                    int h = 0 ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |              ADD EMPLOYEE           |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |  ID NUMBER : " ;
+                                                    for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                        if ( j < i ) {
+                                                            cout << IDG  [ h ] ;
+                                                            h ++ ;
+                                                        }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    cout << "       |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |      NAME NEEDS TO BE AT LEAST      |\n" ;
+                                                    cout << " |          ONE CHARACTER LONG         |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                }
+                                                break ;
+                                            }
+                                            default : {
+                                                system ( "cls" ) ;
+                                                IDG [ i ] = opp ;
+                                                i ++ ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD EMPLOYEE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  ID NUMBER : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << IDG  [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                        }
+                                    }
+                                }
+                                if ( okex == 0 ) {
+                                    ok = 1 ;
+                                    system ( "cls" ) ;
+                                    cout << " ---------------------------------------\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |              ADD EMPLOYEE           |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |  BIRTHDATE : __/__/____             |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " ---------------------------------------\n" ;
+                                    i = 0 ;
+                                    int l = 0 ;
+                                    while ( ok ) {
+                                        gotoxy ( 16 + i + l , 8 ) ;
+                                        opp = getch ( ) ;
+                                        system ( "cls" ) ;
+                                        switch ( opp ) {
+                                            case 27 : {
+                                                system ( "cls" ) ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | SEARCH FOR EMPLOYEE   ADD EMPLOYEE  |\n" ;
+                                                cout << " |        (1)               (2)        |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  REMOVE EMPLOYEE  SEE ALL EMPLOYEES |\n" ;
+                                                cout << " |        (3)              (4)         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                okex = 1 ;
+                                                ok = 0 ;
+                                                break ;
+                                            }
+                                            case ' ' : {
+                                                system ( "cls" ) ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD EMPLOYEE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  BIRTHDATE : " ;
+                                                for ( int j = 0 ; j < 8 ; j ++ ) {
+                                                    if ( j == 2 || j == 4 ) {
+                                                        cout << "/" ;
+                                                    }
+                                                    if ( j < i ) {
+                                                        cout << DATE [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "             |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case '\b' : {
+                                                system ( "cls" ) ;
+                                                if ( i > 0 ) { i -- ; DATE [ i ] = NULL ;}
+                                                if ( i <= 4 )
+                                                    l = 1 ;
+                                                if ( i <= 2 )
+                                                    l = 0 ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD EMPLOYEE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  BIRTHDATE : " ;
+                                                for ( int j = 0 ; j < 8 ; j ++ ) {
+                                                    if ( j == 2 || j == 4 ) {
+                                                        cout << "/" ;
+                                                    }
+                                                    if ( j < i ) {
+                                                        cout << DATE [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "             |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case 13 : {
+                                                if ( i == 8 ) {
+                                                    ok = 0 ;
+                                                }
+                                                else
+                                                {
+                                                    system ( "cls" ) ;
+                                                    gotoxy ( 0 , 0 ) ;
+                                                    int h = 0 ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |              ADD EMPLOYEE           |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |  BIRTHDATE : " ;
+                                                    for ( int j = 0 ; j < 8 ; j ++ ) {
+                                                        if ( j == 2 || j == 4 ) {
+                                                            cout << "/" ;
+                                                        }
+                                                        if ( j < i ) {
+                                                            cout << DATE  [ h ] ;
+                                                            h ++ ;
+                                                        }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    cout << "             |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |       DATE NEEDS TO BE EIGHT        |\n" ;
+                                                    cout << " |             DIGITS LONG             |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                }
+                                                break ;
+                                            }
+                                            default : {
+                                                if ( i < 8 ) {
+                                                    if ( isdigit ( opp ) ) {
+                                                            system ( "cls" ) ;
+                                                            DATE [ i ] = opp ;
+                                                            i ++ ;
+                                                            if ( i > 2 )
+                                                                l = 1 ;
+                                                            if ( i > 4 )
+                                                                l = 2 ;
+                                                            gotoxy ( 0 , 0 ) ;
+                                                            int h = 0 ;
+                                                            cout << " ---------------------------------------\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |              ADD EMPLOYEE           |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |  BIRTHDATE : " ;
+                                                            for ( int j = 0 ; j < 8 ; j ++ ) {
+                                                                if ( j == 2 || j == 4 ) {
+                                                                    cout << "/" ;
+                                                                }
+                                                                if ( j < i ) {
+                                                                    cout << DATE [ h ] ;
+                                                                    h ++ ;
+                                                                }
+                                                                else
+                                                                    cout << "_" ;
+                                                            }
+                                                            cout << "             |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " ---------------------------------------\n" ;
+                                                    }
+                                                    else
+                                                    {
+                                                            system ( "cls" ) ;
+                                                            gotoxy ( 0 , 0 ) ;
+                                                            int h = 0 ;
+                                                            cout << " ---------------------------------------\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |              ADD EMPLOYEE           |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |  BIRTHDATE : " ;
+                                                            for ( int j = 0 ; j < 8 ; j ++ ) {
+                                                                if ( j == 2 || j == 4 ) {
+                                                                    cout << "/" ;
+                                                                }
+                                                                if ( j < i ) {
+                                                                    cout << DATE [ h ] ;
+                                                                    h ++ ;
+                                                                }
+                                                                else
+                                                                    cout << "_" ;
+                                                            }
+                                                            cout << "             |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |         CAN ONLY INSERT DIGITS      |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " ---------------------------------------\n" ;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    system ( "cls" ) ;
+                                                    gotoxy ( 0 , 0 ) ;
+                                                    int h = 0 ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |              ADD EMPLOYEE           |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |  BIRTHDATE : " ;
+                                                    for ( int j = 0 ; j < 8 ; j ++ ) {
+                                                        if ( j == 2 || j == 4 ) {
+                                                            cout << "/" ;
+                                                        }
+                                                        if ( j < i ) {
+                                                            cout << DATE  [ h ] ;
+                                                            h ++ ;
+                                                        }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    cout << "             |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |       DATE NEEDS TO BE EIGHT        |\n" ;
+                                                    cout << " |             DIGITS LONG             |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                }
+                                                break ;
+                                            }
+                                        }
+                                    }
+                                }
+                                if ( okex == 0 ) {
+                                    ok = 1 ;
+                                    system ( "cls" ) ;
+                                    cout << " ---------------------------------------\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |              ADD EMPLOYEE           |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " | JOB TYPE   : ________________       |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " ---------------------------------------\n" ;
+                                    i = 0 ;
+                                    while ( ok ) {
+                                        gotoxy ( 16 + i , 8 ) ;
+                                        opp = getch ( ) ;
+                                        system ( "cls" ) ;
+                                        switch ( opp ) {
+                                            case 27 : {
+                                                system ( "cls" ) ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | SEARCH FOR EMPLOYEE   ADD EMPLOYEE  |\n" ;
+                                                cout << " |        (1)               (2)        |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  REMOVE EMPLOYEE  SEE ALL EMPLOYEES |\n" ;
+                                                cout << " |        (3)              (4)         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                okex = 1 ;
+                                                ok = 0 ;
+                                                break ;
+                                            }
+                                            case ' ' : {
+                                                system ( "cls" ) ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD EMPLOYEE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | JOB TYPE   : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << JTYPE  [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case '\b' : {
+                                                system ( "cls" ) ;
+                                                if ( i > 0 ) { i -- ; JTYPE [ i ] = NULL ;}
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD EMPLOYEE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | JOB TYPE   : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << JTYPE  [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case 13 : {
+                                                if ( i > 0 ) {
+                                                    ok = 0 ;
+                                                }
+                                                else
+                                                {
+                                                    system ( "cls" ) ;
+                                                    gotoxy ( 0 , 0 ) ;
+                                                    int h = 0 ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |              ADD EMPLOYEE           |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " | JOB TYPE   : " ;
+                                                    for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                        if ( j < i ) {
+                                                            cout << JTYPE  [ h ] ;
+                                                            h ++ ;
+                                                        }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    cout << "       |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |      NAME NEEDS TO BE AT LEAST      |\n" ;
+                                                    cout << " |          ONE CHARACTER LONG         |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                }
+                                                break ;
+                                            }
+                                            default : {
+                                                system ( "cls" ) ;
+                                                JTYPE [ i ] = opp ;
+                                                i ++ ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD EMPLOYEE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | JOB TYPE   : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << JTYPE  [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                        }
+                                    }
+                                }
+                                if ( okex == 0 ) {
+                                     ok = 1 ;
+                                    system ( "cls" ) ;
+                                    cout << " ---------------------------------------\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |              ADD EMPLOYEE           |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " | NUMBER OF LANGUAGES SPOKEN   : ___  |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " ---------------------------------------\n" ;
+                                    i = 0 ;
+                                    while ( ok ) {
+                                        gotoxy ( 34 + i , 8 ) ;
+                                        opp = getch ( ) ;
+                                        system ( "cls" ) ;
+                                        switch ( opp ) {
+                                            case 27 : {
+                                                system ( "cls" ) ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | SEARCH FOR EMPLOYEE   ADD EMPLOYEE  |\n" ;
+                                                cout << " |        (1)               (2)        |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  REMOVE EMPLOYEE  SEE ALL EMPLOYEES |\n" ;
+                                                cout << " |        (3)              (4)         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                okex = 1 ;
+                                                ok = 0 ;
+                                                break ;
+                                            }
+                                            case ' ' : {
+                                                system ( "cls" ) ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD EMPLOYEE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | NUMBER OF LANGUAGES SPOKEN   : " ;
+                                                for ( int j = 0 ; j < 3 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << NLS [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "  |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case '\b' : {
+                                                system ( "cls" ) ;
+                                                if ( i > 0 ) { i -- ; NLS [ i ] = NULL ;}
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD EMPLOYEE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | NUMBER OF LANGUAGES SPOKEN   : " ;
+                                                for ( int j = 0 ; j < 3 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << NLS [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "  |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case 13 : {
+                                                if ( i > 0 ) {
+                                                    ok = 0 ;
+                                                }
+                                                else
+                                                {
+                                                    system ( "cls" ) ;
+                                                    gotoxy ( 0 , 0 ) ;
+                                                    int h = 0 ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |              ADD EMPLOYEE           |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " | NUMBER OF LANGUAGES SPOKEN   : " ;
+                                                    for ( int j = 0 ; j < 3 ; j ++ ) {
+                                                        if ( j < i ) {
+                                                            cout << NLS [ h ] ;
+                                                            h ++ ;
+                                                        }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    cout << "  |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |      NAME NEEDS TO BE AT LEAST      |\n" ;
+                                                    cout << " |          ONE CHARACTER LONG         |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                }
+                                                break ;
+                                            }
+                                            default : {
+                                                system ( "cls" ) ;
+                                                NLS [ i ] = opp ;
+                                                i ++ ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD EMPLOYEE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | NUMBER OF LANGUAGES SPOKEN   : " ;
+                                                for ( int j = 0 ; j < 3 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << NLS [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "  |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                        }
+                                    }
+                                }
+                                for ( int jj = 0 ; jj < NLS [ 0 ] - '0' ; jj ++ ) {
+                                    if ( okex == 0 ) {
+                                        ok = 1 ;
+                                        system ( "cls" ) ;
+                                        cout << " ---------------------------------------\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |              ADD EMPLOYEE           |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " | LANGUAGE   : ________________       |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " ---------------------------------------\n" ;
+                                        i = 0 ;
+                                        while ( ok ) {
+                                            gotoxy ( 16 + i , 8 ) ;
+                                            opp = getch ( ) ;
+                                            system ( "cls" ) ;
+                                            switch ( opp ) {
+                                                case 27 : {
+                                                    system ( "cls" ) ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " | SEARCH FOR EMPLOYEE   ADD EMPLOYEE  |\n" ;
+                                                    cout << " |        (1)               (2)        |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |  REMOVE EMPLOYEE  SEE ALL EMPLOYEES |\n" ;
+                                                    cout << " |        (3)              (4)         |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    okex = 1 ;
+                                                    ok = 0 ;
+                                                    break ;
+                                                }
+                                                case ' ' : {
+                                                    system ( "cls" ) ;
+                                                    gotoxy ( 0 , 0 ) ;
+                                                    int h = 0 ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |              ADD EMPLOYEE           |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " | LANGUAGE   : " ;
+                                                    for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                        if ( j < i ) {
+                                                            cout << LS [ jj ]   [ h ] ;
+                                                            h ++ ;
+                                                        }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    cout << "       |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    break ;
+                                                }
+                                                case '\b' : {
+                                                    system ( "cls" ) ;
+                                                    if ( i > 0 ) { i -- ; LS [ jj ]  [ i ] = NULL ;}
+                                                    gotoxy ( 0 , 0 ) ;
+                                                    int h = 0 ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |              ADD EMPLOYEE           |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " | LANGUAGE   : " ;
+                                                    for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                        if ( j < i ) {
+                                                            cout << LS [ jj ] [ h ] ;
+                                                            h ++ ;
+                                                        }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    cout << "       |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    break ;
+                                                }
+                                                case 13 : {
+                                                    if ( i > 0 ) {
+                                                        ok = 0 ;
+                                                    }
+                                                    else
+                                                    {
+                                                        system ( "cls" ) ;
+                                                        gotoxy ( 0 , 0 ) ;
+                                                        int h = 0 ;
+                                                        cout << " ---------------------------------------\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |              ADD EMPLOYEE           |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " | LANGUAGE   : " ;
+                                                        for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                            if ( j < i ) {
+                                                                cout << LS [ jj ] [ h ] ;
+                                                                h ++ ;
+                                                            }
+                                                            else
+                                                                cout << "_" ;
+                                                        }
+                                                        cout << "       |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |      NAME NEEDS TO BE AT LEAST      |\n" ;
+                                                        cout << " |          ONE CHARACTER LONG         |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " ---------------------------------------\n" ;
+                                                    }
+                                                    break ;
+                                                }
+                                                default : {
+                                                    system ( "cls" ) ;
+                                                    LS [ jj ] [ i ] = opp ;
+                                                    i ++ ;
+                                                    gotoxy ( 0 , 0 ) ;
+                                                    int h = 0 ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |              ADD EMPLOYEE           |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " | LANGUAGE   : " ;
+                                                    for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                        if ( j < i ) {
+                                                            cout << LS [ jj ] [ h ] ;
+                                                            h ++ ;
+                                                        }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    cout << "       |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    break ;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                if ( okex == 0 ) {
+                                    ok = 1 ;
+                                    system ( "cls" ) ;
+                                    cout << " ---------------------------------------\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |              ADD EMPLOYEE           |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |  BANK ACC. : ________________       |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " ---------------------------------------\n" ;
+                                    i = 0 ;
+                                    while ( ok ) {
+                                        gotoxy ( 16 + i , 8 ) ;
+                                        opp = getch ( ) ;
+                                        system ( "cls" ) ;
+                                        switch ( opp ) {
+                                            case 27 : {
+                                                system ( "cls" ) ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | SEARCH FOR EMPLOYEE   ADD EMPLOYEE  |\n" ;
+                                                cout << " |        (1)               (2)        |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  REMOVE EMPLOYEE  SEE ALL EMPLOYEES |\n" ;
+                                                cout << " |        (3)              (4)         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                okex = 1 ;
+                                                ok = 0 ;
+                                                break ;
+                                            }
+                                            case ' ' : {
+                                                system ( "cls" ) ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD EMPLOYEE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  BANK ACC. : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << BNK [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case '\b' : {
+                                                system ( "cls" ) ;
+                                                if ( i > 0 ) { i -- ; BNK [ i ] = NULL ;}
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD EMPLOYEE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  BANK ACC. : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << BNK  [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case 13 : {
+                                                if ( i > 0 ) {
+                                                    ok = 0 ;
+                                                }
+                                                else
+                                                {
+                                                    system ( "cls" ) ;
+                                                    gotoxy ( 0 , 0 ) ;
+                                                    int h = 0 ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |              ADD EMPLOYEE           |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |  BANK ACC. : " ;
+                                                    for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                        if ( j < i ) {
+                                                            cout << BNK  [ h ] ;
+                                                            h ++ ;
+                                                        }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    cout << "       |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |      NAME NEEDS TO BE AT LEAST      |\n" ;
+                                                    cout << " |          ONE CHARACTER LONG         |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                }
+                                                break ;
+                                            }
+                                            default : {
+                                                system ( "cls" ) ;
+                                                BNK [ i ] = opp ;
+                                                i ++ ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD EMPLOYEE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  BANK ACC. : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << BNK [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                        }
+                                    }
+                                }
+                                if ( okex == 0 ) {
+                                    ok = 1 ;
+                                    system ( "cls" ) ;
+                                    cout << " ---------------------------------------\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |              ADD EMPLOYEE           |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " | START DATE : __/__/____             |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " ---------------------------------------\n" ;
+                                    i = 0 ;
+                                    int l = 0 ;
+                                    while ( ok ) {
+                                        gotoxy ( 16 + i + l , 8 ) ;
+                                        opp = getch ( ) ;
+                                        system ( "cls" ) ;
+                                        switch ( opp ) {
+                                            case 27 : {
+                                                system ( "cls" ) ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | SEARCH FOR EMPLOYEE   ADD EMPLOYEE  |\n" ;
+                                                cout << " |        (1)               (2)        |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  REMOVE EMPLOYEE  SEE ALL EMPLOYEES |\n" ;
+                                                cout << " |        (3)              (4)         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                okex = 1 ;
+                                                ok = 0 ;
+                                                break ;
+                                            }
+                                            case ' ' : {
+                                                system ( "cls" ) ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD EMPLOYEE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | START DATE : " ;
+                                                for ( int j = 0 ; j < 8 ; j ++ ) {
+                                                    if ( j == 2 || j == 4 ) {
+                                                        cout << "/" ;
+                                                    }
+                                                    if ( j < i ) {
+                                                        cout << DATE2 [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "             |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case '\b' : {
+                                                system ( "cls" ) ;
+                                                if ( i > 0 ) { i -- ; DATE2 [ i ] = NULL ;}
+                                                if ( i <= 4 )
+                                                    l = 1 ;
+                                                if ( i <= 2 )
+                                                    l = 0 ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD EMPLOYEE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | START DATE : " ;
+                                                for ( int j = 0 ; j < 8 ; j ++ ) {
+                                                    if ( j == 2 || j == 4 ) {
+                                                        cout << "/" ;
+                                                    }
+                                                    if ( j < i ) {
+                                                        cout << DATE2 [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "             |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case 13 : {
+                                                if ( i == 8 ) {
+                                                    ok = 0 ;
+                                                }
+                                                else
+                                                {
+                                                    system ( "cls" ) ;
+                                                    gotoxy ( 0 , 0 ) ;
+                                                    int h = 0 ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |              ADD EMPLOYEE           |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " | START DATE : " ;
+                                                    for ( int j = 0 ; j < 8 ; j ++ ) {
+                                                        if ( j == 2 || j == 4 ) {
+                                                            cout << "/" ;
+                                                        }
+                                                        if ( j < i ) {
+                                                            cout << DATE2  [ h ] ;
+                                                            h ++ ;
+                                                        }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    cout << "             |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |       DATE NEEDS TO BE EIGHT        |\n" ;
+                                                    cout << " |             DIGITS LONG             |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                }
+                                                break ;
+                                            }
+                                            default : {
+                                                if ( i < 8 ) {
+                                                    if ( isdigit ( opp ) ) {
+                                                            system ( "cls" ) ;
+                                                            DATE2 [ i ] = opp ;
+                                                            i ++ ;
+                                                            if ( i > 2 )
+                                                                l = 1 ;
+                                                            if ( i > 4 )
+                                                                l = 2 ;
+                                                            gotoxy ( 0 , 0 ) ;
+                                                            int h = 0 ;
+                                                            cout << " ---------------------------------------\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |              ADD EMPLOYEE           |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " | START DATE : " ;
+                                                            for ( int j = 0 ; j < 8 ; j ++ ) {
+                                                                if ( j == 2 || j == 4 ) {
+                                                                    cout << "/" ;
+                                                                }
+                                                                if ( j < i ) {
+                                                                    cout << DATE2 [ h ] ;
+                                                                    h ++ ;
+                                                                }
+                                                                else
+                                                                    cout << "_" ;
+                                                            }
+                                                            cout << "             |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " ---------------------------------------\n" ;
+                                                    }
+                                                    else
+                                                    {
+                                                            system ( "cls" ) ;
+                                                            gotoxy ( 0 , 0 ) ;
+                                                            int h = 0 ;
+                                                            cout << " ---------------------------------------\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |              ADD EMPLOYEE           |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " | START DATE : " ;
+                                                            for ( int j = 0 ; j < 8 ; j ++ ) {
+                                                                if ( j == 2 || j == 4 ) {
+                                                                    cout << "/" ;
+                                                                }
+                                                                if ( j < i ) {
+                                                                    cout << DATE [ h ] ;
+                                                                    h ++ ;
+                                                                }
+                                                                else
+                                                                    cout << "_" ;
+                                                            }
+                                                            cout << "             |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |         CAN ONLY INSERT DIGITS      |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " ---------------------------------------\n" ;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    system ( "cls" ) ;
+                                                    gotoxy ( 0 , 0 ) ;
+                                                    int h = 0 ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |              ADD EMPLOYEE           |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " | START DATE : " ;
+                                                    for ( int j = 0 ; j < 8 ; j ++ ) {
+                                                        if ( j == 2 || j == 4 ) {
+                                                            cout << "/" ;
+                                                        }
+                                                        if ( j < i ) {
+                                                            cout << DATE  [ h ] ;
+                                                            h ++ ;
+                                                        }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    cout << "             |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |       DATE NEEDS TO BE EIGHT        |\n" ;
+                                                    cout << " |             DIGITS LONG             |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                }
+                                                break ;
+                                            }
+                                        }
+                                    }
+                                }
+                                if ( okex == 0 ) {
+                                    ok = 1 ;
+                                    system ( "cls" ) ;
+                                    cout << " ---------------------------------------\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |              ADD EMPLOYEE           |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " | VACATION DAYS : _____________       |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " ---------------------------------------\n" ;
+                                    i = 0 ;
+                                    while ( ok ) {
+                                        gotoxy ( 19 + i , 8 ) ;
+                                        opp = getch ( ) ;
+                                        system ( "cls" ) ;
+                                        switch ( opp ) {
+                                            case 27 : {
+                                                system ( "cls" ) ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | SEARCH FOR EMPLOYEE   ADD EMPLOYEE  |\n" ;
+                                                cout << " |        (1)               (2)        |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  REMOVE EMPLOYEE  SEE ALL EMPLOYEES |\n" ;
+                                                cout << " |        (3)              (4)         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                okex = 1 ;
+                                                ok = 0 ;
+                                                break ;
+                                            }
+                                            case ' ' : {
+                                                system ( "cls" ) ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD EMPLOYEE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | VACATION DAYS : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << VD  [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case '\b' : {
+                                                system ( "cls" ) ;
+                                                if ( i > 0 ) { i -- ; VD [ i ] = NULL ;}
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD EMPLOYEE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | VACATION DAYS : " ;
+                                                for ( int j = 0 ; j < 13 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << VD  [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case 13 : {
+                                                if ( i > 0 ) {
+                                                    ok = 0 ;
+                                                }
+                                                else
+                                                {
+                                                    system ( "cls" ) ;
+                                                    gotoxy ( 0 , 0 ) ;
+                                                    int h = 0 ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |              ADD EMPLOYEE           |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " | FIRST NAME : " ;
+                                                    for ( int j = 0 ; j < 13 ; j ++ ) {
+                                                        if ( j < i ) {
+                                                            cout << VD  [ h ] ;
+                                                            h ++ ;
+                                                        }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    cout << "       |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |      NAME NEEDS TO BE AT LEAST      |\n" ;
+                                                    cout << " |          ONE CHARACTER LONG         |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                }
+                                                break ;
+                                            }
+                                            default : {
+                                                system ( "cls" ) ;
+                                                VD [ i ] = opp ;
+                                                i ++ ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD EMPLOYEE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | VACATION DAYS : " ;
+                                                for ( int j = 0 ; j < 13 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << VD  [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                        }
+                                    }
+                                }
+                                if ( okex == 0 ) {
+                                    ok = 1 ;
+                                    system ( "cls" ) ;
+                                    cout << " ---------------------------------------\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |              ADD EMPLOYEE           |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |     CITY   : ________________       |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " ---------------------------------------\n" ;
+                                    i = 0 ;
+                                    while ( ok ) {
+                                        gotoxy ( 16 + i , 8 ) ;
+                                        opp = getch ( ) ;
+                                        system ( "cls" ) ;
+                                        switch ( opp ) {
+                                            case 27 : {
+                                                system ( "cls" ) ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | SEARCH FOR EMPLOYEE   ADD EMPLOYEE  |\n" ;
+                                                cout << " |        (1)               (2)        |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  REMOVE EMPLOYEE  SEE ALL EMPLOYEES |\n" ;
+                                                cout << " |        (3)              (4)         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                okex = 1 ;
+                                                ok = 0 ;
+                                                break ;
+                                            }
+                                            case ' ' : {
+                                                system ( "cls" ) ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD EMPLOYEE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |     CITY   : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << CIT [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case '\b' : {
+                                                system ( "cls" ) ;
+                                                if ( i > 0 ) { i -- ; CIT [ i ] = NULL ;}
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD EMPLOYEE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |     CITY   : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << CIT  [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case 13 : {
+                                                if ( i > 0 ) {
+                                                    ok = 0 ;
+                                                }
+                                                else
+                                                {
+                                                    system ( "cls" ) ;
+                                                    gotoxy ( 0 , 0 ) ;
+                                                    int h = 0 ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |              ADD EMPLOYEE           |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |     CITY   : " ;
+                                                    for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                        if ( j < i ) {
+                                                            cout << CIT  [ h ] ;
+                                                            h ++ ;
+                                                        }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    cout << "       |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |      NAME NEEDS TO BE AT LEAST      |\n" ;
+                                                    cout << " |          ONE CHARACTER LONG         |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                }
+                                                break ;
+                                            }
+                                            default : {
+                                                system ( "cls" ) ;
+                                                CIT [ i ] = opp ;
+                                                i ++ ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD EMPLOYEE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |     CITY   : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << CIT  [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                        }
+                                    }
+                                }
+                                if ( okex == 0 ) {
+                                    ok = 1 ;
+                                    system ( "cls" ) ;
+                                    cout << " ---------------------------------------\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |              ADD EMPLOYEE           |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |  COUNTRY   : ________________       |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " ---------------------------------------\n" ;
+                                    i = 0 ;
+                                    while ( ok ) {
+                                        gotoxy ( 16 + i , 8 ) ;
+                                        opp = getch ( ) ;
+                                        system ( "cls" ) ;
+                                        switch ( opp ) {
+                                            case 27 : {
+                                                system ( "cls" ) ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | SEARCH FOR EMPLOYEE   ADD EMPLOYEE  |\n" ;
+                                                cout << " |        (1)               (2)        |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  REMOVE EMPLOYEE  SEE ALL EMPLOYEES |\n" ;
+                                                cout << " |        (3)              (4)         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                okex = 1 ;
+                                                ok = 0 ;
+                                                break ;
+                                            }
+                                            case ' ' : {
+                                                system ( "cls" ) ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD EMPLOYEE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  COUNTRY   : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << COUNT [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case '\b' : {
+                                                system ( "cls" ) ;
+                                                if ( i > 0 ){ i -- ; COUNT [ i ] = NULL ;}
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD EMPLOYEE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  COUNTRY   : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << COUNT [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case 13 : {
+                                                if ( i > 0 ) {
+                                                    ok = 0 ;
+                                                }
+                                                else
+                                                {
+                                                    system ( "cls" ) ;
+                                                    gotoxy ( 0 , 0 ) ;
+                                                    int h = 0 ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |              ADD EMPLOYEE           |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |  COUNTRY   : " ;
+                                                    for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                        if ( j < i ) {
+                                                            cout << COUNT [ h ] ;
+                                                            h ++ ;
+                                                        }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    cout << "       |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |      NAME NEEDS TO BE AT LEAST      |\n" ;
+                                                    cout << " |          ONE CHARACTER LONG         |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                }
+                                                break ;
+                                            }
+                                            default : {
+                                                system ( "cls" ) ;
+                                                COUNT[ i ] = opp ;
+                                                i ++ ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD EMPLOYEE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  COUNTRY   : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << COUNT [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                        }
+                                    }
+                                }
+                                if ( okex == 0 ) {
+                                    EMPLOYEE_READ ( employeemaxx ) ;
+                                    ofs.open("EMPLOYEE", ios::out | ios::trunc);
+                                    ofs << employeemaxx + 1 << "\n" ;
+                                    for ( int j = 0 ; j < employeemaxx ; j ++ ) {
+                                        ofs << j + 1 << " " ;
+                                        ofs << EMPLOYEE [ j ] .IDG << " " ;
+                                        ofs << EMPLOYEE [ j ] .FIRST_NAME << " " ;
+                                        ofs << EMPLOYEE [ j ] .LAST_NAME << " " ;
+                                        ofs << EMPLOYEE [ j ] .DDATE_OF_BIRTH.DDAY << " " << EMPLOYEE [ j ]  .DDATE_OF_BIRTH.MMONTH << " " << EMPLOYEE [ j ]  .DDATE_OF_BIRTH.YYEAR << " " ;
+                                        ofs << EMPLOYEE [ j ] .TYPE_OF_JOB << " " ;
+                                        ofs << EMPLOYEE [ j ] .NUMBER_OF_LANGUAGES_SPOKEN << " " ;
+                                        for ( int jj = 0 ; jj < EMPLOYEE [ j ] .NUMBER_OF_LANGUAGES_SPOKEN ; jj ++ )
+                                            ofs << EMPLOYEE [ j ] .LANGUAGES_SPOKEN [ jj ] << " " ;
+                                        ofs << EMPLOYEE [ j ] .SALARY_MMONTHLY << " " ;
+                                        ofs << EMPLOYEE [ j ] .BANK_ACC << " " ;
+                                        ofs << EMPLOYEE [ j ] .DDATE_OF_START.DDAY << " " << EMPLOYEE [ j ]  .DDATE_OF_START.MMONTH << " " << EMPLOYEE [ j ]  .DDATE_OF_START.YYEAR << " " ;
+                                        ofs << EMPLOYEE [ j ] .VACATION_DDAYS << " " ;
+                                        ofs << EMPLOYEE [ j ] .LOCATION.CITY << " " ;
+                                        ofs << EMPLOYEE [ j ] .LOCATION.COUNTRY << "\n" ;
+
+                                    }
+                                    employeemaxx ++ ;
+                                    ofs << employeemaxx << " " ;
+                                    ofs << IDG << " " ;
+                                    ofs << FNAME << " " << LNAME << " " ;
+                                    ofs << DATE [ 0 ] << DATE [ 1 ] << " " << DATE [ 2 ] << DATE [ 3 ] << " " << DATE [ 4 ] << DATE [ 5 ] << DATE [ 6 ] << DATE [ 7 ] << " " ;
+                                    ofs << JTYPE << " " ;
+                                    ofs << NLS << " " ;
+                                    for ( int jj = 0 ; jj < NLS [ 0 ] - '0' ; jj ++ )
+                                            ofs << LS [ jj ] << " " ;
+                                    ofs << BNK << " " ;
+                                    ofs << DATE2 [ 0 ] << DATE2 [ 1 ] << " " << DATE2 [ 2 ] << DATE2 [ 3 ] << " " << DATE2 [ 4 ] << DATE2 [ 5 ] << DATE2 [ 6 ] << DATE2 [ 7 ] << " " ;
+                                    ofs << VD << " " ;
+                                    ofs << CIT << " " << COUNT << "\n" ;
+                                    ofs.close ( ) ;
+                                    EMPLOYEE_READ ( employeemaxx );
+                                    system ( "cls" ) ;
+                                    cout << " ---------------------------------------\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |              ADD EMPLOYEE           |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |             EMPLOYEE ADDED          |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " ---------------------------------------\n" ;
+                                    getch ( ) ;
+                                }
+                                okp = 2 ;
+                                opp = '2' ;
                                 break ;
                         }
                         case '4' : {
@@ -9326,7 +11789,7 @@ int main()
                                         cout << " |                                     |\n" ;
                                         cout << " |                                     |\n" ;
                                         cout << " |                                     |\n" ;
-                                        cout << " |  REMOVE EMPLOYEE  SEE ALL EMPLOYEE |\n" ;
+                                        cout << " |  REMOVE EMPLOYEE  SEE ALL EMPLOYEES |\n" ;
                                         cout << " |        (3)              (4)         |\n" ;
                                         cout << " |                                     |\n" ;
                                         cout << " |                                     |\n" ;
