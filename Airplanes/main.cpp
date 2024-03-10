@@ -12,7 +12,6 @@
 using namespace std;
 
 fstream empli ( "EMPLOYEE" , ios::in | ios::out ) ;
-fstream plai ( "PLANE" , ios::in | ios::out ) ;
 fstream logi ( "LOGIN" , ios::in | ios::out ) ;
 fstream passi ( "PASSWORDS" , ios::in | ios::out ) ;
 ifstream citi ( "CITY" ) ;
@@ -96,7 +95,7 @@ struct PLANE {
 } PLANE [ 300000 ] ;
 
 void CUSTOMER_READ ( int &n ) {
-    fstream custi ( "CUSTOMER" , ios::in | ios::out ) ;
+    ifstream custi ( "CUSTOMER" ) ;
     int i = 0 ;
     custi >> n ;
     for ( i = 0 ; i < n ; i ++ ) {
@@ -109,7 +108,6 @@ void CUSTOMER_READ ( int &n ) {
         custi >> CUSTOMER [ i ] .DDATE_OF_BIRTH.YYEAR ;
         custi >> CUSTOMER [ i ] .LOCATION.CITY ;
         custi >> CUSTOMER [ i ] .LOCATION.COUNTRY ;
-        system( "cls" ) ;
     }
     custi.close ( ) ;
 }
@@ -141,6 +139,7 @@ void EMPLOYEE_READ ( int &n ) {
 }
 
 void PLANE_READ ( int &n ) {
+    ifstream plai ( "PLANE" ) ;
     int i = 0 ;
     plai >> n ;
     for ( i = 0 ; i < n ; i ++ ) {
@@ -155,13 +154,16 @@ void PLANE_READ ( int &n ) {
         plai >> PLANE [ i ] .LAST_ITP.DDAY ;
         plai >> PLANE [ i ] .LAST_ITP.MMONTH ;
         plai >> PLANE [ i ] .LAST_ITP.YYEAR ;
+        plai >> PLANE [ i ] .LOCATION.CITY ;
+        plai >> PLANE [ i ] .LOCATION.COUNTRY ;
     }
+    plai.close ();
 }
 
 void data_read ( int &n , int &m , int &p ) {
     CUSTOMER_READ ( n ) ;
     //EMPLOYEE_READ ( m ) ;
-    //PLANE_READ ( p ) ;
+    PLANE_READ ( p ) ;
 }
 
 void CUSTOMER_RAND ( ) {
@@ -1608,6 +1610,9 @@ int main()
     char DATE [ 9 ] ;
     char CIT [ 25 ] , COUNT [ 25 ] ;
     char CUSTOMERNAME [ 20 ] , CUSTOMERIDG [ 20 ] ;
+    char PLANETYPE  [ 30 ] , PLANEIDG [ 7 ] ;
+    char HGT [ 5 ]  , LNT [ 5 ] , WDT [ 5 ] ;
+    char MS [ 5 ] , MW [ 5 ] ;
     system ( "cls" ) ;
     cout << " ---------------------------------------\n" ;
     cout << " |                                     |\n" ;
@@ -2629,7 +2634,7 @@ int main()
                                                 ofs.open("CUSTOMER", ios::out | ios::trunc);
                                                 ofs << custommaxx - 1 << "\n" ;
                                                 for ( int j = 0 ; j < search1 ; j ++ ) {
-                                                    ofs << CUSTOMER [ j ] .IDL << " " ;
+                                                    ofs << j + 1 << " " ;
                                                     ofs << CUSTOMER [ j ] .IDG << " " ;
                                                     ofs << CUSTOMER [ j ] .FIRST_NAME << " " ;
                                                     ofs << CUSTOMER [ j ] .LAST_NAME << " " ;
@@ -2639,7 +2644,7 @@ int main()
 
                                                 }
                                                 for ( int j = search1 + 1  ; j < custommaxx ; j ++ ) {
-                                                    ofs << CUSTOMER [ j ] .IDL << " " ;
+                                                    ofs << j << " " ;
                                                     ofs << CUSTOMER [ j ] .IDG << " " ;
                                                     ofs << CUSTOMER [ j ] .FIRST_NAME << " " ;
                                                     ofs << CUSTOMER [ j ] .LAST_NAME << " " ;
@@ -2651,7 +2656,7 @@ int main()
                                                 ofs.close () ;
                                                 CUSTOMER_READ ( custommaxx ) ;
                                                 search1 = custommaxx ;
-                                                ok = 1 ;
+                                                ok = 0 ;
                                                 system ( "cls" ) ;
                                                 cout << " ---------------------------------------\n" ;
                                                 cout << " |                                     |\n" ;
@@ -2783,7 +2788,7 @@ int main()
                                             }
                                             case '\b' : {
                                                 system ( "cls" ) ;
-                                                if ( i > 0 ) i -- ;
+                                                if ( i > 0 ) { i -- ; FNAME [ i ] = NULL ;}
                                                 gotoxy ( 0 , 0 ) ;
                                                 int h = 0 ;
                                                 cout << " ---------------------------------------\n" ;
@@ -2966,7 +2971,7 @@ int main()
                                             }
                                             case '\b' : {
                                                 system ( "cls" ) ;
-                                                if ( i > 0 ) i -- ;
+                                                if ( i > 0 ) { i -- ; LNAME [ i ] = NULL ;}
                                                 gotoxy ( 0 , 0 ) ;
                                                 int h = 0 ;
                                                 cout << " ---------------------------------------\n" ;
@@ -3149,7 +3154,7 @@ int main()
                                             }
                                             case '\b' : {
                                                 system ( "cls" ) ;
-                                                if ( i > 0 ) i -- ;
+                                                if ( i > 0 ) { i -- ; IDG [ i ] = NULL ;}
                                                 gotoxy ( 0 , 0 ) ;
                                                 int h = 0 ;
                                                 cout << " ---------------------------------------\n" ;
@@ -3336,7 +3341,7 @@ int main()
                                             }
                                             case '\b' : {
                                                 system ( "cls" ) ;
-                                                if ( i > 0 ) i -- ;
+                                                if ( i > 0 ) { i -- ; DATE [ i ] = NULL ;}
                                                 if ( i <= 4 )
                                                     l = 1 ;
                                                 if ( i <= 2 )
@@ -3590,7 +3595,7 @@ int main()
                                                 cout << " |     CITY   : " ;
                                                 for ( int j = 0 ; j < 16 ; j ++ ) {
                                                     if ( j < i ) {
-                                                        cout << CIT  [ h ] ;
+                                                        cout << CIT [ h ] ;
                                                         h ++ ;
                                                     }
                                                     else
@@ -3608,7 +3613,7 @@ int main()
                                             }
                                             case '\b' : {
                                                 system ( "cls" ) ;
-                                                if ( i > 0 ) i -- ;
+                                                if ( i > 0 ) { i -- ; CIT [ i ] = NULL ;}
                                                 gotoxy ( 0 , 0 ) ;
                                                 int h = 0 ;
                                                 cout << " ---------------------------------------\n" ;
@@ -3791,7 +3796,7 @@ int main()
                                             }
                                             case '\b' : {
                                                 system ( "cls" ) ;
-                                                if ( i > 0 ) i -- ;
+                                                if ( i > 0 ){ i -- ; COUNT [ i ] = NULL ;}
                                                 gotoxy ( 0 , 0 ) ;
                                                 int h = 0 ;
                                                 cout << " ---------------------------------------\n" ;
@@ -4316,19 +4321,3460 @@ int main()
                     opp = getch ( ) ;
                     switch ( opp ) {
                         case '1' : {
+                            for ( int aaaa = 0 ; aaaa < 20 ; aaaa ++ ) {
+                                NAMES [ aaaa ] = PASS [ aaaa ] = NULL ;
+                            }
+                            ok = 1 ;
+                            while ( ok == 1 )
+                            {
+                                system ( "cls" ) ;
+                                cout << " ---------------------------------------\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |           AIRPLANE  SEARCH          |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |   NAME     : ________________       |\n" ;
+                                cout << " |   IDG      : ________________       |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " ---------------------------------------\n" ;
+                                i = n = 0 ;
+                                okp = 1 ;
+                                while ( okp == 1 && ok != 2 ) {
+                                    gotoxy ( 16 + i , 8 ) ;
+                                    op = getch ( ) ;
+                                    system ( "cls" );
+                                    switch ( op ) {
+                                        case 27 : {
+                                            ok = 2 ;
+                                            system ( "cls" ) ;
+                                            cout << " ---------------------------------------\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " | SEARCH FOR AIRPLANE   ADD AIRPLANE  |\n" ;
+                                            cout << " |        (1)               (2)        |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |  REMOVE AIRPLANE  SEE ALL AIRPLANES |\n" ;
+                                            cout << " |        (3)              (4)         |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " ---------------------------------------\n" ;
+                                            break ;
+                                        }
+                                        case ' ' : {
+                                            int h = 0 ;
+                                            system ( "cls" ) ;
+                                            gotoxy ( 0 , 0 ) ;
+                                            cout << " ---------------------------------------\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |           AIRPLANE  SEARCH          |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |   NAME     : " ;
+                                            for ( int j = 0 ; j < 16 ; j ++ )
+                                            {
+                                                if ( j < i )
+                                                    {
+                                                       // cout << j << " " << i << " " ;
+                                                        cout << PLANETYPE [ h ] ;
+                                                        h++ ;
+                                                    }
+                                                else
+                                                    cout << "_" ;
+                                            }
+                                            cout << "       |\n" ;
+                                            cout << " |   IDG      : ________________       |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " ---------------------------------------\n" ;
+                                            break ;
+                                        }
+                                        case '\b' :
+                                        {
+                                                int h = 0 ;
+                                                if ( i > 0 ) i -- ;
+                                                gotoxy ( 16 + i , 9 ) ;
+                                                system ( "cls" );
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |           AIRPLANE  SEARCH          |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |   NAME     : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ )
+                                                {
+                                                   if ( j < i )
+                                                        {
+                                                            cout << PLANETYPE[ h ] ;
+                                                            h++ ;
+                                                        }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |   IDG      : ________________       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                        }
+                                        case 13 :
+                                        {
+                                            if ( i > 0 ) {
+                                                okp = 0 ;
+                                            }
+                                            else
+                                            {
+                                                int h = 0 ;
+                                                system ( "cls" ) ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |           AIRPLANE  SEARCH          |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;;
+                                                cout << " |   NAME     : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ )
+                                                {
+                                                    if ( j >= i )
+                                                        cout << "_" ;
+                                                    else
+                                                        {
+                                                            cout << PLANETYPE[ h ] ;
+                                                            h++ ;
+                                                        }
 
-                        }
-                        case '2' : {
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |   IDG      : ________________       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |      NAME NEEDS TO BE AT LEAST      |\n" ;
+                                                cout << " |          ONE CHARACTER LONG         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                getch ( ) ;
+                                                break;
+                                            }
+                                        }
+                                        default : {
+                                            if ( op != 13 && op != ' ' ) {
+                                                int h = 0 ;
+                                                gotoxy ( 16 + i , 9 ) ;
+                                                PLANETYPE[ i ] = op ;
+                                                i ++ ;
+                                                system ( "cls" );
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |           AIRPLANE  SEARCH          |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |   NAME     : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ )
+                                                {
+                                                   if ( j < i )
+                                                        {
+                                                            cout << PLANETYPE[ h ] ;
+                                                            h++ ;
+                                                        }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |   IDG      : ________________       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                            }
+                                        }
+                                    }
+                                }
+                                    if ( ok != 2 ) {
+                                        int h = 0 ;
+                                        system ( "cls" );
+                                        cout << " ---------------------------------------\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |           AIRPLANE  SEARCH          |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |   NAME     : " ;
+                                        for ( int j = 0 ; j < 16 ; j ++ )
+                                        {
+                                           if ( j < i )
+                                                {
+                                                    cout << PLANETYPE[ h ] ;
+                                                    h++ ;
+                                                }
+                                            else
+                                                cout << "_" ;
+                                        }
+                                        cout << "       |\n" ;
+                                        cout << " |   IDG      : ________________       |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " ---------------------------------------\n" ;
+                                        while ( okp == 0 && ok != 2 )
+                                        {
+                                            gotoxy ( 16 + n , 9  ) ;
+                                            op = getch ( ) ;
+                                            system ( "cls" );
+                                            switch ( op ) {
+                                                case 27 : {
+                                                    ok = 2 ;
+                                                    system ( "cls" ) ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " | SEARCH FOR AIRPLANE   ADD AIRPLANE  |\n" ;
+                                                    cout << " |        (1)               (2)        |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |  REMOVE AIRPLANE  SEE ALL AIRPLANES |\n" ;
+                                                    cout << " |        (3)              (4)         |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    break ;
+                                                }
+                                                case ' ' : {
+                                                    int h = 0 ;
+                                                    system ( "cls" ) ;
+                                                    gotoxy ( 0 , 0 ) ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |           AIRPLANE  SEARCH          |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |   NAME     : " ;
+                                                    for ( int j = 0 ; j < 16 ; j ++ )
+                                                    {
+                                                        if ( j < i )
+                                                            {
+                                                                cout << PLANETYPE[ h ] ;
+                                                                h++ ;
+                                                            }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    h = 0 ;
+                                                    cout << "       |\n" ;
+                                                    cout << " |   IDG      : " ;
+                                                     for ( int j = 0 ; j < 16 ; j ++ )
+                                                    {
+                                                        if ( j < n )
+                                                            {
+                                                                cout << PLANEIDG [ h ] ;
+                                                                h++ ;
+                                                            }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    cout << "       |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    break ;
+                                                }
+                                                case '\b' :
+                                                {
+                                                        int h = 0 ;
+                                                        if ( n > 0 ) n -- ;
+                                                        gotoxy ( 16 + n , 9 ) ;
+                                                        system ( "cls" );
+                                                        cout << " ---------------------------------------\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |           AIRPLANE  SEARCH          |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |   NAME     : " ;
+                                                        for ( int j = 0 ; j < 16 ; j ++ )
+                                                        {
+                                                            if ( j < i )
+                                                                {
+                                                                    cout << PLANETYPE[ h ] ;
+                                                                    h++ ;
+                                                                }
+                                                            else
+                                                                cout << "_" ;
+                                                        }
+                                                        h = 0 ;
+                                                        cout << "       |\n" ;
+                                                        cout << " |   IDG      : " ;
+                                                         for ( int j = 0 ; j < 16 ; j ++ )
+                                                        {
+                                                            if ( j < n )
+                                                                {
+                                                                    cout << PLANEIDG [ h ] ;
+                                                                    h++ ;
+                                                                }
+                                                            else
+                                                                cout << "_" ;
+                                                        }
+                                                        cout << "       |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " ---------------------------------------\n" ;
+                                                        break ;
+                                                }
+                                                case 13 : {
+                                                    if ( n > 0 ) {
+                                                        okp = 2 ;
+                                                    }
+                                                    else
+                                                    {
+                                                        int h = 0 ;
+                                                        system ( "cls" ) ;
+                                                        cout << " ---------------------------------------\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                       cout << " |           AIRPLANE  SEARCH          |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |   NAME     : " ;
+                                                        for ( int j = 0 ; j < 16 ; j ++ )
+                                                        {
+                                                            if ( j < i )
+                                                                {
+                                                                    cout << PLANETYPE[ h ] ;
+                                                                    h++ ;
+                                                                }
+                                                            else
+                                                                cout << "_" ;
+                                                        }
+                                                        h = 0 ;
+                                                        cout << "       |\n" ;
+                                                        cout << " |   IDG      : " ;
+                                                         for ( int j = 0 ; j < 16 ; j ++ )
+                                                        {
+                                                            if ( j < n )
+                                                                {
+                                                                    cout << PLANEIDG [ h ] ;
+                                                                    h++ ;
+                                                                }
+                                                            else
+                                                                cout << "_" ;
+                                                        }
+                                                        cout << "       |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |    PASSWORD NEEDS TO BE AT LEAST    |\n" ;
+                                                        cout << " |          ONE CHARACTER LONG         |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " ---------------------------------------\n" ;
+                                                    }
+                                                }
+                                                default : {
+                                                    if ( op != 13 ) {
+                                                        if ( n < 6 ) {
+                                                            int h = 0 ;
+                                                            PLANEIDG [ n ] = op ;
+                                                            n ++ ;
+                                                            system ( "cls" );
+                                                            cout << " ---------------------------------------\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |           AIRPLANE  SEARCH          |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |   NAME     : " ;
+                                                            for ( int j = 0 ; j < 16 ; j ++ )
+                                                            {
+                                                                if ( j < i )
+                                                                    {
+                                                                        cout << PLANETYPE[ h ] ;
+                                                                        h++ ;
+                                                                    }
+                                                                else
+                                                                    cout << "_" ;
+                                                            }
+                                                            cout << "       |\n" ;
+                                                            cout << " |   IDG      : " ;
+                                                            h = 0 ;
+                                                            for ( int j = 0 ; j < 16 ; j ++ )
+                                                            {
+                                                                if ( j < n )
+                                                                    {
+                                                                        cout << PLANEIDG [ h ] ;
+                                                                        h++ ;
+                                                                    }
+                                                                else
+                                                                    cout << "_" ;
+                                                            }
+                                                            cout << "       |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " ---------------------------------------\n" ;
+                                                        }
+                                                        else
+                                                        {
+                                                            int h = 0 ;
+                                                            system ( "cls" );
+                                                            cout << " ---------------------------------------\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |           AIRPLANE  SEARCH          |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |   NAME     : " ;
+                                                            for ( int j = 0 ; j < 16 ; j ++ )
+                                                            {
+                                                                if ( j < i )
+                                                                    {
+                                                                        cout << PLANETYPE[ h ] ;
+                                                                        h++ ;
+                                                                    }
+                                                                else
+                                                                    cout << "_" ;
+                                                            }
+                                                            cout << "       |\n" ;
+                                                            cout << " |   IDG      : " ;
+                                                            h = 0 ;
+                                                            for ( int j = 0 ; j < 16 ; j ++ )
+                                                            {
+                                                                if ( j < n )
+                                                                    {
+                                                                        cout << PLANEIDG [ h ] ;
+                                                                        h++ ;
+                                                                    }
+                                                                else
+                                                                    cout << "_" ;
+                                                            }
+                                                            cout << "       |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |    IDG IS MAX 6 CHARACTERS LONG     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " ---------------------------------------\n" ;
+                                                        }
+                                                    }
+                                              }
 
+                                            }
+                                        }
+                                        if ( okp == 2 && ok != 2 ) {
+                                            int search1 , search2 ;
+                                            int maxx , ok2 ;
+                                            if ( i > n ) {
+                                                maxx = i ;
+                                            }
+                                            else
+                                                maxx = n ;
+                                            for ( search1 = 0 ; search1 < planesmaxx ; search1 ++ ) {
+                                                ok2 = 1 ;
+                                                search2 = 0 ;
+                                                while ( search2 < maxx ) {
+                                                    if ( search2 < i && PLANE[ search1 ] .TYPE_OF_PLANE[ search2 ]  != PLANETYPE[ search2 ] ) {
+                                                        search2 = maxx ;
+                                                        ok2 = 0 ;
+                                                    }
+                                                    if ( search2 < n && PLANE[ search1 ] .IDG [ search2 ] != PLANEIDG [ search2 ] )
+                                                    {
+                                                        search2 = maxx ;
+                                                        ok2 = 0 ;
+                                                    }
+                                                    search2 ++ ;
+                                                }
+                                                if ( ok2 == 1 ) {
+                                                    system ( "cls" ) ;
+                                                    ok = 0 ;
+                                                    cout << "    ID LOCAL        :  " << PLANE [ search1 ] .IDL << "\n" ;
+                                                    cout << "    ID GLOBAL       :  " << PLANE [ search1 ] .IDG << "\n\n" ;
+                                                    cout << "    PLANE TYPE      :  " << PLANE [ search1 ] .TYPE_OF_PLANE << "\n" ;
+                                                    cout << "    MAXIMUM SEATS   :  " << PLANE [ search1 ] .MAX_SEATS << "\n" ;
+                                                    cout << "    MAXIMUM WEIGHT  :  " << PLANE [ search1 ] .MAX_WEIGHT << "\n" ;
+                                                    cout << "    PLANE HEIGHT    :  " << PLANE [ search1 ] .SSIZES.HEIGHT << "\n" ;
+                                                    cout << "    PLANE LENGTH    :  " << PLANE [ search1 ] .SSIZES.LENGTH << "\n" ;
+                                                    cout << "    PLANE WIDTH     :  " << PLANE [ search1 ] .SSIZES.WIDTH << "\n" ;
+                                                    cout << "    LAST ITP        :  " << PLANE [ search1 ] .LAST_ITP.DDAY << "/" << PLANE [ search1 ]  .LAST_ITP.MMONTH << "/" << PLANE [ search1 ]  .LAST_ITP.YYEAR << "\n\n" ;
+                                                    cout << "    CURRENT CITY    :  " << PLANE [ search1 ] .LOCATION.CITY << "\n" ;
+                                                    cout << "    CURRENT COUNTRY :  " << PLANE [ search1 ] .LOCATION.COUNTRY << "\n" ;
+                                                    search1 = planesmaxx ;
+                                                }
+                                            }
+                                            if ( ok == 1 ) {
+                                                system ( "cls" ) ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |           AIRPLANE  SEARCH          |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |        COULDN'T FIND AIRPLANE       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                getch ( ) ;
+                                            }
+                                        }
+
+                                    }
+                            }
+                            break;
+                            ok = 'p';
                         }
                         case '3' : {
+                            for ( int aaaa = 0 ; aaaa < 20 ; aaaa ++ ) {
+                                NAMES [ aaaa ] = PASS [ aaaa ] = NULL ;
+                            }
+                            ok = 1 ;
+                            while ( ok == 1 )
+                            {
+                                system ( "cls" ) ;
+                                cout << " ---------------------------------------\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |           AIRPLANE  REMOVAL         |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |   NAME     : ________________       |\n" ;
+                                cout << " |   IDG      : ________________       |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " ---------------------------------------\n" ;
+                                i = n = 0 ;
+                                okp = 1 ;
+                                while ( okp == 1 && ok != 2 ) {
+                                    gotoxy ( 16 + i , 8 ) ;
+                                    op = getch ( ) ;
+                                    system ( "cls" );
+                                    switch ( op ) {
+                                        case 27 : {
+                                            ok = 2 ;
+                                            system ( "cls" ) ;
+                                            cout << " ---------------------------------------\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " | SEARCH FOR AIRPLANE   ADD AIRPLANE  |\n" ;
+                                            cout << " |        (1)               (2)        |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |  REMOVE AIRPLANE  SEE ALL AIRPLANES |\n" ;
+                                            cout << " |        (3)              (4)         |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " ---------------------------------------\n" ;
+                                            break ;
+                                        }
+                                        case ' ' : {
+                                            int h = 0 ;
+                                            system ( "cls" ) ;
+                                            gotoxy ( 0 , 0 ) ;
+                                            cout << " ---------------------------------------\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |           AIRPLANE  REMOVAL         |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |   NAME     : " ;
+                                            for ( int j = 0 ; j < 16 ; j ++ )
+                                            {
+                                                if ( j < i )
+                                                    {
+                                                       // cout << j << " " << i << " " ;
+                                                        cout << PLANETYPE [ h ] ;
+                                                        h++ ;
+                                                    }
+                                                else
+                                                    cout << "_" ;
+                                            }
+                                            cout << "       |\n" ;
+                                            cout << " |   IDG      : ________________       |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " ---------------------------------------\n" ;
+                                            break ;
+                                        }
+                                        case '\b' :
+                                        {
+                                                int h = 0 ;
+                                                if ( i > 0 ) i -- ;
+                                                gotoxy ( 16 + i , 9 ) ;
+                                                system ( "cls" );
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |           AIRPLANE  REMOVAL         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |   NAME     : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ )
+                                                {
+                                                   if ( j < i )
+                                                        {
+                                                            cout << PLANETYPE[ h ] ;
+                                                            h++ ;
+                                                        }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |   IDG      : ________________       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                        }
+                                        case 13 :
+                                        {
+                                            if ( i > 0 ) {
+                                                okp = 0 ;
+                                            }
+                                            else
+                                            {
+                                                int h = 0 ;
+                                                system ( "cls" ) ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |           AIRPLANE  REMOVAL         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |   NAME     : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ )
+                                                {
+                                                    if ( j >= i )
+                                                        cout << "_" ;
+                                                    else
+                                                        {
+                                                            cout << PLANETYPE[ h ] ;
+                                                            h++ ;
+                                                        }
 
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |   IDG      : ________________       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |      NAME NEEDS TO BE AT LEAST      |\n" ;
+                                                cout << " |          ONE CHARACTER LONG         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                getch ( ) ;
+                                                break;
+                                            }
+                                        }
+                                        default : {
+                                            if ( op != 13 && op != ' ' ) {
+                                                int h = 0 ;
+                                                gotoxy ( 16 + i , 9 ) ;
+                                                PLANETYPE[ i ] = op ;
+                                                i ++ ;
+                                                system ( "cls" );
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |           AIRPLANE  REMOVAL         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |   NAME     : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ )
+                                                {
+                                                   if ( j < i )
+                                                        {
+                                                            cout << PLANETYPE[ h ] ;
+                                                            h++ ;
+                                                        }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |   IDG      : ________________       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                            }
+                                        }
+                                    }
+                                }
+                                    if ( ok != 2 ) {
+                                        int h = 0 ;
+                                        system ( "cls" );
+                                        cout << " ---------------------------------------\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |           AIRPLANE  REMOVAL         |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |   NAME     : " ;
+                                        for ( int j = 0 ; j < 16 ; j ++ )
+                                        {
+                                           if ( j < i )
+                                                {
+                                                    cout << PLANETYPE[ h ] ;
+                                                    h++ ;
+                                                }
+                                            else
+                                                cout << "_" ;
+                                        }
+                                        cout << "       |\n" ;
+                                        cout << " |   IDG      : ________________       |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " ---------------------------------------\n" ;
+                                        while ( okp == 0)
+                                        {
+                                            gotoxy ( 16 + n , 9  ) ;
+                                            op = getch ( ) ;
+                                            system ( "cls" );
+                                            switch ( op ) {
+                                                case 27 : {
+                                                    ok = 2 ;
+                                                    system ( "cls" ) ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " | SEARCH FOR AIRPLANE   ADD AIRPLANE  |\n" ;
+                                                    cout << " |        (1)               (2)        |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |  REMOVE AIRPLANE  SEE ALL AIRPLANES |\n" ;
+                                                    cout << " |        (3)              (4)         |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    break ;
+                                                }
+                                                case ' ' : {
+                                                    int h = 0 ;
+                                                    system ( "cls" ) ;
+                                                    gotoxy ( 0 , 0 ) ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |           AIRPLANE  REMOVAL         |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |   NAME     : " ;
+                                                    for ( int j = 0 ; j < 16 ; j ++ )
+                                                    {
+                                                        if ( j < i )
+                                                            {
+                                                                cout << PLANETYPE[ h ] ;
+                                                                h++ ;
+                                                            }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    h = 0 ;
+                                                    cout << "       |\n" ;
+                                                    cout << " |   IDG      : " ;
+                                                     for ( int j = 0 ; j < 16 ; j ++ )
+                                                    {
+                                                        if ( j < n )
+                                                            {
+                                                                cout << PLANEIDG [ h ] ;
+                                                                h++ ;
+                                                            }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    cout << "       |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    break ;
+                                                }
+                                                case '\b' :
+                                                {
+                                                        int h = 0 ;
+                                                        if ( n > 0 ) n -- ;
+                                                        gotoxy ( 16 + n , 9 ) ;
+                                                        system ( "cls" );
+                                                        cout << " ---------------------------------------\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |           AIRPLANE  REMOVAL         |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |   NAME     : " ;
+                                                        for ( int j = 0 ; j < 16 ; j ++ )
+                                                        {
+                                                            if ( j < i )
+                                                                {
+                                                                    cout << PLANETYPE[ h ] ;
+                                                                    h++ ;
+                                                                }
+                                                            else
+                                                                cout << "_" ;
+                                                        }
+                                                        h = 0 ;
+                                                        cout << "       |\n" ;
+                                                        cout << " |   IDG      : " ;
+                                                         for ( int j = 0 ; j < 16 ; j ++ )
+                                                        {
+                                                            if ( j < n )
+                                                                {
+                                                                    cout << PLANEIDG [ h ] ;
+                                                                    h++ ;
+                                                                }
+                                                            else
+                                                                cout << "_" ;
+                                                        }
+                                                        cout << "       |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " ---------------------------------------\n" ;
+                                                        break ;
+                                                }
+                                                case 13 : {
+                                                    if ( n > 0 ) {
+                                                        okp = 2 ;
+                                                    }
+                                                    else
+                                                    {
+                                                        int h = 0 ;
+                                                        system ( "cls" ) ;
+                                                        cout << " ---------------------------------------\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |           AIRPLANE  REMOVAL         |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |   NAME     : " ;
+                                                        for ( int j = 0 ; j < 16 ; j ++ )
+                                                        {
+                                                            if ( j < i )
+                                                                {
+                                                                    cout << PLANETYPE[ h ] ;
+                                                                    h++ ;
+                                                                }
+                                                            else
+                                                                cout << "_" ;
+                                                        }
+                                                        h = 0 ;
+                                                        cout << "       |\n" ;
+                                                        cout << " |   IDG      : " ;
+                                                         for ( int j = 0 ; j < 16 ; j ++ )
+                                                        {
+                                                            if ( j < n )
+                                                                {
+                                                                    cout << PLANEIDG [ h ] ;
+                                                                    h++ ;
+                                                                }
+                                                            else
+                                                                cout << "_" ;
+                                                        }
+                                                        cout << "       |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |    PASSWORD NEEDS TO BE AT LEAST    |\n" ;
+                                                        cout << " |          ONE CHARACTER LONG         |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " ---------------------------------------\n" ;
+                                                    }
+                                                }
+                                                default : {
+                                                    if ( op != 13 ) {
+                                                        int h = 0 ;
+                                                        PLANEIDG [ n ] = op ;
+                                                        n ++ ;
+                                                        system ( "cls" );
+                                                        cout << " ---------------------------------------\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |           AIRPLANE  REMOVAL         |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |   NAME     : " ;
+                                                        for ( int j = 0 ; j < 16 ; j ++ )
+                                                        {
+                                                            if ( j < i )
+                                                                {
+                                                                    cout << PLANETYPE[ h ] ;
+                                                                    h++ ;
+                                                                }
+                                                            else
+                                                                cout << "_" ;
+                                                        }
+                                                        cout << "       |\n" ;
+                                                        cout << " |   IDG      : " ;
+                                                        h = 0 ;
+                                                        for ( int j = 0 ; j < 16 ; j ++ )
+                                                        {
+                                                            if ( j < n )
+                                                                {
+                                                                    cout << PLANEIDG [ h ] ;
+                                                                    h++ ;
+                                                                }
+                                                            else
+                                                                cout << "_" ;
+                                                        }
+                                                        cout << "       |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " |                                     |\n" ;
+                                                        cout << " ---------------------------------------\n" ;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        int search1 , search2 ;
+                                        int maxx , ok2 ;
+                                        if ( i > n ) {
+                                            maxx = i ;
+                                        }
+                                        else
+                                            maxx = n ;
+                                        for ( search1 = 0 ; search1 < planesmaxx ; search1 ++ ) {
+                                            ok2 = 1 ;
+                                            search2 = 0 ;
+                                            while ( search2 < maxx ) {
+                                                if ( search2 < i && PLANE [ search1 ] .TYPE_OF_PLANE [ search2 ]  != PLANETYPE[ search2 ] ) {
+                                                    search2 = maxx ;
+                                                    ok2 = 0 ;
+                                                }
+                                                if ( search2 < n && PLANE [ search1 ] .IDG [ search2 ] != PLANEIDG [ search2 ] )
+                                                {
+                                                    search2 = maxx ;
+                                                    ok2 = 0 ;
+                                                }
+                                                search2 ++ ;
+                                            }
+                                            if ( ok2 == 1 ) {
+                                                ofs.open("PLANE", ios::out | ios::trunc);
+                                                ofs << planesmaxx - 1 << "\n" ;
+                                                for ( int j = 0 ; j < search1 ; j ++ ) {
+                                                    ofs << j + 1 << " " ;
+                                                    ofs << PLANE [ j ] .IDG << " " ;
+                                                    ofs << PLANE [ j ] .TYPE_OF_PLANE << " " ;
+                                                    ofs << PLANE [ j ] .MAX_SEATS << " " ;
+                                                    ofs << PLANE [ j ] .MAX_WEIGHT << " " ;
+                                                    ofs << PLANE [ j ] .SSIZES .LENGTH << " " ;
+                                                    ofs << PLANE [ j ] .SSIZES .WIDTH << " " ;
+                                                    ofs << PLANE [ j ] .SSIZES .HEIGHT << " " ;
+                                                    ofs << PLANE [ j ] .LAST_ITP.DDAY << " " << PLANE [ j ]  .LAST_ITP.MMONTH << " " << PLANE [ j ]  .LAST_ITP.YYEAR << " " ;
+                                                    ofs << PLANE [ j ] .LOCATION.CITY << " " ;
+                                                    ofs << PLANE [ j ] .LOCATION.COUNTRY << "\n" ;
+
+                                                }
+                                                for ( int j = search1 + 1  ; j < planesmaxx ; j ++ ) {
+                                                    ofs << j << " " ;
+                                                    ofs << PLANE [ j ] .IDG << " " ;
+                                                    ofs << PLANE [ j ] .TYPE_OF_PLANE << " " ;
+                                                    ofs << PLANE [ j ] .MAX_SEATS << " " ;
+                                                    ofs << PLANE [ j ] .MAX_WEIGHT << " " ;
+                                                    ofs << PLANE [ j ] .SSIZES .LENGTH << " " ;
+                                                    ofs << PLANE [ j ] .SSIZES .WIDTH << " " ;
+                                                    ofs << PLANE [ j ] .SSIZES .HEIGHT << " " ;
+                                                    ofs << PLANE [ j ] .LAST_ITP.DDAY << " " << PLANE [ j ]  .LAST_ITP.MMONTH << " " << PLANE [ j ]  .LAST_ITP.YYEAR << " " ;
+                                                    ofs << PLANE [ j ] .LOCATION.CITY << " " ;
+                                                    ofs << PLANE [ j ] .LOCATION.COUNTRY << "\n" ;
+                                                }
+                                                planesmaxx -- ;
+                                                ofs.close () ;
+                                                PLANE_READ ( planesmaxx ) ;
+                                                search1 = planesmaxx ;
+                                                ok = 0 ;
+                                                system ( "cls" ) ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |           AIRPLANE  REMOVAL         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |           AIRPLANE  REMOVED         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                getch ( ) ;
+                                            }
+                                        }
+                                        if ( ok == 1 ) {
+                                            system ( "cls" ) ;
+                                            cout << " ---------------------------------------\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |           AIRPLANE  REMOVAL         |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |        COULDN'T FIND AIRPLANE       |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " |                                     |\n" ;
+                                            cout << " ---------------------------------------\n" ;
+                                            getch ( ) ;
+                                        }
+                                    }
+                            }
+                            okp = 2 ;
+                            break;
+                            ok = 'p';
+                        }
+                        case '2' : {
+                                int okex = 0 ;
+                                for ( i = 0 ; i < 25 ; i ++ ) {
+                                    IDL [ i ] = IDG [ i ] = PLANETYPE [ i ] = MS [ i ] = MW [ i ] = HGT [ i ] = LNT [ i ] = WDT [ i ] = DATE [ i ] = CIT [ i ] = COUNT [ i ] = NULL ;
+                                }
+                                system ( "cls" ) ;
+                                cout << " ---------------------------------------\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |              ADD AIRPLANE           |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " | PLANE TYPE : ________________       |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " |                                     |\n" ;
+                                cout << " ---------------------------------------\n" ;
+                                i = 0 ;
+                                ok = 1 ;
+                                //{ i -- ; [ i ] = NULL ;}
+                                if ( okex == 0 ) {
+                                    while ( ok ) {
+                                        gotoxy ( 16 + i , 8 ) ;
+                                        opp = getch ( ) ;
+                                        system ( "cls" ) ;
+                                        switch ( opp ) {
+                                            case 27 : {
+                                                system ( "cls" ) ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | SEARCH FOR AIRPLANE   ADD AIRPLANE  |\n" ;
+                                                cout << " |        (1)               (2)        |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  REMOVE AIRPLANE  SEE ALL AIRPLANES |\n" ;
+                                                cout << " |        (3)              (4)         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                okex = 1 ;
+                                                ok = 0 ;
+                                                break ;
+                                            }
+                                            case ' ' : {
+                                                system ( "cls" ) ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD AIRPLANE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | PLANE TYPE : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << PLANETYPE [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case '\b' : {
+                                                system ( "cls" ) ;
+                                                if ( i > 0 ){ i -- ; PLANETYPE [ i ] = NULL ;}
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD AIRPLANE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | PLANE TYPE : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << PLANETYPE [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case 13 : {
+                                                if ( i > 0 ) {
+                                                    ok = 0 ;
+                                                }
+                                                else
+                                                {
+                                                    system ( "cls" ) ;
+                                                    gotoxy ( 0 , 0 ) ;
+                                                    int h = 0 ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |              ADD AIRPLANE           |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " | PLANE TYPE : " ;
+                                                    for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                        if ( j < i ) {
+                                                            cout << PLANETYPE [ h ] ;
+                                                            h ++ ;
+                                                        }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    cout << "       |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |      NAME NEEDS TO BE AT LEAST      |\n" ;
+                                                    cout << " |          ONE CHARACTER LONG         |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                }
+                                                break ;
+                                            }
+                                            default : {
+                                                system ( "cls" ) ;
+                                                PLANETYPE[ i ] = opp ;
+                                                i ++ ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD AIRPLANE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | PLANE TYPE : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << PLANETYPE [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                        }
+                                    }
+                                }
+                                if ( okex == 0 ) {
+                                    ok = 1 ;
+                                    system ( "cls" ) ;
+                                    cout << " ---------------------------------------\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |              ADD AIRPLANE           |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |  ID NUMBER : ________________       |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " ---------------------------------------\n" ;
+                                    i = 0 ;
+                                    while ( ok ) {
+                                        gotoxy ( 16 + i , 8 ) ;
+                                        opp = getch ( ) ;
+                                        system ( "cls" ) ;
+                                        switch ( opp ) {
+                                            case 27 : {
+                                                system ( "cls" ) ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | SEARCH FOR AIRPLANE   ADD AIRPLANE  |\n" ;
+                                                cout << " |        (1)               (2)        |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  REMOVE AIRPLANE  SEE ALL AIRPLANES |\n" ;
+                                                cout << " |        (3)              (4)         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                okex = 1 ;
+                                                ok = 0 ;
+                                                break ;
+                                            }
+                                            case ' ' : {
+                                                system ( "cls" ) ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD AIRPLANE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  ID NUMBER : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << IDG [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case '\b' : {
+                                                system ( "cls" ) ;
+                                                if ( i > 0 ){ i -- ; IDG [ i ] = NULL ;}
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD AIRPLANE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  ID NUMBER : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << IDG  [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case 13 : {
+                                                if ( i > 0 ) {
+                                                    ok = 0 ;
+                                                }
+                                                else
+                                                {
+                                                    system ( "cls" ) ;
+                                                    gotoxy ( 0 , 0 ) ;
+                                                    int h = 0 ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |              ADD AIRPLANE           |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |  ID NUMBER : " ;
+                                                    for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                        if ( j < i ) {
+                                                            cout << IDG  [ h ] ;
+                                                            h ++ ;
+                                                        }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    cout << "       |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |      NAME NEEDS TO BE AT LEAST      |\n" ;
+                                                    cout << " |          ONE CHARACTER LONG         |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                }
+                                                break ;
+                                            }
+                                            default : {
+                                                system ( "cls" ) ;
+                                                IDG [ i ] = opp ;
+                                                i ++ ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD AIRPLANE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  ID NUMBER : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << IDG  [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                        }
+                                    }
+                                }
+                                if ( okex == 0 ) {
+                                    ok = 1 ;
+                                    system ( "cls" ) ;
+                                    cout << " ---------------------------------------\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |              ADD AIRPLANE           |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " | MAX SEATS  : ________________       |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " ---------------------------------------\n" ;
+                                    i = 0 ;
+                                    while ( ok ) {
+                                        gotoxy ( 16 + i , 8 ) ;
+                                        opp = getch ( ) ;
+                                        system ( "cls" ) ;
+                                        switch ( opp ) {
+                                            case 27 : {
+                                                system ( "cls" ) ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | SEARCH FOR AIRPLANE   ADD AIRPLANE  |\n" ;
+                                                cout << " |        (1)               (2)        |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  REMOVE AIRPLANE  SEE ALL AIRPLANES |\n" ;
+                                                cout << " |        (3)              (4)         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                okex = 1 ;
+                                                ok = 0 ;
+                                                break ;
+                                            }
+                                            case ' ' : {
+                                                system ( "cls" ) ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD AIRPLANE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | MAX SEATS  : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << MS  [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case '\b' : {
+                                                system ( "cls" ) ;
+                                                if ( i > 0 ){ i -- ; MS [ i ] = NULL ;}
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD AIRPLANE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | MAX SEATS  : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << MS [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case 13 : {
+                                                if ( i > 0 ) {
+                                                    ok = 0 ;
+                                                }
+                                                else
+                                                {
+                                                    system ( "cls" ) ;
+                                                    gotoxy ( 0 , 0 ) ;
+                                                    int h = 0 ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |              ADD AIRPLANE           |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " | MAX SEATS  : " ;
+                                                    for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                        if ( j < i ) {
+                                                            cout << MS  [ h ] ;
+                                                            h ++ ;
+                                                        }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    cout << "       |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |      NAME NEEDS TO BE AT LEAST      |\n" ;
+                                                    cout << " |          ONE CHARACTER LONG         |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                }
+                                                break ;
+                                            }
+                                            default : {
+                                                system ( "cls" ) ;
+                                                MS [ i ] = opp ;
+                                                i ++ ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD AIRPLANE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | MAX SEATS  : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << MS  [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                        }
+                                    }
+                                }
+                                if ( okex == 0 ) {
+                                    ok = 1 ;
+                                    system ( "cls" ) ;
+                                    cout << " ---------------------------------------\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |              ADD AIRPLANE           |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " | MAX WEIGHT : ________________       |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " ---------------------------------------\n" ;
+                                    i = 0 ;
+                                    while ( ok ) {
+                                        gotoxy ( 16 + i , 8 ) ;
+                                        opp = getch ( ) ;
+                                        system ( "cls" ) ;
+                                        switch ( opp ) {
+                                            case 27 : {
+                                                system ( "cls" ) ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | SEARCH FOR AIRPLANE   ADD AIRPLANE  |\n" ;
+                                                cout << " |        (1)               (2)        |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  REMOVE AIRPLANE  SEE ALL AIRPLANES |\n" ;
+                                                cout << " |        (3)              (4)         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                okex = 1 ;
+                                                ok = 0 ;
+                                                break ;
+                                            }
+                                            case ' ' : {
+                                                system ( "cls" ) ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD AIRPLANE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | MAX WEIGHT : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << MW  [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case '\b' : {
+                                                system ( "cls" ) ;
+                                                if ( i > 0 ) { i -- ; MW [ i ] = NULL ;}
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD AIRPLANE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | MAX WEIGHT : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << MW  [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case 13 : {
+                                                if ( i > 0 ) {
+                                                    ok = 0 ;
+                                                }
+                                                else
+                                                {
+                                                    system ( "cls" ) ;
+                                                    gotoxy ( 0 , 0 ) ;
+                                                    int h = 0 ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |              ADD AIRPLANE           |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " | MAX WEIGHT : " ;
+                                                    for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                        if ( j < i ) {
+                                                            cout << MW  [ h ] ;
+                                                            h ++ ;
+                                                        }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    cout << "       |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |      NAME NEEDS TO BE AT LEAST      |\n" ;
+                                                    cout << " |          ONE CHARACTER LONG         |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                }
+                                                break ;
+                                            }
+                                            default : {
+                                                system ( "cls" ) ;
+                                                MW [ i ] = opp ;
+                                                i ++ ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD AIRPLANE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | MAX WEIGHT : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << MW  [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                        }
+                                    }
+                                }
+                                if ( okex == 0 ) {
+                                    ok = 1 ;
+                                    system ( "cls" ) ;
+                                    cout << " ---------------------------------------\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |              ADD AIRPLANE           |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |     HEIGHT : ________________       |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " ---------------------------------------\n" ;
+                                    i = 0 ;
+                                    while ( ok ) {
+                                        gotoxy ( 16 + i , 8 ) ;
+                                        opp = getch ( ) ;
+                                        system ( "cls" ) ;
+                                        switch ( opp ) {
+                                            case 27 : {
+                                                system ( "cls" ) ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | SEARCH FOR AIRPLANE   ADD AIRPLANE  |\n" ;
+                                                cout << " |        (1)               (2)        |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  REMOVE AIRPLANE  SEE ALL AIRPLANES |\n" ;
+                                                cout << " |        (3)              (4)         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                okex = 1 ;
+                                                ok = 0 ;
+                                                break ;
+                                            }
+                                            case ' ' : {
+                                                system ( "cls" ) ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD AIRPLANE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |     HEIGHT : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << HGT  [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case '\b' : {
+                                                system ( "cls" ) ;
+                                                if ( i > 0 ) { i -- ; HGT [ i ] = NULL ;}
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD AIRPLANE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |     HEIGHT : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << HGT [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case 13 : {
+                                                if ( i > 0 ) {
+                                                    ok = 0 ;
+                                                }
+                                                else
+                                                {
+                                                    system ( "cls" ) ;
+                                                    gotoxy ( 0 , 0 ) ;
+                                                    int h = 0 ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |              ADD AIRPLANE           |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |     HEIGHT : " ;
+                                                    for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                        if ( j < i ) {
+                                                            cout << HGT  [ h ] ;
+                                                            h ++ ;
+                                                        }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    cout << "       |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |      NAME NEEDS TO BE AT LEAST      |\n" ;
+                                                    cout << " |          ONE CHARACTER LONG         |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                }
+                                                break ;
+                                            }
+                                            default : {
+                                                system ( "cls" ) ;
+                                                HGT [ i ] = opp ;
+                                                i ++ ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD AIRPLANE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |     HEIGHT : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << HGT  [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                        }
+                                    }
+                                }
+                                if ( okex == 0 ) {
+                                    ok = 1 ;
+                                    system ( "cls" ) ;
+                                    cout << " ---------------------------------------\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |              ADD AIRPLANE           |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |     LENGTH : ________________       |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " ---------------------------------------\n" ;
+                                    i = 0 ;
+                                    while ( ok ) {
+                                        gotoxy ( 16 + i , 8 ) ;
+                                        opp = getch ( ) ;
+                                        system ( "cls" ) ;
+                                        switch ( opp ) {
+                                            case 27 : {
+                                                system ( "cls" ) ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | SEARCH FOR AIRPLANE   ADD AIRPLANE  |\n" ;
+                                                cout << " |        (1)               (2)        |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  REMOVE AIRPLANE  SEE ALL AIRPLANES |\n" ;
+                                                cout << " |        (3)              (4)         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                okex = 1 ;
+                                                ok = 0 ;
+                                                break ;
+                                            }
+                                            case ' ' : {
+                                                system ( "cls" ) ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD AIRPLANE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |     LENGTH : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << LNT  [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case '\b' : {
+                                                system ( "cls" ) ;
+                                                if ( i > 0 ) { i -- ; LNT [ i ] = NULL ;}
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD AIRPLANE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |     LENGTH : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << LNT [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case 13 : {
+                                                if ( i > 0 ) {
+                                                    ok = 0 ;
+                                                }
+                                                else
+                                                {
+                                                    system ( "cls" ) ;
+                                                    gotoxy ( 0 , 0 ) ;
+                                                    int h = 0 ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |              ADD AIRPLANE           |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |     LENGTH : " ;
+                                                    for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                        if ( j < i ) {
+                                                            cout <<  LNT [ h ] ;
+                                                            h ++ ;
+                                                        }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    cout << "       |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |      NAME NEEDS TO BE AT LEAST      |\n" ;
+                                                    cout << " |          ONE CHARACTER LONG         |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                }
+                                                break ;
+                                            }
+                                            default : {
+                                                system ( "cls" ) ;
+                                                LNT [ i ] = opp ;
+                                                i ++ ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD AIRPLANE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |     LENGTH : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << LNT  [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                        }
+                                    }
+                                }
+                                if ( okex == 0 ) {
+                                    ok = 1 ;
+                                    system ( "cls" ) ;
+                                    cout << " ---------------------------------------\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |              ADD AIRPLANE           |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |      WIDTH : ________________       |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " ---------------------------------------\n" ;
+                                    i = 0 ;
+                                    while ( ok ) {
+                                        gotoxy ( 16 + i , 8 ) ;
+                                        opp = getch ( ) ;
+                                        system ( "cls" ) ;
+                                        switch ( opp ) {
+                                            case 27 : {
+                                                system ( "cls" ) ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | SEARCH FOR AIRPLANE   ADD AIRPLANE  |\n" ;
+                                                cout << " |        (1)               (2)        |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  REMOVE AIRPLANE  SEE ALL AIRPLANES |\n" ;
+                                                cout << " |        (3)              (4)         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                okex = 1 ;
+                                                ok = 0 ;
+                                                break ;
+                                            }
+                                            case ' ' : {
+                                                system ( "cls" ) ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD AIRPLANE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |      WIDTH : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << WDT  [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case '\b' : {
+                                                system ( "cls" ) ;
+                                                if ( i > 0 ) { i -- ; WDT [ i ] = NULL ;}
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD AIRPLANE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |      WIDTH : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << WDT [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case 13 : {
+                                                if ( i > 0 ) {
+                                                    ok = 0 ;
+                                                }
+                                                else
+                                                {
+                                                    system ( "cls" ) ;
+                                                    gotoxy ( 0 , 0 ) ;
+                                                    int h = 0 ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |              ADD AIRPLANE           |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |      WIDTH : " ;
+                                                    for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                        if ( j < i ) {
+                                                            cout << WDT  [ h ] ;
+                                                            h ++ ;
+                                                        }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    cout << "       |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |      NAME NEEDS TO BE AT LEAST      |\n" ;
+                                                    cout << " |          ONE CHARACTER LONG         |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                }
+                                                break ;
+                                            }
+                                            default : {
+                                                system ( "cls" ) ;
+                                                WDT [ i ] = opp ;
+                                                i ++ ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD AIRPLANE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |      WIDTH : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << WDT  [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                        }
+                                    }
+                                }
+                                if ( okex == 0 ) {
+                                    ok = 1 ;
+                                    system ( "cls" ) ;
+                                    cout << " ---------------------------------------\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |              ADD AIRPLANE           |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |   ITP DATE : __/__/____             |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " ---------------------------------------\n" ;
+                                    i = 0 ;
+                                    int l = 0 ;
+                                    while ( ok ) {
+                                        gotoxy ( 16 + i + l , 8 ) ;
+                                        opp = getch ( ) ;
+                                        system ( "cls" ) ;
+                                        switch ( opp ) {
+                                            case 27 : {
+                                                system ( "cls" ) ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | SEARCH FOR AIRPLANE   ADD AIRPLANE  |\n" ;
+                                                cout << " |        (1)               (2)        |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  REMOVE AIRPLANE  SEE ALL AIRPLANES |\n" ;
+                                                cout << " |        (3)              (4)         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                okex = 1 ;
+                                                ok = 0 ;
+                                                break ;
+                                            }
+                                            case ' ' : {
+                                                system ( "cls" ) ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD AIRPLANE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |   ITP DATE : " ;
+                                                for ( int j = 0 ; j < 8 ; j ++ ) {
+                                                    if ( j == 2 || j == 4 ) {
+                                                        cout << "/" ;
+                                                    }
+                                                    if ( j < i ) {
+                                                        cout << DATE [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "             |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case '\b' : {
+                                                system ( "cls" ) ;
+                                                if ( i > 0 ) { i -- ; DATE [ i ] = NULL ;}
+                                                if ( i <= 4 )
+                                                    l = 1 ;
+                                                if ( i <= 2 )
+                                                    l = 0 ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD AIRPLANE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |   ITP DATE : " ;
+                                                for ( int j = 0 ; j < 8 ; j ++ ) {
+                                                    if ( j == 2 || j == 4 ) {
+                                                        cout << "/" ;
+                                                    }
+                                                    if ( j < i ) {
+                                                        cout << DATE [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "             |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case 13 : {
+                                                if ( i == 8 ) {
+                                                    ok = 0 ;
+                                                }
+                                                else
+                                                {
+                                                    system ( "cls" ) ;
+                                                    gotoxy ( 0 , 0 ) ;
+                                                    int h = 0 ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |              ADD AIRPLANE           |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |   ITP DATE : " ;
+                                                    for ( int j = 0 ; j < 8 ; j ++ ) {
+                                                        if ( j == 2 || j == 4 ) {
+                                                            cout << "/" ;
+                                                        }
+                                                        if ( j < i ) {
+                                                            cout << DATE  [ h ] ;
+                                                            h ++ ;
+                                                        }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    cout << "             |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |       DATE NEEDS TO BE EIGHT        |\n" ;
+                                                    cout << " |             DIGITS LONG             |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                }
+                                                break ;
+                                            }
+                                            default : {
+                                                if ( i < 8 ) {
+                                                    if ( isdigit ( opp ) ) {
+                                                            system ( "cls" ) ;
+                                                            DATE [ i ] = opp ;
+                                                            i ++ ;
+                                                            if ( i > 2 )
+                                                                l = 1 ;
+                                                            if ( i > 4 )
+                                                                l = 2 ;
+                                                            gotoxy ( 0 , 0 ) ;
+                                                            int h = 0 ;
+                                                            cout << " ---------------------------------------\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |              ADD AIRPLANE           |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |   ITP DATE : " ;
+                                                            for ( int j = 0 ; j < 8 ; j ++ ) {
+                                                                if ( j == 2 || j == 4 ) {
+                                                                    cout << "/" ;
+                                                                }
+                                                                if ( j < i ) {
+                                                                    cout << DATE [ h ] ;
+                                                                    h ++ ;
+                                                                }
+                                                                else
+                                                                    cout << "_" ;
+                                                            }
+                                                            cout << "             |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " ---------------------------------------\n" ;
+                                                    }
+                                                    else
+                                                    {
+                                                            system ( "cls" ) ;
+                                                            gotoxy ( 0 , 0 ) ;
+                                                            int h = 0 ;
+                                                            cout << " ---------------------------------------\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |              ADD AIRPLANE           |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |   ITP DATE : " ;
+                                                            for ( int j = 0 ; j < 8 ; j ++ ) {
+                                                                if ( j == 2 || j == 4 ) {
+                                                                    cout << "/" ;
+                                                                }
+                                                                if ( j < i ) {
+                                                                    cout << DATE [ h ] ;
+                                                                    h ++ ;
+                                                                }
+                                                                else
+                                                                    cout << "_" ;
+                                                            }
+                                                            cout << "             |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |         CAN ONLY INSERT DIGITS      |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " |                                     |\n" ;
+                                                            cout << " ---------------------------------------\n" ;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    system ( "cls" ) ;
+                                                    gotoxy ( 0 , 0 ) ;
+                                                    int h = 0 ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |              ADD AIRPLANE           |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |   ITP DATE : " ;
+                                                    for ( int j = 0 ; j < 8 ; j ++ ) {
+                                                        if ( j == 2 || j == 4 ) {
+                                                            cout << "/" ;
+                                                        }
+                                                        if ( j < i ) {
+                                                            cout << DATE  [ h ] ;
+                                                            h ++ ;
+                                                        }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    cout << "             |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |       DATE NEEDS TO BE EIGHT        |\n" ;
+                                                    cout << " |             DIGITS LONG             |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                }
+                                                break ;
+                                            }
+                                        }
+                                    }
+                                }
+                                if ( okex == 0 ) {
+                                    ok = 1 ;
+                                    system ( "cls" ) ;
+                                    cout << " ---------------------------------------\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |              ADD AIRPLANE           |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |     CITY   : ________________       |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " ---------------------------------------\n" ;
+                                    i = 0 ;
+                                    while ( ok ) {
+                                        gotoxy ( 16 + i , 8 ) ;
+                                        opp = getch ( ) ;
+                                        system ( "cls" ) ;
+                                        switch ( opp ) {
+                                            case 27 : {
+                                                system ( "cls" ) ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | SEARCH FOR AIRPLANE   ADD AIRPLANE  |\n" ;
+                                                cout << " |        (1)               (2)        |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  REMOVE AIRPLANE  SEE ALL AIRPLANES |\n" ;
+                                                cout << " |        (3)              (4)         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                okex = 1 ;
+                                                ok = 0 ;
+                                                break ;
+                                            }
+                                            case ' ' : {
+                                                system ( "cls" ) ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD AIRPLANE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |     CITY   : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << CIT  [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case '\b' : {
+                                                system ( "cls" ) ;
+                                                if ( i > 0 ) { i -- ; CIT [ i ] = NULL ;}
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD AIRPLANE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |     CITY   : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << CIT  [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case 13 : {
+                                                if ( i > 0 ) {
+                                                    ok = 0 ;
+                                                }
+                                                else
+                                                {
+                                                    system ( "cls" ) ;
+                                                    gotoxy ( 0 , 0 ) ;
+                                                    int h = 0 ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |              ADD AIRPLANE           |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |     CITY   : " ;
+                                                    for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                        if ( j < i ) {
+                                                            cout << CIT  [ h ] ;
+                                                            h ++ ;
+                                                        }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    cout << "       |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |      NAME NEEDS TO BE AT LEAST      |\n" ;
+                                                    cout << " |          ONE CHARACTER LONG         |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                }
+                                                break ;
+                                            }
+                                            default : {
+                                                system ( "cls" ) ;
+                                                CIT [ i ] = opp ;
+                                                i ++ ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD AIRPLANE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |     CITY   : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << CIT  [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                        }
+                                    }
+                                }
+                                if ( okex == 0 ) {
+                                    ok = 1 ;
+                                    system ( "cls" ) ;
+                                    cout << " ---------------------------------------\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |              ADD AIRPLANE           |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |  COUNTRY   : ________________       |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " ---------------------------------------\n" ;
+                                    i = 0 ;
+                                    while ( ok ) {
+                                        gotoxy ( 16 + i , 8 ) ;
+                                        opp = getch ( ) ;
+                                        system ( "cls" ) ;
+                                        switch ( opp ) {
+                                            case 27 : {
+                                                system ( "cls" ) ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " | SEARCH FOR AIRPLANE   ADD AIRPLANE  |\n" ;
+                                                cout << " |        (1)               (2)        |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  REMOVE AIRPLANE  SEE ALL AIRPLANES |\n" ;
+                                                cout << " |        (3)              (4)         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                okex = 1 ;
+                                                ok = 0 ;
+                                                break ;
+                                            }
+                                            case ' ' : {
+                                                system ( "cls" ) ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD AIRPLANE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  COUNTRY   : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << COUNT [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |          CAN'T INSERT SPACE         |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case '\b' : {
+                                                system ( "cls" ) ;
+                                                if ( i > 0 ) { i -- ; COUNT [ i ] = NULL ;}
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD AIRPLANE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  COUNTRY   : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << COUNT [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                            case 13 : {
+                                                if ( i > 0 ) {
+                                                    ok = 0 ;
+                                                }
+                                                else
+                                                {
+                                                    system ( "cls" ) ;
+                                                    gotoxy ( 0 , 0 ) ;
+                                                    int h = 0 ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |              ADD AIRPLANE           |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |  COUNTRY   : " ;
+                                                    for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                        if ( j < i ) {
+                                                            cout << COUNT [ h ] ;
+                                                            h ++ ;
+                                                        }
+                                                        else
+                                                            cout << "_" ;
+                                                    }
+                                                    cout << "       |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " |      NAME NEEDS TO BE AT LEAST      |\n" ;
+                                                    cout << " |          ONE CHARACTER LONG         |\n" ;
+                                                    cout << " |                                     |\n" ;
+                                                    cout << " ---------------------------------------\n" ;
+                                                }
+                                                break ;
+                                            }
+                                            default : {
+                                                system ( "cls" ) ;
+                                                COUNT[ i ] = opp ;
+                                                i ++ ;
+                                                gotoxy ( 0 , 0 ) ;
+                                                int h = 0 ;
+                                                cout << " ---------------------------------------\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |              ADD AIRPLANE           |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |  COUNTRY   : " ;
+                                                for ( int j = 0 ; j < 16 ; j ++ ) {
+                                                    if ( j < i ) {
+                                                        cout << COUNT [ h ] ;
+                                                        h ++ ;
+                                                    }
+                                                    else
+                                                        cout << "_" ;
+                                                }
+                                                cout << "       |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " |                                     |\n" ;
+                                                cout << " ---------------------------------------\n" ;
+                                                break ;
+                                            }
+                                        }
+                                    }
+                                }
+                                if ( okex == 0 ) {
+                                    PLANE_READ ( planesmaxx ) ;
+                                    ofs.open("PLANE", ios::out | ios::trunc);
+                                    ofs << planesmaxx + 1 << "\n" ;
+                                    for ( int j = 0 ; j < planesmaxx ; j ++ ) {
+                                        ofs << j + 1 << " " ;
+                                        ofs << PLANE [ j ] .IDG << " " ;
+                                        ofs << PLANE [ j ] .TYPE_OF_PLANE << " " ;
+                                        ofs << PLANE [ j ] .MAX_SEATS << " " ;
+                                        ofs << PLANE [ j ] .MAX_WEIGHT << " " ;
+                                        ofs << PLANE [ j ] .SSIZES .LENGTH << " " ;
+                                        ofs << PLANE [ j ] .SSIZES .WIDTH << " " ;
+                                        ofs << PLANE [ j ] .SSIZES .HEIGHT << " " ;
+                                        ofs << PLANE [ j ] .LAST_ITP.DDAY << " " << PLANE [ j ]  .LAST_ITP.MMONTH << " " << PLANE [ j ]  .LAST_ITP.YYEAR << " " ;
+                                        ofs << PLANE [ j ] .LOCATION.CITY << " " ;
+                                        ofs << PLANE [ j ] .LOCATION.COUNTRY << "\n" ;
+
+                                    }
+                                    planesmaxx ++ ;
+                                    ofs << planesmaxx << " " ;
+                                    ofs << IDG << " " ;
+                                    ofs << PLANETYPE << " " ;
+                                    ofs << MS << " " << MW << " " ;
+                                    ofs << LNT << " " << WDT << " " << HGT << " " ;
+                                    ofs << DATE [ 0 ] << DATE [ 1 ] << " " << DATE [ 2 ] << DATE [ 3 ] << " " << DATE [ 4 ] << DATE [ 5 ] << DATE [ 6 ] << DATE [ 7 ] << " " ;
+                                    ofs << CIT << " " << COUNT << "\n" ;
+                                    ofs.close ( ) ;
+                                    CUSTOMER_READ ( planesmaxx );
+                                    system ( "cls" ) ;
+                                    cout << " ---------------------------------------\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |              ADD AIRPLANE           |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |             AIRPLANE ADDED          |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " |                                     |\n" ;
+                                    cout << " ---------------------------------------\n" ;
+                                    getch ( ) ;
+                                }
+                                okp = 2 ;
+                                opp = '2' ;
+                                break ;
                         }
                         case '4' : {
-
+                            PLANE_READ ( planesmaxx );
+                            char oppp ;
+                            int j = 0 ;
+                            int okex = 1 ;
+                            system( "cls" ) ;
+                            cout << "    ID LOCAL        :  " << PLANE [ j ] .IDL << "\n" ;
+                            cout << "    ID GLOBAL       :  " << PLANE [ j ] .IDG << "\n\n" ;
+                            cout << "    PLANE TYPE      :  " << PLANE [ j ] .TYPE_OF_PLANE << "\n" ;
+                            cout << "    MAXIMUM SEATS   :  " << PLANE [ j ] .MAX_SEATS << "\n" ;
+                            cout << "    MAXIMUM WEIGHT  :  " << PLANE [ j ] .MAX_WEIGHT << "\n" ;
+                            cout << "    PLANE HEIGHT    :  " << PLANE [ j ] .SSIZES.HEIGHT << "\n" ;
+                            cout << "    PLANE LENGTH    :  " << PLANE [ j ] .SSIZES.LENGTH << "\n" ;
+                            cout << "    PLANE WIDTH     :  " << PLANE [ j ] .SSIZES.WIDTH << "\n" ;
+                            cout << "    LAST ITP        :  " << PLANE [ j ] .LAST_ITP.DDAY << "/" << PLANE [ j ]  .LAST_ITP.MMONTH << "/" << PLANE [ j ]  .LAST_ITP.YYEAR << "\n\n" ;
+                            cout << "    CURRENT CITY    :  " << PLANE [ j ] .LOCATION.CITY << "\n" ;
+                            cout << "    CURRENT COUNTRY :  " << PLANE [ j ] .LOCATION.COUNTRY << "\n\n\n\n" ;
+                            cout << "            " << j + 1 << "/" << planesmaxx ;
+                            while ( okex ) {
+                                oppp = getch ( ) ;
+                                switch ( oppp ) {
+                                    case 'a' : {
+                                        system( "cls" ) ;
+                                        if ( j > 0 ) j -- ;
+                                        cout << "    ID LOCAL        :  " << PLANE [ j ] .IDL << "\n" ;
+                                        cout << "    ID GLOBAL       :  " << PLANE [ j ] .IDG << "\n\n" ;
+                                        cout << "    PLANE TYPE      :  " << PLANE [ j ] .TYPE_OF_PLANE << "\n" ;
+                                        cout << "    MAXIMUM SEATS   :  " << PLANE [ j ] .MAX_SEATS << "\n" ;
+                                        cout << "    MAXIMUM WEIGHT  :  " << PLANE [ j ] .MAX_WEIGHT << "\n" ;
+                                        cout << "    PLANE HEIGHT    :  " << PLANE [ j ] .SSIZES.HEIGHT << "\n" ;
+                                        cout << "    PLANE LENGTH    :  " << PLANE [ j ] .SSIZES.LENGTH << "\n" ;
+                                        cout << "    PLANE WIDTH     :  " << PLANE [ j ] .SSIZES.WIDTH << "\n" ;
+                                        cout << "    LAST ITP        :  " << PLANE [ j ] .LAST_ITP.DDAY << "/" << PLANE [ j ]  .LAST_ITP.MMONTH << "/" << PLANE [ j ]  .LAST_ITP.YYEAR << "\n\n" ;
+                                        cout << "    CURRENT CITY    :  " << PLANE [ j ] .LOCATION.CITY << "\n" ;
+                                        cout << "    CURRENT COUNTRY :  " << PLANE [ j ] .LOCATION.COUNTRY << "\n\n\n\n" ;
+                                        cout << "            " << j + 1 << "/" << planesmaxx ;
+                                        break ;
+                                    }
+                                    case 'd' : {
+                                        system( "cls" ) ;
+                                        if ( j < planesmaxx - 1 ) j ++ ;
+                                        cout << "    ID LOCAL        :  " << PLANE [ j ] .IDL << "\n" ;
+                                        cout << "    ID GLOBAL       :  " << PLANE [ j ] .IDG << "\n\n" ;
+                                        cout << "    PLANE TYPE      :  " << PLANE [ j ] .TYPE_OF_PLANE << "\n" ;
+                                        cout << "    MAXIMUM SEATS   :  " << PLANE [ j ] .MAX_SEATS << "\n" ;
+                                        cout << "    MAXIMUM WEIGHT  :  " << PLANE [ j ] .MAX_WEIGHT << "\n" ;
+                                        cout << "    PLANE HEIGHT    :  " << PLANE [ j ] .SSIZES.HEIGHT << "\n" ;
+                                        cout << "    PLANE LENGTH    :  " << PLANE [ j ] .SSIZES.LENGTH << "\n" ;
+                                        cout << "    PLANE WIDTH     :  " << PLANE [ j ] .SSIZES.WIDTH << "\n" ;
+                                        cout << "    LAST ITP        :  " << PLANE [ j ] .LAST_ITP.DDAY << "/" << PLANE [ j ]  .LAST_ITP.MMONTH << "/" << PLANE [ j ]  .LAST_ITP.YYEAR << "\n\n" ;
+                                        cout << "    CURRENT CITY    :  " << PLANE [ j ] .LOCATION.CITY << "\n" ;
+                                        cout << "    CURRENT COUNTRY :  " << PLANE [ j ] .LOCATION.COUNTRY << "\n\n\n\n" ;
+                                        cout << "            " << j + 1 << "/" << planesmaxx ;
+                                        break ;
+                                    }
+                                    case 's' : {
+                                        system( "cls" ) ;
+                                        cout << "    ID LOCAL        :  " << PLANE [ j ] .IDL << "\n" ;
+                                        cout << "    ID GLOBAL       :  " << PLANE [ j ] .IDG << "\n\n" ;
+                                        cout << "    PLANE TYPE      :  " << PLANE [ j ] .TYPE_OF_PLANE << "\n" ;
+                                        cout << "    MAXIMUM SEATS   :  " << PLANE [ j ] .MAX_SEATS << "\n" ;
+                                        cout << "    MAXIMUM WEIGHT  :  " << PLANE [ j ] .MAX_WEIGHT << "\n" ;
+                                        cout << "    PLANE HEIGHT    :  " << PLANE [ j ] .SSIZES.HEIGHT << "\n" ;
+                                        cout << "    PLANE LENGTH    :  " << PLANE [ j ] .SSIZES.LENGTH << "\n" ;
+                                        cout << "    PLANE WIDTH     :  " << PLANE [ j ] .SSIZES.WIDTH << "\n" ;
+                                        cout << "    LAST ITP        :  " << PLANE [ j ] .LAST_ITP.DDAY << "/" << PLANE [ j ]  .LAST_ITP.MMONTH << "/" << PLANE [ j ]  .LAST_ITP.YYEAR << "\n\n" ;
+                                        cout << "    CURRENT CITY    :  " << PLANE [ j ] .LOCATION.CITY << "\n" ;
+                                        cout << "    CURRENT COUNTRY :  " << PLANE [ j ] .LOCATION.COUNTRY << "\n\n\n\n" ;
+                                        cout << "           _____/" << planesmaxx ;
+                                        char charac [ 6 ] = { NULL } , lol ;
+                                        int okpppp = 1 , pos = 0 ;
+                                        while ( okpppp ) {
+                                            gotoxy ( 11 + pos , 16 ) ;
+                                            lol = getch ( ) ;
+                                            switch ( lol )
+                                            {
+                                                case 's' : {
+                                                    okpppp = 0 ;
+                                                    system( "cls" ) ;
+                                                    cout << "    ID LOCAL        :  " << PLANE [ j ] .IDL << "\n" ;
+                                                    cout << "    ID GLOBAL       :  " << PLANE [ j ] .IDG << "\n\n" ;
+                                                    cout << "    PLANE TYPE      :  " << PLANE [ j ] .TYPE_OF_PLANE << "\n" ;
+                                                    cout << "    MAXIMUM SEATS   :  " << PLANE [ j ] .MAX_SEATS << "\n" ;
+                                                    cout << "    MAXIMUM WEIGHT  :  " << PLANE [ j ] .MAX_WEIGHT << "\n" ;
+                                                    cout << "    PLANE HEIGHT    :  " << PLANE [ j ] .SSIZES.HEIGHT << "\n" ;
+                                                    cout << "    PLANE LENGTH    :  " << PLANE [ j ] .SSIZES.LENGTH << "\n" ;
+                                                    cout << "    PLANE WIDTH     :  " << PLANE [ j ] .SSIZES.WIDTH << "\n" ;
+                                                    cout << "    LAST ITP        :  " << PLANE [ j ] .LAST_ITP.DDAY << "/" << PLANE [ j ]  .LAST_ITP.MMONTH << "/" << PLANE [ j ]  .LAST_ITP.YYEAR << "\n\n" ;
+                                                    cout << "    CURRENT CITY    :  " << PLANE [ j ] .LOCATION.CITY << "\n" ;
+                                                    cout << "    CURRENT COUNTRY :  " << PLANE [ j ] .LOCATION.COUNTRY << "\n\n\n\n" ;
+                                                    cout << "            " << j + 1 << "/" << planesmaxx ;
+                                                    break ;
+                                                }
+                                                case 27 : {
+                                                    okpppp = 0 ;
+                                                    system( "cls" ) ;
+                                                    cout << "    ID LOCAL        :  " << PLANE [ j ] .IDL << "\n" ;
+                                                    cout << "    ID GLOBAL       :  " << PLANE [ j ] .IDG << "\n\n" ;
+                                                    cout << "    PLANE TYPE      :  " << PLANE [ j ] .TYPE_OF_PLANE << "\n" ;
+                                                    cout << "    MAXIMUM SEATS   :  " << PLANE [ j ] .MAX_SEATS << "\n" ;
+                                                    cout << "    MAXIMUM WEIGHT  :  " << PLANE [ j ] .MAX_WEIGHT << "\n" ;
+                                                    cout << "    PLANE HEIGHT    :  " << PLANE [ j ] .SSIZES.HEIGHT << "\n" ;
+                                                    cout << "    PLANE LENGTH    :  " << PLANE [ j ] .SSIZES.LENGTH << "\n" ;
+                                                    cout << "    PLANE WIDTH     :  " << PLANE [ j ] .SSIZES.WIDTH << "\n" ;
+                                                    cout << "    LAST ITP        :  " << PLANE [ j ] .LAST_ITP.DDAY << "/" << PLANE [ j ]  .LAST_ITP.MMONTH << "/" << PLANE [ j ]  .LAST_ITP.YYEAR << "\n\n" ;
+                                                    cout << "    CURRENT CITY    :  " << PLANE [ j ] .LOCATION.CITY << "\n" ;
+                                                    cout << "    CURRENT COUNTRY :  " << PLANE [ j ] .LOCATION.COUNTRY << "\n\n\n\n" ;
+                                                    cout << "            " << j + 1 << "/" << planesmaxx ;
+                                                    break ;
+                                                }
+                                                case '\b' : {
+                                                    if ( pos > 0 ) {
+                                                            pos -- ;
+                                                            int popo = 0 ;
+                                                            system( "cls" ) ;
+                                                            cout << "    ID LOCAL        :  " << PLANE [ j ] .IDL << "\n" ;
+                                                            cout << "    ID GLOBAL       :  " << PLANE [ j ] .IDG << "\n\n" ;
+                                                            cout << "    PLANE TYPE      :  " << PLANE [ j ] .TYPE_OF_PLANE << "\n" ;
+                                                            cout << "    MAXIMUM SEATS   :  " << PLANE [ j ] .MAX_SEATS << "\n" ;
+                                                            cout << "    MAXIMUM WEIGHT  :  " << PLANE [ j ] .MAX_WEIGHT << "\n" ;
+                                                            cout << "    PLANE HEIGHT    :  " << PLANE [ j ] .SSIZES.HEIGHT << "\n" ;
+                                                            cout << "    PLANE LENGTH    :  " << PLANE [ j ] .SSIZES.LENGTH << "\n" ;
+                                                            cout << "    PLANE WIDTH     :  " << PLANE [ j ] .SSIZES.WIDTH << "\n" ;
+                                                            cout << "    LAST ITP        :  " << PLANE [ j ] .LAST_ITP.DDAY << "/" << PLANE [ j ]  .LAST_ITP.MMONTH << "/" << PLANE [ j ]  .LAST_ITP.YYEAR << "\n\n" ;
+                                                            cout << "    CURRENT CITY    :  " << PLANE [ j ] .LOCATION.CITY << "\n" ;
+                                                            cout << "    CURRENT COUNTRY :  " << PLANE [ j ] .LOCATION.COUNTRY << "\n\n\n\n           " ;
+                                                            for ( int opo = 0 ; opo < 5 ; opo ++ ) {
+                                                                if ( opo < pos ) {
+                                                                    cout << charac [ popo ] ;
+                                                                    popo ++ ;
+                                                                }
+                                                                else
+                                                                    cout << "_" ;
+                                                            }
+                                                            cout << "/" << planesmaxx ;
+                                                        }
+                                                        else {
+                                                            system( "cls" ) ;
+                                                            cout << "    ID LOCAL        :  " << PLANE [ j ] .IDL << "\n" ;
+                                                            cout << "    ID GLOBAL       :  " << PLANE [ j ] .IDG << "\n\n" ;
+                                                            cout << "    PLANE TYPE      :  " << PLANE [ j ] .TYPE_OF_PLANE << "\n" ;
+                                                            cout << "    MAXIMUM SEATS   :  " << PLANE [ j ] .MAX_SEATS << "\n" ;
+                                                            cout << "    MAXIMUM WEIGHT  :  " << PLANE [ j ] .MAX_WEIGHT << "\n" ;
+                                                            cout << "    PLANE HEIGHT    :  " << PLANE [ j ] .SSIZES.HEIGHT << "\n" ;
+                                                            cout << "    PLANE LENGTH    :  " << PLANE [ j ] .SSIZES.LENGTH << "\n" ;
+                                                            cout << "    PLANE WIDTH     :  " << PLANE [ j ] .SSIZES.WIDTH << "\n" ;
+                                                            cout << "    LAST ITP        :  " << PLANE [ j ] .LAST_ITP.DDAY << "/" << PLANE [ j ]  .LAST_ITP.MMONTH << "/" << PLANE [ j ]  .LAST_ITP.YYEAR << "\n\n" ;
+                                                            cout << "    CURRENT CITY    :  " << PLANE [ j ] .LOCATION.CITY << "\n" ;
+                                                            cout << "    CURRENT COUNTRY :  " << PLANE [ j ] .LOCATION.COUNTRY << "\n\n\n\n           " ;
+                                                            int popo = 0 ;
+                                                            for ( int opo = 0 ; opo < 5 ; opo ++ ) {
+                                                                if ( opo < pos ) {
+                                                                    cout << charac [ popo ] ;
+                                                                    popo ++ ;
+                                                                }
+                                                                else
+                                                                    cout << "_" ;
+                                                            }
+                                                            cout << "/" << planesmaxx ;
+                                                        }
+                                                    break ;
+                                                }
+                                                case 13 : {
+                                                    int numb = 0 , opo = 0 ;
+                                                    while ( opo < pos ) {
+                                                        numb = numb * 10 + ( charac [ opo ] - '0' ) ;
+                                                        opo ++ ;
+                                                    }
+                                                    if ( numb > custommaxx ) {
+                                                            system ( "cls" ) ;
+                                                            cout << "    ID LOCAL        :  " << PLANE [ j ] .IDL << "\n" ;
+                                                            cout << "    ID GLOBAL       :  " << PLANE [ j ] .IDG << "\n\n" ;
+                                                            cout << "    PLANE TYPE      :  " << PLANE [ j ] .TYPE_OF_PLANE << "\n" ;
+                                                            cout << "    MAXIMUM SEATS   :  " << PLANE [ j ] .MAX_SEATS << "\n" ;
+                                                            cout << "    MAXIMUM WEIGHT  :  " << PLANE [ j ] .MAX_WEIGHT << "\n" ;
+                                                            cout << "    PLANE HEIGHT    :  " << PLANE [ j ] .SSIZES.HEIGHT << "\n" ;
+                                                            cout << "    PLANE LENGTH    :  " << PLANE [ j ] .SSIZES.LENGTH << "\n" ;
+                                                            cout << "    PLANE WIDTH     :  " << PLANE [ j ] .SSIZES.WIDTH << "\n" ;
+                                                            cout << "    LAST ITP        :  " << PLANE [ j ] .LAST_ITP.DDAY << "/" << PLANE [ j ]  .LAST_ITP.MMONTH << "/" << PLANE [ j ]  .LAST_ITP.YYEAR << "\n\n" ;
+                                                            cout << "    CURRENT CITY    :  " << PLANE [ j ] .LOCATION.CITY << "\n" ;
+                                                            cout << "    CURRENT COUNTRY :  " << PLANE [ j ] .LOCATION.COUNTRY << "\n\n" ;
+                                                            cout << "    NUMBER TOO BIG \n\n           " ;
+                                                            int popo = 0 ;
+                                                            for ( int opo = 0 ; opo < 5 ; opo ++ ) {
+                                                                if ( opo < pos ) {
+                                                                    cout << charac [ popo ] ;
+                                                                    popo ++ ;
+                                                                }
+                                                                else
+                                                                    cout << "_" ;
+                                                            }
+                                                            cout << "/" << planesmaxx ;
+                                                    }
+                                                    else
+                                                    {
+                                                        j = numb - 1 ;
+                                                        okpppp = 0 ;
+                                                        system( "cls" ) ;
+                                                        cout << "    ID LOCAL        :  " << PLANE [ j ] .IDL << "\n" ;
+                                                            cout << "    ID GLOBAL       :  " << PLANE [ j ] .IDG << "\n\n" ;
+                                                            cout << "    PLANE TYPE      :  " << PLANE [ j ] .TYPE_OF_PLANE << "\n" ;
+                                                            cout << "    MAXIMUM SEATS   :  " << PLANE [ j ] .MAX_SEATS << "\n" ;
+                                                            cout << "    MAXIMUM WEIGHT  :  " << PLANE [ j ] .MAX_WEIGHT << "\n" ;
+                                                            cout << "    PLANE HEIGHT    :  " << PLANE [ j ] .SSIZES.HEIGHT << "\n" ;
+                                                            cout << "    PLANE LENGTH    :  " << PLANE [ j ] .SSIZES.LENGTH << "\n" ;
+                                                            cout << "    PLANE WIDTH     :  " << PLANE [ j ] .SSIZES.WIDTH << "\n" ;
+                                                            cout << "    LAST ITP        :  " << PLANE [ j ] .LAST_ITP.DDAY << "/" << PLANE [ j ]  .LAST_ITP.MMONTH << "/" << PLANE [ j ]  .LAST_ITP.YYEAR << "\n\n" ;
+                                                            cout << "    CURRENT CITY    :  " << PLANE [ j ] .LOCATION.CITY << "\n" ;
+                                                            cout << "    CURRENT COUNTRY :  " << PLANE [ j ] .LOCATION.COUNTRY << "\n\n\n\n" ;
+                                                        cout << "            " << j + 1 << "/" << planesmaxx ;
+                                                    }
+                                                    break ;
+                                                }
+                                                default : {
+                                                    if ( isdigit ( lol ) ) {
+                                                        if ( pos < 5 ) {
+                                                            charac [ pos ] = lol ;
+                                                            pos ++ ;
+                                                            int popo = 0 ;
+                                                            system( "cls" ) ;
+                                                            cout << "    ID LOCAL        :  " << PLANE [ j ] .IDL << "\n" ;
+                                                            cout << "    ID GLOBAL       :  " << PLANE [ j ] .IDG << "\n\n" ;
+                                                            cout << "    PLANE TYPE      :  " << PLANE [ j ] .TYPE_OF_PLANE << "\n" ;
+                                                            cout << "    MAXIMUM SEATS   :  " << PLANE [ j ] .MAX_SEATS << "\n" ;
+                                                            cout << "    MAXIMUM WEIGHT  :  " << PLANE [ j ] .MAX_WEIGHT << "\n" ;
+                                                            cout << "    PLANE HEIGHT    :  " << PLANE [ j ] .SSIZES.HEIGHT << "\n" ;
+                                                            cout << "    PLANE LENGTH    :  " << PLANE [ j ] .SSIZES.LENGTH << "\n" ;
+                                                            cout << "    PLANE WIDTH     :  " << PLANE [ j ] .SSIZES.WIDTH << "\n" ;
+                                                            cout << "    LAST ITP        :  " << PLANE [ j ] .LAST_ITP.DDAY << "/" << PLANE [ j ]  .LAST_ITP.MMONTH << "/" << PLANE [ j ]  .LAST_ITP.YYEAR << "\n\n" ;
+                                                            cout << "    CURRENT CITY    :  " << PLANE [ j ] .LOCATION.CITY << "\n" ;
+                                                            cout << "    CURRENT COUNTRY :  " << PLANE [ j ] .LOCATION.COUNTRY << "\n\n\n\n           " ;
+                                                            for ( int opo = 0 ; opo < 5 ; opo ++ ) {
+                                                                if ( opo < pos ) {
+                                                                    cout << charac [ popo ] ;
+                                                                    popo ++ ;
+                                                                }
+                                                                else
+                                                                    cout << "_" ;
+                                                            }
+                                                            cout << "/" << planesmaxx ;
+                                                        }
+                                                        else {
+                                                            system( "cls" ) ;
+                                                            cout << "    ID LOCAL        :  " << PLANE [ j ] .IDL << "\n" ;
+                                                            cout << "    ID GLOBAL       :  " << PLANE [ j ] .IDG << "\n\n" ;
+                                                            cout << "    PLANE TYPE      :  " << PLANE [ j ] .TYPE_OF_PLANE << "\n" ;
+                                                            cout << "    MAXIMUM SEATS   :  " << PLANE [ j ] .MAX_SEATS << "\n" ;
+                                                            cout << "    MAXIMUM WEIGHT  :  " << PLANE [ j ] .MAX_WEIGHT << "\n" ;
+                                                            cout << "    PLANE HEIGHT    :  " << PLANE [ j ] .SSIZES.HEIGHT << "\n" ;
+                                                            cout << "    PLANE LENGTH    :  " << PLANE [ j ] .SSIZES.LENGTH << "\n" ;
+                                                            cout << "    PLANE WIDTH     :  " << PLANE [ j ] .SSIZES.WIDTH << "\n" ;
+                                                            cout << "    LAST ITP        :  " << PLANE [ j ] .LAST_ITP.DDAY << "/" << PLANE [ j ]  .LAST_ITP.MMONTH << "/" << PLANE [ j ]  .LAST_ITP.YYEAR << "\n\n" ;
+                                                            cout << "    CURRENT CITY    :  " << PLANE [ j ] .LOCATION.CITY << "\n" ;
+                                                            cout << "    CURRENT COUNTRY :  " << PLANE [ j ] .LOCATION.COUNTRY << "\n\n" ;
+                                                            cout << "    NUMBER TOO BIG \n\n           " ;
+                                                            int popo = 0 ;
+                                                            for ( int opo = 0 ; opo < 5 ; opo ++ ) {
+                                                                if ( opo < pos ) {
+                                                                    cout << charac [ popo ] ;
+                                                                    popo ++ ;
+                                                                }
+                                                                else
+                                                                    cout << "_" ;
+                                                            }
+                                                            cout << "/" << planesmaxx ;
+                                                        }
+                                                    }
+                                                    else {
+                                                        system( "cls" ) ;
+                                                        cout << "    ID LOCAL        :  " << PLANE [ j ] .IDL << "\n" ;
+                                                            cout << "    ID GLOBAL       :  " << PLANE [ j ] .IDG << "\n\n" ;
+                                                            cout << "    PLANE TYPE      :  " << PLANE [ j ] .TYPE_OF_PLANE << "\n" ;
+                                                            cout << "    MAXIMUM SEATS   :  " << PLANE [ j ] .MAX_SEATS << "\n" ;
+                                                            cout << "    MAXIMUM WEIGHT  :  " << PLANE [ j ] .MAX_WEIGHT << "\n" ;
+                                                            cout << "    PLANE HEIGHT    :  " << PLANE [ j ] .SSIZES.HEIGHT << "\n" ;
+                                                            cout << "    PLANE LENGTH    :  " << PLANE [ j ] .SSIZES.LENGTH << "\n" ;
+                                                            cout << "    PLANE WIDTH     :  " << PLANE [ j ] .SSIZES.WIDTH << "\n" ;
+                                                            cout << "    LAST ITP        :  " << PLANE [ j ] .LAST_ITP.DDAY << "/" << PLANE [ j ]  .LAST_ITP.MMONTH << "/" << PLANE [ j ]  .LAST_ITP.YYEAR << "\n\n" ;
+                                                            cout << "    CURRENT CITY    :  " << PLANE [ j ] .LOCATION.CITY << "\n" ;
+                                                            cout << "    CURRENT COUNTRY :  " << PLANE [ j ] .LOCATION.COUNTRY << "\n\n" ;
+                                                        cout << "    WRITE A NUMBER TO SEARCH \n\n           " ;
+                                                        int popo = 0 ;
+                                                            for ( int opo = 0 ; opo < 5 ; opo ++ ) {
+                                                                if ( opo < pos ) {
+                                                                    cout << charac [ popo ] ;
+                                                                    popo ++ ;
+                                                                }
+                                                                else
+                                                                    cout << "_" ;
+                                                            }
+                                                        cout << "/" << planesmaxx ;
+                                                    }
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        break ;
+                                    }
+                                    case 27 : {
+                                        system ( "cls" ) ;
+                                        cout << " ---------------------------------------\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " | SEARCH FOR AIRPLANE   ADD AIRPLANE  |\n" ;
+                                        cout << " |        (1)               (2)        |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |  REMOVE AIRPLANE  SEE ALL AIRPLANE  |\n" ;
+                                        cout << " |        (3)              (4)         |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " |                                     |\n" ;
+                                        cout << " ---------------------------------------\n" ;
+                                        okex = 0 ;
+                                        break ;
+                                    }
+                                    default : {
+                                        system( "cls" ) ;
+                                        cout << "    ID LOCAL        :  " << PLANE [ j ] .IDL << "\n" ;
+                                        cout << "    ID GLOBAL       :  " << PLANE [ j ] .IDG << "\n\n" ;
+                                        cout << "    PLANE TYPE      :  " << PLANE [ j ] .TYPE_OF_PLANE << "\n" ;
+                                        cout << "    MAXIMUM SEATS   :  " << PLANE [ j ] .MAX_SEATS << "\n" ;
+                                        cout << "    MAXIMUM WEIGHT  :  " << PLANE [ j ] .MAX_WEIGHT << "\n" ;
+                                        cout << "    PLANE HEIGHT    :  " << PLANE [ j ] .SSIZES.HEIGHT << "\n" ;
+                                        cout << "    PLANE LENGTH    :  " << PLANE [ j ] .SSIZES.LENGTH << "\n" ;
+                                        cout << "    PLANE WIDTH     :  " << PLANE [ j ] .SSIZES.WIDTH << "\n" ;
+                                        cout << "    LAST ITP        :  " << PLANE [ j ] .LAST_ITP.DDAY << "/" << PLANE [ j ]  .LAST_ITP.MMONTH << "/" << PLANE [ j ]  .LAST_ITP.YYEAR << "\n\n" ;
+                                        cout << "    CURRENT CITY    :  " << PLANE [ j ] .LOCATION.CITY << "\n" ;
+                                        cout << "    CURRENT COUNTRY :  " << PLANE [ j ] .LOCATION.COUNTRY << "\n\n" ;
+                                        cout << "    PRESS EITHER A OR D TO MOVE \n\n" ;
+                                        cout << "            " << j + 1 << "/" << planesmaxx ;
+                                        break ;
+                                    }
+                                }
+                            }
+                            okp = 2 ;
+                            break ;
+                        }
+                        case 32 :{
+                            okp = 3 ;
                         }
                         case 27 : {
-
+                            system ( "cls" ) ;
+                            cout << " ---------------------------------------\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " | SEARCH FOR AIRPLANE   ADD AIRPLANE  |\n" ;
+                            cout << " |        (1)               (2)        |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |  REMOVE AIRPLANE  SEE ALL AIRPLANES |\n" ;
+                            cout << " |        (3)              (4)         |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " |                                     |\n" ;
+                            cout << " ---------------------------------------\n" ;
+                            okp = 2 ;
+                            break;
                         }
                         default : {
                             if ( opp != 27 ) {
