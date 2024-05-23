@@ -57,7 +57,7 @@ struct LOCATIONS {
     char COUNTRY [ 25 ] ;
 } ;
 
-struct {
+struct CUSTOMER {
     char IDL [ 10 ] ;
     char IDG [ 15 ] ;
     char FIRST_NAME [ 40 ] ;
